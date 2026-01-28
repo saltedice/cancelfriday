@@ -1,0 +1,11 @@
+{
+  "name": "salt",
+  "version": "1.0.0",
+  "description": "SALT - Subscribers Against Lawless Tyranny",
+  "scripts": {
+    "dev": "npx serve .",
+    "start": "npx serve ."
+  },
+  "keywords": ["activism", "boycott"],
+  "license": "MIT"
+}

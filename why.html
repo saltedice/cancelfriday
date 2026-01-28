@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why These Companies | SALT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Black+Ops+One&family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --white: #f0f0e8;
+            --red: #e63946;
+            --orange: #f77f00;
+            --salt: #e8e4d9;
+            --gray: #888;
+            --dark-gray: #1a1a1a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Grain overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 4rem 0 3rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 3rem;
+        }
+
+        .logo {
+            font-family: 'Black Ops One', cursive;
+            font-size: 3rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo span {
+            color: var(--red);
+        }
+
+        header h1 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--salt);
+            margin-bottom: 1rem;
+        }
+
+        header p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Intro */
+        .intro {
+            background: var(--dark-gray);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border-left: 4px solid var(--red);
+        }
+
+        .intro h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            color: var(--orange);
+        }
+
+        .intro p {
+            margin-bottom: 1rem;
+        }
+
+        .intro p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Company cards */
+        .company {
+            margin-bottom: 3rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.02);
+        }
+
+        .company-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: var(--dark-gray);
+        }
+
+        .company-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        .company-parent {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-top: 0.25rem;
+        }
+
+        .score {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .score-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            line-height: 1;
+        }
+
+        .score-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gray);
+        }
+
+        .score-10, .score-9 { color: var(--red); }
+        .score-8, .score-7 { color: var(--orange); }
+        .score-6, .score-5 { color: #f4a261; }
+        .score-4, .score-3 { color: var(--gray); }
+
+        .company-body {
+            padding: 2rem;
+        }
+
+        .company-body h3 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--orange);
+            margin-bottom: 1.5rem;
+        }
+
+        .reasons {
+            list-style: none;
+        }
+
+        .reasons li {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .reasons li::before {
+            content: '\2192';
+            position: absolute;
+            left: 0;
+            color: var(--red);
+        }
+
+        .reasons li:last-child {
+            margin-bottom: 0;
+        }
+
+        .source {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--orange);
+            text-decoration: none;
+            margin-left: 0.5rem;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .source:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .no-source {
+            font-size: 0.75rem;
+            color: var(--gray);
+            font-style: italic;
+            margin-left: 0.5rem;
+        }
+
+        .note {
+            background: rgba(247, 127, 0, 0.1);
+            border: 1px solid rgba(247, 127, 0, 0.3);
+            padding: 1rem;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .note strong {
+            color: var(--orange);
+        }
+
+        /* Tier labels */
+        .tier {
+            text-align: center;
+            padding: 1rem;
+            margin: 3rem 0 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .tier h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 0.2em;
+        }
+
+        .tier-1 h2 { color: var(--red); }
+        .tier-2 h2 { color: var(--orange); }
+        .tier-3 h2 { color: var(--gray); }
+
+        /* Methodology */
+        .methodology {
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .methodology h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+            color: var(--salt);
+        }
+
+        .methodology h3 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--orange);
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        .methodology ul {
+            list-style: none;
+            margin-left: 1rem;
+        }
+
+        .methodology ul li {
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .methodology ul li::before {
+            content: '+';
+            position: absolute;
+            left: 0;
+            color: var(--red);
+        }
+
+        /* Suggest a Company Section */
+        .suggest-section {
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .suggest-section h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+            color: var(--red);
+        }
+
+        .suggest-section > p {
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .suggest-list {
+            margin-bottom: 2rem;
+        }
+
+        .suggest-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.02);
+            margin-bottom: 0.5rem;
+            transition: border-color 0.2s;
+        }
+
+        .suggest-item:hover {
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .suggest-item-info {
+            flex: 1;
+        }
+
+        .suggest-item-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 0.05em;
+        }
+
+        .suggest-item-reason {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 0.25rem;
+        }
+
+        .suggest-item-votes {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .suggest-vote-count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .suggest-vote-btn {
+            background: none;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: var(--white);
+            padding: 0.4rem 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.05em;
+        }
+
+        .suggest-vote-btn:hover {
+            border-color: var(--orange);
+            color: var(--orange);
+        }
+
+        .suggest-vote-btn.voted {
+            background: var(--orange);
+            border-color: var(--orange);
+            color: var(--black);
+            cursor: default;
+        }
+
+        /* Suggest form */
+        .suggest-form {
+            background: var(--dark-gray);
+            padding: 2rem;
+            border-left: 4px solid var(--orange);
+            margin-top: 2rem;
+        }
+
+        .suggest-form h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 0.1em;
+            color: var(--orange);
+            margin-bottom: 1rem;
+        }
+
+        .suggest-form p {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row {
+            margin-bottom: 1rem;
+        }
+
+        .form-row label {
+            display: block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gray);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-row input,
+        .form-row textarea {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: var(--white);
+            padding: 0.75rem 1rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-row input:focus,
+        .form-row textarea:focus {
+            outline: none;
+            border-color: var(--orange);
+        }
+
+        .form-row textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-row input::placeholder,
+        .form-row textarea::placeholder {
+            color: rgba(255,255,255,0.2);
+        }
+
+        .submit-btn {
+            background: var(--orange);
+            color: var(--black);
+            border: none;
+            padding: 0.75rem 2rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            margin-top: 0.5rem;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.9;
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .form-success {
+            display: none;
+            background: rgba(247, 127, 0, 0.1);
+            border: 1px solid rgba(247, 127, 0, 0.3);
+            padding: 1rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--orange);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--orange);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Back link */
+        .back-link {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--orange);
+            text-decoration: none;
+            margin-bottom: 2rem;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 1rem;
+            }
+
+            header {
+                padding: 2rem 0;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            header h1 {
+                font-size: 1.2rem;
+            }
+
+            .company-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .score {
+                flex-direction: row;
+                gap: 0.5rem;
+            }
+
+            .company-body {
+                padding: 1.5rem;
+            }
+
+            .suggest-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="password-gate" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#0a0a0a;z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;">
+        <div style="font-family:'Black Ops One',cursive;font-size:3rem;color:#f0f0e8;text-shadow:3px 3px 0 #e63946;letter-spacing:0.08em;">SALT</div>
+        <div style="font-size:0.7rem;opacity:0.5;letter-spacing:0.15em;text-transform:uppercase;">Enter password to continue</div>
+        <input id="password-input" type="password" placeholder="Password" autofocus
+            style="background:transparent;border:2px solid rgba(255,255,255,0.3);color:#f0f0e8;padding:0.75rem 1.5rem;font-family:'Inter',sans-serif;font-size:1rem;text-align:center;letter-spacing:0.1em;outline:none;width:250px;"
+            onkeydown="if(event.key==='Enter')checkPassword()">
+        <button onclick="checkPassword()"
+            style="background:#f77f00;color:#0a0a0a;border:none;padding:0.6rem 2rem;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.1em;cursor:pointer;">ENTER</button>
+        <div id="password-error" style="color:#e63946;font-size:0.65rem;opacity:0;transition:opacity 0.3s;">Wrong password</div>
+    </div>
+    <script>
+        function checkPassword() {
+            if (document.getElementById('password-input').value.toLowerCase() === 'cancelfriday') {
+                document.getElementById('password-gate').style.display = 'none';
+                sessionStorage.setItem('salt_auth', '1');
+            } else {
+                document.getElementById('password-error').style.opacity = '1';
+                document.getElementById('password-input').value = '';
+                setTimeout(() => document.getElementById('password-error').style.opacity = '0', 2000);
+            }
+        }
+        if (sessionStorage.getItem('salt_auth') === '1') {
+            document.getElementById('password-gate').style.display = 'none';
+        }
+    </script>
+    <div class="container">
+        <a href="index.html" class="back-link">&larr; Back to SALT</a>
+
+        <header>
+            <div class="logo">S<span>A</span>LT</div>
+            <h1>Why These Companies?</h1>
+            <p>Every target on SALT was chosen based on verified reporting. Here's the evidence &mdash; decide for yourself.</p>
+        </header>
+
+        <div class="intro">
+            <h2>OUR CRITERIA</h2>
+            <p>We're not targeting companies because they're big or because we don't like their products. We're targeting companies with <strong>documented ties</strong> to Trump's deportation machine and the administration enabling it.</p>
+            <p>Each company below has been independently verified using mainstream reporting. Claims without sources are noted. We update this page as new information emerges.</p>
+        </div>
+
+        <!-- TIER 1 -->
+        <div class="tier tier-1">
+            <h2>TIER 1: HIGHEST PRIORITY (SCORE 7-10)</h2>
+        </div>
+
+        <!-- AMAZON -->
+        <article class="company">
+            <div class="company-header">
+                <div>
+                    <div class="company-name">Amazon Prime</div>
+                    <div class="company-parent">Amazon.com Inc.</div>
+                </div>
+                <div class="score">
+                    <div class="score-number score-9">9/10</div>
+                    <div class="score-label">Complicity</div>
+                </div>
+            </div>
+            <div class="company-body">
+                <h3>The Receipts</h3>
+                <ul class="reasons">
+                    <li>
+                        Jeff Bezos dined with Trump at Mar-a-Lago in December 2024, joined by Elon Musk
+                        <a href="https://www.washingtonpost.com/politics/2024/12/19/trump-bezos-musk-dinner/" target="_blank" class="source">[Washington Post]</a>
+                    </li>
+                    <li>
+                        Amazon Web Services is the backbone of ICE's surveillance and deportation infrastructure &mdash; CBP has 62% of its systems on AWS
+                        <a href="https://investigate.afsc.org/company/amazon" target="_blank" class="source">[AFSC Investigation]</a>
+                    </li>
+                    <li>
+                        AWS hosts ICE's biometric database (HART) containing iris scans, voiceprints, and DNA of hundreds of millions of people
+                        <a href="https://www.technologyreview.com/2018/10/22/139639/amazon-is-the-invisible-backbone-behind-ices-immigration-crackdown/" target="_blank" class="source">[MIT Tech Review]</a>
+                    </li>
+                    <li>
+                        Donated $1 million to Trump's 2025 inauguration fund, plus streaming the inauguration on Prime Video
+                        <a href="https://www.foxbusiness.com/politics/amazon-plans-make-1-million-donation-trump-inaugural-fund-bezos-visit-mar-a-lago" target="_blank" class="source">[Fox Business]</a>
+                    </li>
+                    <li>
+                        Bezos personally killed the Washington Post's planned endorsement of Kamala Harris 11 days before the election
+                        <a href="https://www.npr.org/2024/10/28/nx-s1-5168416/washington-post-bezos-endorsement-president-cancellations-resignations" target="_blank" class="source">[NPR]</a>
+                    </li>
+                    <li>
+                        Amazon pitched its facial recognition technology (Rekognition) directly to ICE for mass surveillance
+                        <a href="https://www.thedailybeast.com/amazon-pushes-ice-to-buy-its-face-recognition-surveillance-tech/" target="_blank" class="source">[Daily Beast]</a>
+                    </li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- YOUTUBE -->
+        <article class="company">
+            <div class="company-header">
+                <div>
+                    <div class="company-name">YouTube Premium</div>
+                    <div class="company-parent">Alphabet Inc. (Google)</div>
+                </div>
+                <div class="score">
+                    <div class="score-number score-8">8/10</div>
+                    <div class="score-label">Complicity</div>
+                </div>
+            </div>
+            <div class="company-body">
+                <h3>The Receipts</h3>
+                <ul class="reasons">
+                    <li>
+                        Google Cloud is deploying AI-powered surveillance cameras along the US-Mexico border for CBP in 2025
+                        <a href="https://theintercept.com/2025/04/03/google-cbp-ai-border-surveillance-ibm-equitus/" target="_blank" class="source">[The Intercept]</a>
+                    </li>
+                    <li>
+                        Google used 28+ third-party shell companies to secretly sell cloud services to ICE and CBP while publicly claiming they weren't
+                        <a href="https://www.techdirt.com/2021/10/13/google-amazon-microsoft-are-using-third-party-companies-to-sell-surveillance-tech-to-ice-cbp/" target="_blank" class="source">[Techdirt]</a>
+                    </li>
+                    <li>
+                        Google fired employees who raised concerns about the company's work with CBP
+                        <a href="https://www.hstoday.us/subject-matter-areas/border-security/tensions-rise-at-google-amid-trend-of-employees-demanding-ice-cbp-contracts-be-nixed/" target="_blank" class="source">[Homeland Security Today]</a>
+                    </li>
+                    <li>
+                        CEO Sundar Pichai met with Trump at Mar-a-Lago in December 2024
+                        <a href="https://www.washingtonpost.com/technology/2024/12/12/zuckerberg-bezos-pichai-trump/" target="_blank" class="source">[Washington Post]</a>
+                    </li>
+                    <li>
+                        1,495 Google employees signed a petition demanding the company stop working with ICE and CBP &mdash; Google refused
+                        <a href="https://www.cnbc.com/2019/08/19/google-employees-implore-leaders-to-stop-working-with-us-bcp-ice.html" target="_blank" class="source">[CNBC]</a>
+                    </li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- APPLE -->
+        <article class="company">
+            <div class="company-header">
+                <div>
+                    <div class="company-name">Apple TV+</div>
+                    <div class="company-parent">Apple Inc.</div>
+                </div>
+                <div class="score">
+                    <div class="score-number score-7">7/10</div>
+                    <div class="score-label">Complicity</div>
+                </div>
+            </div>
+            <div class="company-body">
+                <h3>The Receipts</h3>
+                <ul class="reasons">
+                    <li>
+                        Tim Cook dined with Trump at Mar-a-Lago in December 2024, continuing their "warm relationship" from Trump's first term
+                        <a href="https://9to5mac.com/2024/12/13/cook-trump-mar-a-lago-meeting/" target="_blank" class="source">[9to5Mac]</a>
+                    </li>
+                    <li>
+                        Cook called Trump to ask for help fighting EU fines, signaling willingness to seek favors from the administration
+                        <a href="https://appleinsider.com/articles/24/12/14/tim-cook-rumored-to-be-meeting-with-donald-trump-for-dinner-on-friday" target="_blank" class="source">[AppleInsider]</a>
+                    </li>
+                    <li>
+                        Apple has remained completely silent on ICE deportations and immigration enforcement
+                        <span class="no-source">(no statement on record)</span>
+                    </li>
+                    <li>
+                        Cook met with Trump alongside 80+ CEOs before the election to discuss potential business-friendly policies
+                        <a href="https://appleinsider.com/articles/24/12/14/tim-cook-rumored-to-be-meeting-with-donald-trump-for-dinner-on-friday" target="_blank" class="source">[AppleInsider]</a>
+                    </li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- TIER 2 -->
+        <div class="tier tier-2">
+            <h2>TIER 2: MODERATE PRIORITY (SCORE 5-6)</h2>
+        </div>
+
+        <!-- DISNEY -->
+        <article class="company">
+            <div class="company-header">
+                <div>
+                    <div class="company-name">Disney+</div>
+                    <div class="company-parent">The Walt Disney Company</div>
+                </div>
+                <div class="score">
+                    <div class="score-number score-6">6/10</div>
+                    <div class="score-label">Complicity</div>
+                </div>
+            </div>
+            <div class="company-body">
+                <h3>The Receipts</h3>
+                <ul class="reasons">
+                    <li>
+                        ABC News (Disney subsidiary) paid $15 million to Trump's presidential library to settle a defamation lawsuit
+                        <a href="https://www.cnn.com/2024/12/19/business/disney-iger-abc-trump-nightcap" target="_blank" class="source">[CNN]</a>
+                    </li>
+                    <li>
+                        CEO Bob Iger &mdash; a longtime Democratic donor &mdash; refused to donate to Kamala Harris in 2024, staying neutral for the first time
+                        <a href="https://www.avclub.com/disney-bob-iger-didnt-donate-presidential-election-2024" target="_blank" class="source">[AV Club]</a>
+                    </li>
+                    <li>
+                        Disney removed a transgender storyline from a Pixar series days after Trump's election victory
+                        <a href="https://www.cnn.com/2024/12/19/business/disney-iger-abc-trump-nightcap" target="_blank" class="source">[CNN]</a>
+                    </li>
+                    <li>
+                        Iger met with Trump in the White House to discuss Disney's Abu Dhabi theme park plans
+                        <a href="https://deadline.com/2025/05/trump-bob-iger-disney-abu-dhabi-1236404813/" target="_blank" class="source">[Deadline]</a>
+                    </li>
+                    <li>
+                        Disney pulled Jimmy Kimmel's show after Trump and FCC pressure over critical coverage
+                        <a href="https://www.huffpost.com/entry/disney-bob-iger-trump-jimmy-kimmel_n_68cc16dae4b0aa8d99fe9244" target="_blank" class="source">[HuffPost]</a>
+                    </li>
+                    <li>
+                        Marvel chairman Isaac Perlmutter donated $10.5 million to pro-Trump Super PAC in 2020
+                        <a href="https://www.nationalreview.com/corner/the-disney-executive-who-donated-10-million-to-help-trump-in-2020/" target="_blank" class="source">[National Review]</a>
+                    </li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- HULU -->
+        <article class="company">
+            <div class="company-header">
+                <div>
+                    <div class="company-name">Hulu</div>
+                    <div class="company-parent">The Walt Disney Company</div>
+                </div>
+                <div class="score">
+                    <div class="score-number score-6">6/10</div>
+                    <div class="score-label">Complicity</div>
+                </div>
+            </div>
+            <div class="company-body">
+                <h3>The Receipts</h3>
+                <ul class="reasons">
+                    <li>
+                        Owned by Disney &mdash; same parent company that paid $15 million to Trump's library and capitulated to administration pressure
+                        <a href="https://www.cnn.com/2024/12/19/business/disney-iger-abc-trump-nightcap" target="_blank" class="source">[CNN]</a>
+                    </li>
+                    <li>
+                        Profits from content featuring immigrant stories while parent company stays silent on deportations
+                        <span class="no-source">(editorial observation)</span>
+                    </li>
+                    <li>
+                        Your subscription dollars flow to the same company that pulled Jimmy Kimmel for criticizing conservatives
+                        <a href="https://www.huffpost.com/entry/disney-bob-iger-trump-jimmy-kimmel_n_68cc16dae4b0aa8d99fe9244" target="_blank" class="source">[HuffPost]</a>
+                    </li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- SPOTIFY -->
+        <article class="company">
+            <div class="company-header">
+                <div>
+                    <div class="company-name">Spotify Premium</div>
+                    <div class="company-parent">Spotify AB</div>
+                </div>
+                <div class="score">
+                    <div class="score-number score-5">5/10</div>
+                    <div class="score-label">Complicity</div>
+                </div>
+            </div>
+            <div class="company-body">
+                <h3>The Receipts</h3>
+                <ul class="reasons">
+                    <li>
+                        Gave Joe Rogan a $250 million deal &mdash; he endorsed Trump in 2024 and hosted him for a 3-hour interview before the election
+                        <a href="https://www.nbcnews.com/pop-culture/pop-culture-news/joe-rogan-criticizes-ice-tactics-podcast-rcna253931" target="_blank" class="source">[NBC News]</a>
+                    </li>
+                    <li>
+                        Rogan's podcast has 20+ million subscribers and helped persuade young men to vote for Trump
+                        <a href="https://www.nbcnews.com/pop-culture/pop-culture-news/joe-rogan-criticizes-ice-tactics-podcast-rcna253931" target="_blank" class="source">[NBC News]</a>
+                    </li>
+                    <li>
+                        Spotify refused to drop Rogan despite employee protests over his use of racial slurs and misinformation
+                        <a href="https://www.npr.org/2022/02/07/1078774392/spotifys-ceo-says-the-company-isnt-ready-to-part-ways-with-joe-rogan" target="_blank" class="source">[NPR]</a>
+                    </li>
+                </ul>
+                <div class="note">
+                    <strong>Note:</strong> Rogan has recently criticized ICE as "the Gestapo" and called deportations "crazy." Spotify still profited from platforming his Trump endorsement, but this company may be reconsidered for future targeting.
+                </div>
+            </div>
+        </article>
+
+        <!-- UBER -->
+        <article class="company">
+            <div class="company-header">
+                <div>
+                    <div class="company-name">Uber One</div>
+                    <div class="company-parent">Uber Technologies</div>
+                </div>
+                <div class="score">
+                    <div class="score-number score-5">5/10</div>
+                    <div class="score-label">Complicity</div>
+                </div>
+            </div>
+            <div class="company-body">
+                <h3>The Receipts</h3>
+                <ul class="reasons">
+                    <li>
+                        Former CEO Travis Kalanick served on Trump's business advisory council in 2017 before resigning after #DeleteUber boycotts
+                        <a href="https://money.cnn.com/2017/08/29/technology/business/uber-ceo-trump/index.html" target="_blank" class="source">[CNN Money]</a>
+                    </li>
+                    <li>
+                        Current CEO Dara Khosrowshahi (an Iranian refugee) has softened his Trump criticism, recently calling the administration "pro-growth, pro-business"
+                        <a href="https://www.cbsnews.com/news/uber-ceo-dara-khosrowshahi-on-being-behind-the-wheel/" target="_blank" class="source">[CBS News]</a>
+                    </li>
+                    <li>
+                        Uber spent $200+ million fighting Proposition 22 to deny gig workers (many immigrants) basic employment protections
+                        <span class="no-source">(widely reported)</span>
+                    </li>
+                    <li>
+                        Exploits immigrant labor force &mdash; many drivers are immigrants working without benefits, healthcare, or job security
+                        <span class="no-source">(industry observation)</span>
+                    </li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- TIER 3 -->
+        <div class="tier tier-3">
+            <h2>TIER 3: STANDARD PRIORITY (SCORE 3-4)</h2>
+        </div>
+
+        <!-- NETFLIX -->
+        <article class="company">
+            <div class="company-header">
+                <div>
+                    <div class="company-name">Netflix</div>
+                    <div class="company-parent">Netflix Inc.</div>
+                </div>
+                <div class="score">
+                    <div class="score-number score-4">4/10</div>
+                    <div class="score-label">Complicity</div>
+                </div>
+            </div>
+            <div class="company-body">
+                <h3>The Receipts</h3>
+                <ul class="reasons">
+                    <li>
+                        Co-CEO Ted Sarandos visited Trump at Mar-a-Lago in December 2024 and had an Oval Office meeting in November 2025
+                        <a href="https://variety.com/2024/biz/news/ted-sarandos-donald-trump-netflix-mar-a-lago-1236251144/" target="_blank" class="source">[Variety]</a>
+                    </li>
+                    <li>
+                        Sarandos is seeking Trump's approval for Netflix's $82.7 billion Warner Bros acquisition
+                        <a href="https://variety.com/2025/biz/news/netflix-ted-sarandos-white-house-meeting-trump-warner-bros-deal-1236602831/" target="_blank" class="source">[Variety]</a>
+                    </li>
+                    <li>
+                        Despite releasing critical content like "Immigration Nation" (which Trump tried to block), Netflix leadership is now courting the administration
+                        <a href="https://www.thedailybeast.com/inside-netflixs-immigration-nation-the-horrifying-ice-documentary-trump-doesnt-want-you-to-see/" target="_blank" class="source">[Daily Beast]</a>
+                    </li>
+                </ul>
+                <div class="note">
+                    <strong>Context:</strong> Netflix has a mixed record. They released "Immigration Nation" and "The Apprentice" biopic despite Trump pressure. Former CEO Reed Hastings called Trump's travel ban "anti-American." New leadership is courting Trump for business reasons.
+                </div>
+            </div>
+        </article>
+
+        <!-- PARAMOUNT -->
+        <article class="company">
+            <div class="company-header">
+                <div>
+                    <div class="company-name">Paramount+</div>
+                    <div class="company-parent">Paramount Global</div>
+                </div>
+                <div class="score">
+                    <div class="score-number score-4">4/10</div>
+                    <div class="score-label">Complicity</div>
+                </div>
+            </div>
+            <div class="company-body">
+                <h3>The Receipts</h3>
+                <ul class="reasons">
+                    <li>
+                        CBS News (Paramount subsidiary) killed a 60 Minutes segment on ICE deportations to El Salvador prisons &mdash; it only aired in Canada
+                        <a href="https://deadline.com/2026/01/trump-against-netflix-warner-bros-deal-1236679318/" target="_blank" class="source">[Deadline]</a>
+                    </li>
+                    <li>
+                        New CBS News editor axed the already-greenlit segment claiming it needed to be "fair" to the White House
+                        <a href="https://deadline.com/2026/01/trump-against-netflix-warner-bros-deal-1236679318/" target="_blank" class="source">[Deadline]</a>
+                    </li>
+                    <li>
+                        Owner Shari Redstone makes political donations across the spectrum, prioritizing business relationships over principles
+                        <span class="no-source">(public records)</span>
+                    </li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- MAX -->
+        <article class="company">
+            <div class="company-header">
+                <div>
+                    <div class="company-name">Max</div>
+                    <div class="company-parent">Warner Bros. Discovery</div>
+                </div>
+                <div class="score">
+                    <div class="score-number score-4">4/10</div>
+                    <div class="score-label">Complicity</div>
+                </div>
+            </div>
+            <div class="company-body">
+                <h3>The Receipts</h3>
+                <ul class="reasons">
+                    <li>
+                        Warner Bros. Discovery CEO David Zaslav has maintained cozy relationships with political establishment on both sides
+                        <span class="no-source">(industry reporting)</span>
+                    </li>
+                    <li>
+                        CNN (same parent company) has been criticized for "both-sides" coverage that normalizes extreme immigration policies
+                        <span class="no-source">(media criticism)</span>
+                    </li>
+                    <li>
+                        No public statement against ICE actions or support for immigrant communities
+                        <span class="no-source">(no statement on record)</span>
+                    </li>
+                </ul>
+                <div class="note">
+                    <strong>Note:</strong> Max has weaker documented ties than other targets. Included due to parent company's news operation and corporate silence. May be removed or deprioritized if stronger targets emerge.
+                </div>
+            </div>
+        </article>
+
+        <!-- DOORDASH -->
+        <article class="company">
+            <div class="company-header">
+                <div>
+                    <div class="company-name">DashPass</div>
+                    <div class="company-parent">DoorDash Inc.</div>
+                </div>
+                <div class="score">
+                    <div class="score-number score-3">3/10</div>
+                    <div class="score-label">Complicity</div>
+                </div>
+            </div>
+            <div class="company-body">
+                <h3>The Receipts</h3>
+                <ul class="reasons">
+                    <li>
+                        Exploits gig workers &mdash; many Dashers are immigrants working without benefits, sick leave, or job security
+                        <span class="no-source">(labor reporting)</span>
+                    </li>
+                    <li>
+                        Spent millions lobbying against worker protection laws like Proposition 22 in California
+                        <span class="no-source">(public lobbying records)</span>
+                    </li>
+                    <li>
+                        No public stance on immigration despite relying heavily on immigrant labor for deliveries
+                        <span class="no-source">(no statement on record)</span>
+                    </li>
+                </ul>
+                <div class="note">
+                    <strong>Note:</strong> DoorDash has no direct Trump/ICE ties. Included for labor exploitation angle. Lowest priority target &mdash; may be replaced with companies showing stronger documented complicity.
+                </div>
+            </div>
+        </article>
+
+        <!-- SUGGEST A COMPANY -->
+        <section class="suggest-section">
+            <h2>ARE WE MISSING SOMEONE?</h2>
+            <p>Know a company with documented ties to Trump's administration or ICE? Suggest it below, or upvote existing suggestions.</p>
+
+            <div class="suggest-list" id="suggest-list">
+                <!-- Populated by JS -->
+            </div>
+
+            <div class="suggest-form">
+                <h3>SUGGEST A NEW TARGET</h3>
+                <p>Include the company name, what subscription service they offer, and why they should be on this list. Bonus points for linking sources.</p>
+                <form id="suggest-form" onsubmit="submitSuggestion(event)">
+                    <div class="form-row">
+                        <label for="suggest-company">Company / Service Name</label>
+                        <input type="text" id="suggest-company" placeholder="e.g. Meta (Instagram/WhatsApp)" required>
+                    </div>
+                    <div class="form-row">
+                        <label for="suggest-reason">Why should they be a target?</label>
+                        <textarea id="suggest-reason" placeholder="Describe their ties to Trump/ICE/deportation infrastructure. Include links to sources if possible." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">SUBMIT SUGGESTION</button>
+                </form>
+                <div class="form-success" id="form-success">
+                    Thanks for the tip. We'll review the evidence and add them if they meet our criteria.
+                </div>
+            </div>
+        </section>
+
+        <!-- METHODOLOGY -->
+        <section class="methodology">
+            <h2>How We Score Complicity</h2>
+            <p>Each company receives a score from 1-10 based on documented evidence in these categories:</p>
+
+            <h3>Direct ICE/CBP Infrastructure (+3 points max)</h3>
+            <ul>
+                <li>Active contracts powering deportation systems</li>
+                <li>Hosting surveillance databases (HART, Palantir ICM)</li>
+                <li>Providing AI/facial recognition to border enforcement</li>
+            </ul>
+
+            <h3>Trump Administration Ties (+3 points max)</h3>
+            <ul>
+                <li>Inauguration donations</li>
+                <li>Mar-a-Lago meetings post-election</li>
+                <li>Business deals requiring administration approval</li>
+            </ul>
+
+            <h3>Editorial/Content Suppression (+2 points max)</h3>
+            <ul>
+                <li>Killing critical coverage under pressure</li>
+                <li>Removing content after administration complaints</li>
+                <li>Firing employees who raised concerns</li>
+            </ul>
+
+            <h3>Labor Exploitation (+1 point max)</h3>
+            <ul>
+                <li>Profiting from immigrant labor without protections</li>
+                <li>Lobbying against worker rights</li>
+            </ul>
+
+            <h3>Corporate Silence (+1 point max)</h3>
+            <ul>
+                <li>No public statement on deportations</li>
+                <li>Shifting from previous criticism to neutrality</li>
+            </ul>
+
+            <p style="margin-top: 2rem; color: var(--gray);">Scores are updated as new information emerges. Companies can be added or removed based on evidence.</p>
+        </section>
+
+        <footer>
+            <p><strong>SALT</strong> &mdash; Subscribers Against Lawless Tyranny</p>
+            <p style="margin-top: 0.5rem;">One week. One target. One moment. Together.</p>
+            <p style="margin-top: 1rem;"><a href="index.html">&larr; Return to SALT</a></p>
+        </footer>
+    </div>
+
+    <script>
+        // ============================================
+        // COMMUNITY SUGGESTIONS (localStorage for demo)
+        // ============================================
+        const STORAGE_KEY = 'salt_suggestions_v1';
+        const VOTE_KEY = 'salt_suggestion_votes_v1';
+
+        const DEFAULT_SUGGESTIONS = [
+            { id: 1, company: 'Meta (Instagram/WhatsApp)', reason: 'Zuckerberg met with Trump at Mar-a-Lago, donated $1M to inauguration, removed fact-checking on Facebook', votes: 47 },
+            { id: 2, company: 'X Premium (Twitter)', reason: 'Elon Musk is literally in the administration (DOGE). X amplifies anti-immigrant content and reinstated banned accounts', votes: 39 },
+            { id: 3, company: 'Microsoft (Xbox Game Pass)', reason: 'Azure cloud powers ICE systems, $19.4B contract with US military, GitHub Copilot trains on open source without consent', votes: 22 },
+            { id: 4, company: 'Walmart+ (Walmart)', reason: 'Donated to Trump inauguration, largest private employer with history of exploiting immigrant labor, anti-union practices', votes: 15 },
+        ];
+
+        function getSuggestions() {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored) return JSON.parse(stored);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_SUGGESTIONS));
+            return DEFAULT_SUGGESTIONS;
+        }
+
+        function saveSuggestions(suggestions) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(suggestions));
+        }
+
+        function getVotes() {
+            const stored = localStorage.getItem(VOTE_KEY);
+            return stored ? JSON.parse(stored) : [];
+        }
+
+        function saveVotes(votes) {
+            localStorage.setItem(VOTE_KEY, JSON.stringify(votes));
+        }
+
+        function renderSuggestions() {
+            const suggestions = getSuggestions().sort((a, b) => b.votes - a.votes);
+            const votes = getVotes();
+            const list = document.getElementById('suggest-list');
+
+            list.innerHTML = suggestions.map(s => {
+                const hasVoted = votes.includes(s.id);
+                return `
+                    <div class="suggest-item">
+                        <div class="suggest-item-info">
+                            <div class="suggest-item-name">${s.company}</div>
+                            <div class="suggest-item-reason">${s.reason}</div>
+                        </div>
+                        <div class="suggest-item-votes">
+                            <span class="suggest-vote-count">${s.votes} votes</span>
+                            <button class="suggest-vote-btn ${hasVoted ? 'voted' : ''}"
+                                onclick="${hasVoted ? '' : `voteSuggestion(${s.id})`}"
+                                ${hasVoted ? 'disabled' : ''}>
+                                ${hasVoted ? 'VOTED' : '+1'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function voteSuggestion(id) {
+            const suggestions = getSuggestions();
+            const votes = getVotes();
+
+            if (votes.includes(id)) return;
+
+            const suggestion = suggestions.find(s => s.id === id);
+            if (suggestion) {
+                suggestion.votes++;
+                saveSuggestions(suggestions);
+                votes.push(id);
+                saveVotes(votes);
+                renderSuggestions();
+            }
+        }
+
+        function submitSuggestion(e) {
+            e.preventDefault();
+            const company = document.getElementById('suggest-company').value.trim();
+            const reason = document.getElementById('suggest-reason').value.trim();
+
+            if (!company || !reason) return;
+
+            const suggestions = getSuggestions();
+            const newId = Math.max(...suggestions.map(s => s.id), 0) + 1;
+            suggestions.push({ id: newId, company, reason, votes: 1 });
+            saveSuggestions(suggestions);
+
+            const votes = getVotes();
+            votes.push(newId);
+            saveVotes(votes);
+
+            document.getElementById('suggest-form').reset();
+            document.getElementById('form-success').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('form-success').style.display = 'none';
+            }, 4000);
+
+            renderSuggestions();
+        }
+
+        // Init
+        renderSuggestions();
+    </script>
+</body>
+</html>
