@@ -71,6 +71,57 @@
             margin-top: 0.5rem;
         }
 
+        /* Countdown */
+        .countdown-bar {
+            text-align: center;
+            padding: 1.25rem 1rem;
+            background: linear-gradient(90deg, rgba(230,57,70,0.2), rgba(247,127,0,0.2));
+            border-bottom: 2px solid var(--red);
+        }
+
+        .countdown-label {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            letter-spacing: 0.15em;
+            color: var(--orange);
+            margin-bottom: 0.5rem;
+        }
+
+        .countdown-timer {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: 0.05em;
+        }
+
+        .countdown-timer .cd-unit {
+            display: inline-block;
+            min-width: 2.5ch;
+            text-align: center;
+        }
+
+        .countdown-timer .cd-sep {
+            opacity: 0.4;
+            margin: 0 0.15em;
+        }
+
+        .countdown-timer .cd-label {
+            display: block;
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0.5;
+            margin-top: 0.1rem;
+        }
+
+        .countdown-done {
+            color: var(--red);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            letter-spacing: 0.1em;
+        }
+
         /* Mission Statement */
         .mission {
             text-align: center;
@@ -1284,6 +1335,12 @@
             <div class="acronym">Subscribers Against Lawless Tyranny</div>
         </header>
 
+        <!-- Countdown to Friday Noon EST -->
+        <div class="countdown-bar" id="countdown-bar">
+            <div class="countdown-label">NEXT CANCEL FRIDAY</div>
+            <div class="countdown-timer" id="countdown-timer"></div>
+        </div>
+
         <!-- Mission Statement -->
         <section class="mission">
             <div class="mission-tagline">Each week we vote. One target. Each Friday at noon EST, we cancel. #CancelFriday</div>
@@ -1467,6 +1524,48 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
+        // ============================================
+        // COUNTDOWN TO FRIDAY NOON EST
+        // ============================================
+        function updateCountdown() {
+            const now = new Date();
+            // Get current time in EST/EDT
+            const est = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+            // Find next Friday at noon
+            const target = new Date(est);
+            target.setHours(12, 0, 0, 0);
+            const day = est.getDay(); // 0=Sun
+            let daysUntilFri = (5 - day + 7) % 7;
+            if (daysUntilFri === 0 && est >= target) {
+                // It's Friday but past noon — check if within 1 hour window for "NOW" message
+                const msSinceFriNoon = est - target;
+                if (msSinceFriNoon < 3600000) {
+                    document.getElementById('countdown-timer').innerHTML = '<span class="countdown-done">CANCEL NOW</span>';
+                    return;
+                }
+                daysUntilFri = 7;
+            }
+            target.setDate(est.getDate() + daysUntilFri);
+
+            const diff = target - est;
+            const d = Math.floor(diff / 86400000);
+            const h = Math.floor((diff % 86400000) / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000);
+            const s = Math.floor((diff % 60000) / 1000);
+
+            const el = document.getElementById('countdown-timer');
+            el.innerHTML =
+                `<span class="cd-unit">${d}<span class="cd-label">days</span></span>` +
+                `<span class="cd-sep">:</span>` +
+                `<span class="cd-unit">${String(h).padStart(2,'0')}<span class="cd-label">hrs</span></span>` +
+                `<span class="cd-sep">:</span>` +
+                `<span class="cd-unit">${String(m).padStart(2,'0')}<span class="cd-label">min</span></span>` +
+                `<span class="cd-sep">:</span>` +
+                `<span class="cd-unit">${String(s).padStart(2,'0')}<span class="cd-label">sec</span></span>`;
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
         // ============================================
         // CONFIGURATION
         // ============================================
