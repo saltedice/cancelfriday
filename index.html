@@ -1528,48 +1528,6 @@
 
     <script>
         // ============================================
-        // COUNTDOWN TO FRIDAY NOON EST
-        // ============================================
-        function updateCountdown() {
-            const now = new Date();
-            // Get current time in EST/EDT
-            const est = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
-            // Find next Friday at noon
-            const target = new Date(est);
-            target.setHours(12, 0, 0, 0);
-            const day = est.getDay(); // 0=Sun
-            let daysUntilFri = (5 - day + 7) % 7;
-            if (daysUntilFri === 0 && est >= target) {
-                // It's Friday but past noon — check if within 1 hour window for "NOW" message
-                const msSinceFriNoon = est - target;
-                if (msSinceFriNoon < 3600000) {
-                    document.getElementById('countdown-timer').innerHTML = '<span class="countdown-done">CANCEL NOW</span>';
-                    return;
-                }
-                daysUntilFri = 7;
-            }
-            target.setDate(est.getDate() + daysUntilFri);
-
-            const diff = target - est;
-            const d = Math.floor(diff / 86400000);
-            const h = Math.floor((diff % 86400000) / 3600000);
-            const m = Math.floor((diff % 3600000) / 60000);
-            const s = Math.floor((diff % 60000) / 1000);
-
-            const el = document.getElementById('countdown-timer');
-            el.innerHTML =
-                `<span class="cd-unit">${d}<span class="cd-label">days</span></span>` +
-                `<span class="cd-sep">:</span>` +
-                `<span class="cd-unit">${String(h).padStart(2,'0')}<span class="cd-label">hrs</span></span>` +
-                `<span class="cd-sep">:</span>` +
-                `<span class="cd-unit">${String(m).padStart(2,'0')}<span class="cd-label">min</span></span>` +
-                `<span class="cd-sep">:</span>` +
-                `<span class="cd-unit">${String(s).padStart(2,'0')}<span class="cd-label">sec</span></span>`;
-        }
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-
-        // ============================================
         // CONFIGURATION
         // ============================================
         const SUPABASE_URL = 'https://nwrehybllhhqocyxtanf.supabase.co';
@@ -1619,12 +1577,50 @@
             week_number: 1,
             // Week starts Monday 12:00am EST, voting ends Thursday 11:59pm EST
             // Target locked Friday 12:00am-11:59am EST, Drop time Friday 12:00pm EST
-            week_start: '2026-01-26T05:00:00Z', // Monday 12am EST = 5am UTC
-            voting_end: '2026-01-30T04:59:00Z', // Thursday 11:59pm EST = Friday 4:59am UTC
-            target_locked: '2026-01-30T05:00:00Z', // Friday 12:00am EST = 5am UTC
-            drop_time: '2026-01-30T17:00:00Z', // Friday 12pm EST = 5pm UTC
-            week_end: '2026-01-31T05:00:00Z' // Saturday 12am EST = 5am UTC
+            week_start: '2026-02-02T05:00:00Z', // Monday 12am EST = 5am UTC
+            voting_end: '2026-02-06T04:59:00Z', // Thursday 11:59pm EST = Friday 4:59am UTC
+            target_locked: '2026-02-06T05:00:00Z', // Friday 12:00am EST = 5am UTC
+            drop_time: '2026-02-06T17:00:00Z', // Friday 12pm EST = 5pm UTC
+            week_end: '2026-02-07T05:00:00Z' // Saturday 12am EST = 5am UTC
         };
+
+        // ============================================
+        // COUNTDOWN TO DROP TIME
+        // ============================================
+        function updateCountdown() {
+            const now = new Date();
+            const target = new Date(WEEK_DATA.drop_time);
+            const diff = target - now;
+
+            const el = document.getElementById('countdown-timer');
+            if (!el) return;
+
+            if (diff <= 0) {
+                // Past drop time - show "CANCEL NOW" for 1 hour, then count to next week
+                if (diff > -3600000) {
+                    el.innerHTML = '<span class="countdown-done">CANCEL NOW</span>';
+                } else {
+                    el.innerHTML = '<span class="countdown-done">IN PROGRESS</span>';
+                }
+                return;
+            }
+
+            const d = Math.floor(diff / 86400000);
+            const h = Math.floor((diff % 86400000) / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000);
+            const s = Math.floor((diff % 60000) / 1000);
+
+            el.innerHTML =
+                `<span class="cd-unit">${d}<span class="cd-label">days</span></span>` +
+                `<span class="cd-sep">:</span>` +
+                `<span class="cd-unit">${String(h).padStart(2,'0')}<span class="cd-label">hrs</span></span>` +
+                `<span class="cd-sep">:</span>` +
+                `<span class="cd-unit">${String(m).padStart(2,'0')}<span class="cd-label">min</span></span>` +
+                `<span class="cd-sep">:</span>` +
+                `<span class="cd-unit">${String(s).padStart(2,'0')}<span class="cd-label">sec</span></span>`;
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
 
         // ============================================
         // PHASE DETECTION
