@@ -1104,17 +1104,27 @@
 
         .modal-actions {
             display: flex;
-            gap: 1rem;
+            flex-direction: column;
+            gap: 0.75rem;
+            width: 100%;
+            max-width: 270px;
+        }
+
+        .modal-actions-row {
+            display: flex;
+            gap: 0.75rem;
         }
 
         .modal-btn {
-            padding: 0.75rem 1.5rem;
+            flex: 1;
+            padding: 0.875rem 1rem;
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 1rem;
+            font-size: 1.1rem;
             letter-spacing: 0.1em;
             cursor: pointer;
             border: 2px solid var(--white);
             transition: all 0.15s ease;
+            text-align: center;
         }
 
         .modal-btn.primary {
@@ -1127,8 +1137,22 @@
             color: var(--white);
         }
 
+        .modal-btn.close-btn {
+            background: transparent;
+            color: var(--white);
+            opacity: 0.6;
+            font-size: 0.9rem;
+            padding: 0.5rem;
+            border: none;
+        }
+
         .modal-btn:hover {
             transform: scale(1.03);
+        }
+
+        .modal-btn.close-btn:hover {
+            opacity: 1;
+            transform: none;
         }
 
         /* Toast */
@@ -1515,8 +1539,11 @@
                 </div>
             </div>
             <div class="modal-actions">
-                <button class="modal-btn primary" onclick="downloadStory()">Download Story</button>
-                <button class="modal-btn secondary" onclick="closeModal()">Close</button>
+                <div class="modal-actions-row">
+                    <button class="modal-btn primary" onclick="saveStory()">Save Image</button>
+                    <button class="modal-btn secondary" onclick="copyStory()">Copy</button>
+                </div>
+                <button class="modal-btn close-btn" onclick="closeModal()">Close</button>
             </div>
         </div>
     </div>
@@ -2831,22 +2858,59 @@
             document.getElementById('story-modal').classList.remove('active');
         }
 
-        async function downloadStory() {
+        async function getStoryCanvas() {
             const storyContent = document.getElementById('story-content');
+            return await html2canvas(storyContent, {
+                backgroundColor: '#0a0a0a',
+                scale: 2,
+                width: 270,
+                height: 480
+            });
+        }
+
+        async function getStoryBlob() {
+            const canvas = await getStoryCanvas();
+            return new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+        }
+
+        async function saveStory() {
             try {
-                const canvas = await html2canvas(storyContent, {
-                    backgroundColor: '#0a0a0a',
-                    scale: 2,
-                    width: 270,
-                    height: 480
-                });
-                const link = document.createElement('a');
-                link.download = `salt-week${currentWeek.week_number}.png`;
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-                showToast('Downloaded! Share it everywhere.');
+                const blob = await getStoryBlob();
+                const file = new File([blob], `salt-week${currentWeek.week_number}.png`, { type: 'image/png' });
+
+                // Try Web Share API first (works great on mobile)
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    await navigator.share({
+                        files: [file],
+                        title: 'Cancel Friday',
+                        text: '#CancelFriday #SaltTheEarth'
+                    });
+                    showToast('Share it everywhere!');
+                } else {
+                    // Fallback to download
+                    const canvas = await getStoryCanvas();
+                    const link = document.createElement('a');
+                    link.download = `salt-week${currentWeek.week_number}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                    showToast('Saved! Share it everywhere.');
+                }
             } catch (err) {
-                showToast('Download failed. Screenshot instead.', true);
+                if (err.name !== 'AbortError') {
+                    showToast('Save failed. Try screenshot.', true);
+                }
+            }
+        }
+
+        async function copyStory() {
+            try {
+                const blob = await getStoryBlob();
+                await navigator.clipboard.write([
+                    new ClipboardItem({ 'image/png': blob })
+                ]);
+                showToast('Copied! Paste anywhere.');
+            } catch (err) {
+                showToast('Copy failed. Try Save instead.', true);
             }
         }
 
