@@ -1142,6 +1142,18 @@
             transition: all 0.2s ease;
         }
 
+        .banner-share-btn.save {
+            background: var(--orange);
+            color: var(--black);
+            border-color: var(--orange);
+            font-weight: bold;
+        }
+
+        .banner-share-btn.save:hover {
+            background: var(--white);
+            border-color: var(--white);
+        }
+
         .banner-share-btn:hover {
             background: var(--white);
             color: var(--black);
@@ -1704,9 +1716,9 @@
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-hashtag">#CancelFriday #SaltTheEarth</div>
                     <div class="banner-actions">
+                        <button class="banner-share-btn save" onclick="saveBanner(1)">Save</button>
                         <a href="https://twitter.com/intent/tweet?text=They%20can%27t%20ignore%20all%20of%20us.%20Thousands%20canceling%20on%20the%20same%20day%20is%20a%20crisis.%20%23CancelFriday%20%23SaltTheEarth&url=https://cancelfriday.com" target="_blank" rel="noopener" class="banner-share-btn">X</a>
                         <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com&quote=They%20can%27t%20ignore%20all%20of%20us.%20Thousands%20canceling%20on%20the%20same%20day%20is%20a%20crisis." target="_blank" rel="noopener" class="banner-share-btn">FB</a>
-                        <button class="banner-share-btn" onclick="copyBannerText(1)">Copy</button>
                     </div>
                 </div>
 
@@ -1718,9 +1730,9 @@
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-hashtag">#CancelFriday #SaltTheEarth</div>
                     <div class="banner-actions">
+                        <button class="banner-share-btn save" onclick="saveBanner(2)">Save</button>
                         <a href="https://twitter.com/intent/tweet?text=The%20government%20won%27t%20listen.%20Corporations%20will.%20We%20can%20live%20without%20streaming.%20They%20can%27t%20live%20without%20us.%20%23CancelFriday%20%23SaltTheEarth&url=https://cancelfriday.com" target="_blank" rel="noopener" class="banner-share-btn">X</a>
                         <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com&quote=The%20government%20won%27t%20listen.%20Corporations%20will.%20We%20can%20live%20without%20streaming.%20They%20can%27t%20live%20without%20us." target="_blank" rel="noopener" class="banner-share-btn">FB</a>
-                        <button class="banner-share-btn" onclick="copyBannerText(2)">Copy</button>
                     </div>
                 </div>
 
@@ -1732,9 +1744,9 @@
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-hashtag">#CancelFriday #SaltTheEarth</div>
                     <div class="banner-actions">
+                        <button class="banner-share-btn save" onclick="saveBanner(3)">Save</button>
                         <a href="https://twitter.com/intent/tweet?text=Every%20Friday%20at%20noon.%20One%20company.%20All%20of%20us.%20Vote.%20Cancel.%20Repeat.%20%23CancelFriday%20%23SaltTheEarth&url=https://cancelfriday.com" target="_blank" rel="noopener" class="banner-share-btn">X</a>
                         <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com&quote=Every%20Friday%20at%20noon.%20One%20company.%20All%20of%20us.%20Vote.%20Cancel.%20Repeat." target="_blank" rel="noopener" class="banner-share-btn">FB</a>
-                        <button class="banner-share-btn" onclick="copyBannerText(3)">Copy</button>
                     </div>
                 </div>
             </div>
@@ -3167,6 +3179,48 @@
             }).catch(() => {
                 showToast('Failed to copy', true);
             });
+        }
+
+        async function saveBanner(bannerNum) {
+            const banner = document.getElementById(`banner-${bannerNum}`);
+            const actions = banner.querySelector('.banner-actions');
+
+            // Hide actions while capturing
+            actions.style.display = 'none';
+
+            try {
+                const canvas = await html2canvas(banner, {
+                    backgroundColor: '#0a0a0a',
+                    scale: 2
+                });
+
+                actions.style.display = 'flex';
+
+                const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+                const file = new File([blob], `salt-banner-${bannerNum}.png`, { type: 'image/png' });
+
+                // Try Web Share API first (works great on mobile)
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    await navigator.share({
+                        files: [file],
+                        title: 'Cancel Friday',
+                        text: '#CancelFriday #SaltTheEarth'
+                    });
+                    showToast('Share it everywhere!');
+                } else {
+                    // Fallback to download
+                    const link = document.createElement('a');
+                    link.download = `salt-banner-${bannerNum}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                    showToast('Saved! Share it everywhere.');
+                }
+            } catch (err) {
+                actions.style.display = 'flex';
+                if (err.name !== 'AbortError') {
+                    showToast('Save failed. Try screenshot.', true);
+                }
+            }
         }
 
         async function getStoryCanvas() {
