@@ -2267,17 +2267,34 @@
 
         // Phase 1: Select a candidate to preview
         function selectCandidate(candidateId) {
-            console.log('selectCandidate called:', candidateId);
+            const previousSelected = selectedCandidate;
             selectedCandidate = candidateId;
-            render();
 
-            // Scroll to target section after render completes
+            // Update card classes without full re-render (prevents flash)
+            const cards = document.querySelectorAll('.candidate-card');
+            cards.forEach(card => {
+                const cardId = card.getAttribute('onclick')?.match(/'([^']+)'/)?.[1];
+                if (cardId === previousSelected) {
+                    card.classList.remove('selected');
+                }
+                if (cardId === candidateId) {
+                    card.classList.add('selected');
+                }
+            });
+
+            // Update target section only
+            const phase = getCurrentPhase();
+            const winner = phase !== 'VOTING' ? getWinner() : null;
+            const time = getTimeRemaining();
+            renderTargetSection(phase, winner, time);
+
+            // Scroll to target section
             setTimeout(() => {
                 const targetEl = document.getElementById('target-section');
                 if (targetEl) {
                     targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
-            }, 100);
+            }, 50);
         }
 
         // Phase 1: Vote for a candidate
@@ -2549,7 +2566,7 @@
             const maxVotes = Math.max(...candidates.map(c => c.vote_count), 1);
             const canVote = phase === 'VOTING' && !userVotedFor;
 
-            grid.innerHTML = sortedCandidates.slice(0, 8).map((c, i) => {
+            grid.innerHTML = sortedCandidates.slice(0, 12).map((c, i) => {
                 const pct = totalVotes > 0 ? Math.round((c.vote_count / maxVotes) * 100) : 0;
                 const isVoted = userVotedFor === c.id;
                 const isSelected = selectedCandidate === c.id;
