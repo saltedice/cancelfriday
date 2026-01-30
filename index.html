@@ -2570,14 +2570,9 @@
 
             // Get the candidate to display
             let displayCandidate = null;
-            if (phase === 'VOTING') {
-                // During voting, show selected or voted candidate
-                const candidateId = userVotedFor || selectedCandidate;
-                displayCandidate = candidateId ? CANDIDATES.find(c => c.id === candidateId) : null;
-            } else {
-                // After voting closes, show the winner
-                displayCandidate = winner ? CANDIDATES.find(c => c.id === winner.id) : null;
-            }
+            // Always show selected candidate if one is clicked, otherwise show voted/winner
+            const candidateId = selectedCandidate || userVotedFor || (winner ? winner.id : null);
+            displayCandidate = candidateId ? CANDIDATES.find(c => c.id === candidateId) : null;
 
             if (!displayCandidate) {
                 // Nothing selected yet
