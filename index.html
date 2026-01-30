@@ -2227,9 +2227,9 @@
                 // In non-voting phases, still allow clicking to view details but not vote
                 selectedCandidate = candidateId;
                 render();
-                const targetEl = document.getElementById('target-section');
-            const targetTop = targetEl.getBoundingClientRect().top + window.pageYOffset - 250;
-            window.scrollTo({ top: targetTop, behavior: 'smooth' });
+                setTimeout(() => {
+                    document.getElementById('target-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 50);
                 return;
             }
 
@@ -2238,10 +2238,10 @@
             selectedCandidate = candidateId;
             render();
 
-            // Scroll to target section
-            const targetEl = document.getElementById('target-section');
-            const targetTop = targetEl.getBoundingClientRect().top + window.pageYOffset - 250;
-            window.scrollTo({ top: targetTop, behavior: 'smooth' });
+            // Scroll to target section after render completes
+            setTimeout(() => {
+                document.getElementById('target-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 50);
         }
 
         // Phase 1: Vote for a candidate
