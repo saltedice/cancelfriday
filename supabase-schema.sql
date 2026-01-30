@@ -9,6 +9,7 @@ CREATE TABLE weeks (
     drop_time TIMESTAMPTZ NOT NULL,
     voting_closes TIMESTAMPTZ NOT NULL,
     participant_count INTEGER DEFAULT 0,
+    confirmed_count INTEGER DEFAULT 0,
     is_active BOOLEAN DEFAULT false,
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
@@ -30,7 +31,7 @@ CREATE TABLE user_actions (
     id SERIAL PRIMARY KEY,
     fingerprint_hash TEXT NOT NULL,
     week_number INTEGER NOT NULL,
-    action_type TEXT NOT NULL CHECK (action_type IN ('commit', 'vote')),
+    action_type TEXT NOT NULL CHECK (action_type IN ('commit', 'vote', 'confirm')),
     candidate_id TEXT, -- only for votes
     created_at TIMESTAMPTZ DEFAULT NOW(),
     UNIQUE(fingerprint_hash, week_number, action_type)
@@ -153,10 +154,43 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
+-- Function to confirm cancellation ("I Did It")
+CREATE OR REPLACE FUNCTION confirm_cancellation(
+    p_fingerprint_hash TEXT,
+    p_week_number INTEGER
+) RETURNS JSON AS $$
+DECLARE
+    v_existing BOOLEAN;
+    v_new_count INTEGER;
+BEGIN
+    SELECT EXISTS(
+        SELECT 1 FROM user_actions
+        WHERE fingerprint_hash = p_fingerprint_hash
+        AND week_number = p_week_number
+        AND action_type = 'confirm'
+    ) INTO v_existing;
+
+    IF v_existing THEN
+        RETURN json_build_object('success', false, 'error', 'already_confirmed');
+    END IF;
+
+    INSERT INTO user_actions (fingerprint_hash, week_number, action_type)
+    VALUES (p_fingerprint_hash, p_week_number, 'confirm');
+
+    UPDATE weeks
+    SET confirmed_count = confirmed_count + 1
+    WHERE week_number = p_week_number
+    RETURNING confirmed_count INTO v_new_count;
+
+    RETURN json_build_object('success', true, 'new_count', v_new_count);
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
 -- Grant execute permissions on functions
 GRANT EXECUTE ON FUNCTION commit_to_week TO anon;
 GRANT EXECUTE ON FUNCTION vote_for_candidate TO anon;
 GRANT EXECUTE ON FUNCTION get_user_actions TO anon;
+GRANT EXECUTE ON FUNCTION confirm_cancellation TO anon;
 
 -- Enable realtime for live updates
 ALTER PUBLICATION supabase_realtime ADD TABLE weeks;
