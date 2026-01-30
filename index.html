@@ -2220,28 +2220,17 @@
 
         // Phase 1: Select a candidate to preview
         function selectCandidate(candidateId) {
-            const phase = getCurrentPhase();
-
-            // Only allow selection during voting phase (or any phase for viewing in demo)
-            if (phase !== 'VOTING') {
-                // In non-voting phases, still allow clicking to view details but not vote
-                selectedCandidate = candidateId;
-                render();
-                setTimeout(() => {
-                    document.getElementById('target-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 50);
-                return;
-            }
-
-            if (userVotedFor) return; // Already voted
-
+            console.log('selectCandidate called:', candidateId);
             selectedCandidate = candidateId;
             render();
 
             // Scroll to target section after render completes
             setTimeout(() => {
-                document.getElementById('target-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 50);
+                const targetEl = document.getElementById('target-section');
+                if (targetEl) {
+                    targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100);
         }
 
         // Phase 1: Vote for a candidate
