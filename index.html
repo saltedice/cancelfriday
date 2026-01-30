@@ -1042,6 +1042,111 @@
             letter-spacing: 0.05em;
         }
 
+        /* Shareable Banners */
+        .banners-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto 2rem;
+        }
+
+        @media (max-width: 800px) {
+            .banners-grid {
+                grid-template-columns: 1fr;
+                max-width: 320px;
+            }
+        }
+
+        .share-banner {
+            background: var(--black);
+            border: 2px solid rgba(255,255,255,0.2);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .share-banner.vibe-power {
+            border-color: var(--red);
+            background: linear-gradient(180deg, rgba(230,57,70,0.15) 0%, var(--black) 100%);
+        }
+
+        .share-banner.vibe-crisis {
+            border-color: var(--orange);
+            background: linear-gradient(180deg, rgba(247,127,0,0.15) 0%, var(--black) 100%);
+        }
+
+        .share-banner.vibe-friday {
+            border-color: var(--white);
+            background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, var(--black) 100%);
+        }
+
+        .banner-logo {
+            font-family: 'Black Ops One', cursive;
+            font-size: 1.5rem;
+            color: var(--salt);
+            text-shadow: 2px 2px 0 var(--red);
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .banner-headline {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(1.3rem, 3vw, 1.6rem);
+            line-height: 1.2;
+            color: var(--white);
+            margin-bottom: 0.75rem;
+        }
+
+        .banner-subtext {
+            font-size: 0.7rem;
+            line-height: 1.5;
+            opacity: 0.7;
+            margin-bottom: 1rem;
+        }
+
+        .banner-cta {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.9rem;
+            color: var(--orange);
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .banner-hashtag {
+            font-size: 0.65rem;
+            opacity: 0.5;
+            letter-spacing: 0.05em;
+        }
+
+        .banner-actions {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .banner-share-btn {
+            padding: 0.4rem 0.75rem;
+            font-size: 0.65rem;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: transparent;
+            color: var(--white);
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .banner-share-btn:hover {
+            background: var(--white);
+            color: var(--black);
+        }
+
         /* Story Modal */
         .modal {
             display: none;
@@ -1588,20 +1693,52 @@
         <!-- Social Share Section -->
         <section class="share-section">
             <div class="share-title">SPREAD THE WORD</div>
-            <div class="share-subtitle">The more people join, the bigger the impact</div>
-            <div class="share-buttons">
-                <a href="https://twitter.com/intent/tweet?text=Every%20Friday%20at%20noon%2C%20we%20cancel.%20One%20company.%20All%20together.%20%23CancelFriday%20%23SaltTheEarth&url=https://cancelfriday.com"
-                   target="_blank" rel="noopener" class="share-btn twitter">
-                    Share on X
-                </a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com"
-                   target="_blank" rel="noopener" class="share-btn facebook">
-                    Share on Facebook
-                </a>
-                <button class="share-btn copy" onclick="copyLink()">
-                    Copy Link
-                </button>
+            <div class="share-subtitle">Share a banner. Bring others in. The more we are, the harder we hit.</div>
+
+            <div class="banners-grid">
+                <!-- Banner 1: Collective Power -->
+                <div class="share-banner vibe-power" id="banner-1">
+                    <div class="banner-logo">SALT</div>
+                    <div class="banner-headline">THEY CAN'T IGNORE ALL OF US</div>
+                    <div class="banner-subtext">Thousands canceling on the same day is a crisis. We vote. We cancel. Together.</div>
+                    <div class="banner-cta">CANCELFRIDAY.COM</div>
+                    <div class="banner-hashtag">#CancelFriday #SaltTheEarth</div>
+                    <div class="banner-actions">
+                        <a href="https://twitter.com/intent/tweet?text=They%20can%27t%20ignore%20all%20of%20us.%20Thousands%20canceling%20on%20the%20same%20day%20is%20a%20crisis.%20%23CancelFriday%20%23SaltTheEarth&url=https://cancelfriday.com" target="_blank" rel="noopener" class="banner-share-btn">X</a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com&quote=They%20can%27t%20ignore%20all%20of%20us.%20Thousands%20canceling%20on%20the%20same%20day%20is%20a%20crisis." target="_blank" rel="noopener" class="banner-share-btn">FB</a>
+                        <button class="banner-share-btn" onclick="copyBannerText(1)">Copy</button>
+                    </div>
+                </div>
+
+                <!-- Banner 2: Corporate Pressure -->
+                <div class="share-banner vibe-crisis" id="banner-2">
+                    <div class="banner-logo">SALT</div>
+                    <div class="banner-headline">THE GOVERNMENT WON'T LISTEN. CORPORATIONS WILL.</div>
+                    <div class="banner-subtext">We can live without streaming. They can't live without us. Hit them where it hurts.</div>
+                    <div class="banner-cta">CANCELFRIDAY.COM</div>
+                    <div class="banner-hashtag">#CancelFriday #SaltTheEarth</div>
+                    <div class="banner-actions">
+                        <a href="https://twitter.com/intent/tweet?text=The%20government%20won%27t%20listen.%20Corporations%20will.%20We%20can%20live%20without%20streaming.%20They%20can%27t%20live%20without%20us.%20%23CancelFriday%20%23SaltTheEarth&url=https://cancelfriday.com" target="_blank" rel="noopener" class="banner-share-btn">X</a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com&quote=The%20government%20won%27t%20listen.%20Corporations%20will.%20We%20can%20live%20without%20streaming.%20They%20can%27t%20live%20without%20us." target="_blank" rel="noopener" class="banner-share-btn">FB</a>
+                        <button class="banner-share-btn" onclick="copyBannerText(2)">Copy</button>
+                    </div>
+                </div>
+
+                <!-- Banner 3: Friday Ritual -->
+                <div class="share-banner vibe-friday" id="banner-3">
+                    <div class="banner-logo">SALT</div>
+                    <div class="banner-headline">EVERY FRIDAY AT NOON. ONE COMPANY. ALL OF US.</div>
+                    <div class="banner-subtext">Vote for the target. Cancel together. Repeat until they hear us.</div>
+                    <div class="banner-cta">CANCELFRIDAY.COM</div>
+                    <div class="banner-hashtag">#CancelFriday #SaltTheEarth</div>
+                    <div class="banner-actions">
+                        <a href="https://twitter.com/intent/tweet?text=Every%20Friday%20at%20noon.%20One%20company.%20All%20of%20us.%20Vote.%20Cancel.%20Repeat.%20%23CancelFriday%20%23SaltTheEarth&url=https://cancelfriday.com" target="_blank" rel="noopener" class="banner-share-btn">X</a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com&quote=Every%20Friday%20at%20noon.%20One%20company.%20All%20of%20us.%20Vote.%20Cancel.%20Repeat." target="_blank" rel="noopener" class="banner-share-btn">FB</a>
+                        <button class="banner-share-btn" onclick="copyBannerText(3)">Copy</button>
+                    </div>
+                </div>
             </div>
+
             <div class="share-hashtags">#CancelFriday #SaltTheEarth</div>
         </section>
 
@@ -3014,6 +3151,19 @@
         function copyLink() {
             navigator.clipboard.writeText('https://cancelfriday.com').then(() => {
                 showToast('Link copied!');
+            }).catch(() => {
+                showToast('Failed to copy', true);
+            });
+        }
+
+        function copyBannerText(bannerNum) {
+            const texts = {
+                1: "They can't ignore all of us. Thousands canceling on the same day is a crisis. We vote. We cancel. Together. #CancelFriday #SaltTheEarth\n\ncancelfriday.com",
+                2: "The government won't listen. Corporations will. We can live without streaming. They can't live without us. Hit them where it hurts. #CancelFriday #SaltTheEarth\n\ncancelfriday.com",
+                3: "Every Friday at noon. One company. All of us. Vote for the target. Cancel together. Repeat until they hear us. #CancelFriday #SaltTheEarth\n\ncancelfriday.com"
+            };
+            navigator.clipboard.writeText(texts[bannerNum]).then(() => {
+                showToast('Copied! Paste anywhere.');
             }).catch(() => {
                 showToast('Failed to copy', true);
             });
