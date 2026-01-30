@@ -2630,12 +2630,15 @@
             const phase = getCurrentPhase();
             const time = getTimeRemaining();
 
-            // Sort candidates to find leader/winner
-            const sortedCandidates = [...candidates].sort((a, b) => {
-                const scoreA = CANDIDATES.find(cd => cd.id === a.id)?.score || 0;
-                const scoreB = CANDIDATES.find(cd => cd.id === b.id)?.score || 0;
-                return scoreB - scoreA || b.vote_count - a.vote_count;
-            });
+            // Sort candidates to find leader/winner (hide meta for now)
+            const hiddenCandidates = ['meta'];
+            const sortedCandidates = [...candidates]
+                .filter(c => !hiddenCandidates.includes(c.id))
+                .sort((a, b) => {
+                    const scoreA = CANDIDATES.find(cd => cd.id === a.id)?.score || 0;
+                    const scoreB = CANDIDATES.find(cd => cd.id === b.id)?.score || 0;
+                    return scoreB - scoreA || b.vote_count - a.vote_count;
+                });
             const leader = sortedCandidates[0];
             const winner = (phase !== 'VOTING') ? leader : null;
 
