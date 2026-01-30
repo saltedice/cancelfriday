@@ -623,16 +623,33 @@
         }
 
         .candidate-card.selected {
-            border-color: var(--orange);
+            border-color: var(--white);
             border-width: 3px;
-            background: rgba(247, 127, 0, 0.15);
+            background: rgba(255, 255, 255, 0.1);
             transform: scale(1.03);
-            box-shadow: 0 0 20px rgba(247, 127, 0, 0.3);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
 
         .candidate-card.voted {
             border-color: var(--orange);
-            background: rgba(247, 127, 0, 0.15);
+            border-width: 2px;
+        }
+
+        .candidate-card.voted::after {
+            content: '✓';
+            position: absolute;
+            top: 0.4rem;
+            right: 0.4rem;
+            background: var(--orange);
+            color: var(--black);
+            width: 1.2rem;
+            height: 1.2rem;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
         }
 
         .candidate-card.leader {
@@ -1381,9 +1398,9 @@
         <!-- PHASE 1: VOTING (Monday-Thursday) -->
         <section class="vote-section" id="phase-voting">
             <div class="phase-header">
-                <div class="vote-title" id="main-title">CHOOSE YOUR TARGET</div>
+                <div class="vote-title" id="main-title">WHO ARE YOU GOING TO CANCEL?</div>
                 <div class="vote-subtitle" id="main-subtitle">
-                    Pick this week's target. Click to see the receipts. <a href="why.html" style="color: var(--orange); text-decoration: none;">Why these companies? →</a>
+                    Which can you live without? Click for receipts. <a href="why.html" style="color: var(--orange); text-decoration: none;">Why these companies? →</a>
                 </div>
             </div>
 
@@ -2059,6 +2076,36 @@
                     link: 'https://help.openai.com/en/articles/7039411-how-do-i-cancel-my-chatgpt-plus-subscription',
                     linkText: 'OpenAI Subscription Help →'
                 }
+            },
+            {
+                id: 'meta',
+                name: 'Meta',
+                parent: 'Meta Platforms (Facebook, Instagram, WhatsApp)',
+                logo: 'https://logo.clearbit.com/meta.com',
+                score: 8,
+                why: {
+                    title: 'Why Meta?',
+                    reasons: [
+                        { text: 'Zuckerberg donated $1 million to Trump\'s inauguration fund (Dec 2024)', source: 'https://www.washingtonpost.com/politics/2024/12/12/meta-donation-trump-zuckerberg/' },
+                        { text: 'Dined with Trump at Mar-a-Lago in November 2024, called Trump "badass" after assassination attempt', source: 'https://www.washingtonpost.com/politics/2024/12/12/meta-donation-trump-zuckerberg/' },
+                        { text: 'DHS spent $2.8 million on ICE recruitment ads across Facebook and Instagram in 2024, plus additional $500,000+ since August 2024', source: 'https://www.commondreams.org/news/meta-google-ice' },
+                        { text: 'Removed ICE-tracking Facebook groups at DOJ\'s request — blocked links to ICE List website exposing DHS employees', source: 'https://www.wbez.org/immigration/2025/10/14/facebook-suspends-popular-chicago-ice-sightings-group-at-trump-administrations-request' },
+                        { text: 'House Democrats accused Meta of running "white nationalist-inspired propaganda" for ICE recruitment', source: 'https://www.commondreams.org/news/meta-google-ice' },
+                        { text: 'Hired Trump 2020 campaign adviser as spokesperson in January 2025', source: 'https://www.washingtonpost.com/politics/2024/12/12/meta-donation-trump-zuckerberg/' },
+                        { text: 'Zuckerberg previously called Trump "a threat" in 2017, now seeking favor', source: null }
+                    ]
+                },
+                how: {
+                    title: 'How to Leave Meta',
+                    steps: [
+                        'Delete or deactivate Facebook: Settings → Account Center → Personal Details → Account Ownership',
+                        'Delete Instagram: Settings → Account → Delete Account',
+                        'Switch from WhatsApp to Signal (signal.org)',
+                        'Download your data first if needed'
+                    ],
+                    link: 'https://accountscenter.facebook.com/personal_info',
+                    linkText: 'Go to Meta Account Center →'
+                }
             }
         ];
 
@@ -2484,8 +2531,8 @@
             const mainSubtitle = document.getElementById('main-subtitle');
 
             if (phase === 'VOTING') {
-                mainTitle.textContent = 'CHOOSE YOUR TARGET';
-                mainSubtitle.innerHTML = 'Pick this week\'s target. Click to see the receipts. <a href="why.html" style="color: var(--orange); text-decoration: none;">Why these companies? →</a>';
+                mainTitle.textContent = 'WHO ARE YOU GOING TO CANCEL?';
+                mainSubtitle.innerHTML = 'Which can you live without? Click for receipts. <a href="why.html" style="color: var(--orange); text-decoration: none;">Why these companies? →</a>';
             } else if (phase === 'TARGET_LOCKED') {
                 mainTitle.textContent = 'THIS FRIDAY\'S TARGET';
                 mainSubtitle.textContent = 'Voting is closed. Get ready to cancel at noon.';
@@ -2526,7 +2573,6 @@
                             <div class="vote-fill" style="width: ${pct}%"></div>
                         </div>
                         <div class="vote-count">${c.vote_count > 0 ? c.vote_count.toLocaleString() + ' votes' : '0 votes'}</div>
-                        ${isVoted ? '<div class="your-vote-badge">YOUR VOTE</div>' : ''}
                         ${isWinner && phase !== 'VOTING' ? '<div class="your-vote-badge" style="background: var(--red)">TARGET</div>' : ''}
                     </div>
                 `;
