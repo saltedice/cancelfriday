@@ -959,6 +959,89 @@
             opacity: 0.4;
         }
 
+        /* Social Share Section */
+        .share-section {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: linear-gradient(180deg, transparent 0%, rgba(247, 127, 0, 0.1) 100%);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .share-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: var(--white);
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .share-subtitle {
+            font-size: 0.8rem;
+            opacity: 0.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 0.08em;
+            text-decoration: none;
+            border: 2px solid;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .share-btn.twitter {
+            background: transparent;
+            color: var(--white);
+            border-color: var(--white);
+        }
+
+        .share-btn.twitter:hover {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .share-btn.facebook {
+            background: transparent;
+            color: #1877f2;
+            border-color: #1877f2;
+        }
+
+        .share-btn.facebook:hover {
+            background: #1877f2;
+            color: var(--white);
+        }
+
+        .share-btn.copy {
+            background: transparent;
+            color: var(--orange);
+            border-color: var(--orange);
+        }
+
+        .share-btn.copy:hover {
+            background: var(--orange);
+            color: var(--black);
+        }
+
+        .share-hashtags {
+            margin-top: 1.5rem;
+            font-size: 0.75rem;
+            opacity: 0.5;
+            letter-spacing: 0.05em;
+        }
+
         /* Story Modal */
         .modal {
             display: none;
@@ -1500,6 +1583,26 @@
         <!-- After Week Message -->
         <section class="after-week-section" id="after-week-section" style="display: none;">
             <div class="after-week-message">Next week's voting opens Monday</div>
+        </section>
+
+        <!-- Social Share Section -->
+        <section class="share-section">
+            <div class="share-title">SPREAD THE WORD</div>
+            <div class="share-subtitle">The more people join, the bigger the impact</div>
+            <div class="share-buttons">
+                <a href="https://twitter.com/intent/tweet?text=Every%20Friday%20at%20noon%2C%20we%20cancel.%20One%20company.%20All%20together.%20%23CancelFriday%20%23SaltTheEarth&url=https://cancelfriday.com"
+                   target="_blank" rel="noopener" class="share-btn twitter">
+                    Share on X
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com"
+                   target="_blank" rel="noopener" class="share-btn facebook">
+                    Share on Facebook
+                </a>
+                <button class="share-btn copy" onclick="copyLink()">
+                    Copy Link
+                </button>
+            </div>
+            <div class="share-hashtags">#CancelFriday #SaltTheEarth</div>
         </section>
 
         <!-- Footer -->
@@ -2903,6 +3006,14 @@
 
         function closeModal() {
             document.getElementById('story-modal').classList.remove('active');
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText('https://cancelfriday.com').then(() => {
+                showToast('Link copied!');
+            }).catch(() => {
+                showToast('Failed to copy', true);
+            });
         }
 
         async function getStoryCanvas() {
