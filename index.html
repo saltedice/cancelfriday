@@ -2639,8 +2639,9 @@
                     ...WEEK_DATA,
                     week_number: weekData.week_number,
                     drop_time: weekData.drop_time,
-                    commitment_count: weekData.participant_count
+                    commitment_count: weekData.participant_count || 0
                 };
+                console.log('Loaded commitment_count:', weekData.participant_count);
 
                 // Load candidates
                 const { data: candidatesData, error: candidatesError } = await supabaseClient
@@ -3320,8 +3321,9 @@
             }
 
             // Always update banner counts regardless of phase
+            const bannerCount = currentWeek.commitment_count || 0;
             document.querySelectorAll('.banner-count-num').forEach(el => {
-                el.textContent = currentWeek.commitment_count.toLocaleString();
+                el.textContent = bannerCount.toLocaleString();
             });
         }
 
