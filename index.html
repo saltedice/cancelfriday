@@ -3345,7 +3345,6 @@
             }
 
             // Update banner counts - show winner's votes after target locks, total during voting
-            const winner = phase !== 'VOTING' ? getWinner() : null;
             const bannerCount = winner ? (winner.vote_count || 0) : (currentWeek.commitment_count || 0);
             document.querySelectorAll('.banner-count-num').forEach(el => {
                 el.textContent = bannerCount.toLocaleString();
