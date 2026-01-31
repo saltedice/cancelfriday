@@ -2976,6 +2976,7 @@
         }
 
         function render() {
+            try {
             const phase = getCurrentPhase();
             const time = getTimeRemaining();
 
@@ -3079,6 +3080,9 @@
 
             // Projected impact banner (during voting/pre-Friday)
             renderProjectedBanner(phase, leader);
+            } catch (err) {
+                console.error('Render error:', err);
+            }
         }
 
         function renderImpactScreen(phase, winner) {
