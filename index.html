@@ -1224,7 +1224,16 @@
             color: var(--salt);
             text-shadow: 2px 2px 0 var(--red);
             letter-spacing: 0.05em;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .banner-acronym {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 1.25rem;
         }
 
         .banner-headline {
@@ -1710,6 +1719,436 @@
                 padding: 1.5rem 0.5rem;
             }
         }
+
+        /* Leaderboard Text Snippets */
+        .leaderboard-snippets {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .snippets-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .snippet-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        @media (max-width: 600px) {
+            .snippet-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .leaderboard-snippet {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 0.75rem;
+            font-size: 0.65rem;
+            line-height: 1.5;
+            color: rgba(255,255,255,0.8);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .leaderboard-snippet:hover {
+            border-color: var(--orange);
+            background: rgba(247,127,0,0.1);
+        }
+
+        .leaderboard-snippet::after {
+            content: 'TAP TO COPY';
+            position: absolute;
+            bottom: 0.4rem;
+            right: 0.5rem;
+            font-size: 0.5rem;
+            color: var(--orange);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .leaderboard-snippet:hover::after {
+            opacity: 1;
+        }
+
+        .snippet-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--orange);
+            margin-bottom: 0.4rem;
+            display: block;
+        }
+
+        .snippet-text {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            white-space: pre-line;
+        }
+
+        /* Badge Generator Section */
+        .receipts-section {
+            text-align: center;
+            padding: 2rem 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 2rem;
+        }
+
+        .receipts-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .receipts-subtitle {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 1.5rem;
+        }
+
+        .receipts-btn {
+            background: transparent;
+            border: 2px solid var(--orange);
+            color: var(--orange);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            padding: 0.75rem 2rem;
+            cursor: pointer;
+            letter-spacing: 0.1em;
+            transition: all 0.2s ease;
+        }
+
+        .receipts-btn:hover {
+            background: var(--orange);
+            color: var(--black);
+        }
+
+        /* Badge Modal */
+        .badge-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .badge-modal.active {
+            display: flex;
+        }
+
+        .badge-modal-content {
+            background: #0a0a0a;
+            border: 1px solid rgba(255,255,255,0.2);
+            max-width: 500px;
+            width: 100%;
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .badge-modal-header {
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .badge-modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.5);
+            font-size: 1.5rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .badge-modal-close:hover {
+            color: var(--white);
+        }
+
+        .badge-modal-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 0.25rem;
+        }
+
+        .badge-modal-subtitle {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .badge-checklist {
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+        }
+
+        .badge-checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .badge-checkbox-item:hover {
+            border-color: var(--orange);
+        }
+
+        .badge-checkbox-item.checked {
+            background: rgba(247,127,0,0.15);
+            border-color: var(--orange);
+        }
+
+        .badge-checkbox-item input {
+            display: none;
+        }
+
+        .badge-checkbox-box {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.75rem;
+            color: var(--orange);
+        }
+
+        .badge-checkbox-item.checked .badge-checkbox-box {
+            border-color: var(--orange);
+            background: var(--orange);
+            color: var(--black);
+        }
+
+        .badge-checkbox-label {
+            font-size: 0.75rem;
+            color: var(--white);
+        }
+
+        .badge-preview-section {
+            padding: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .badge-preview-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 1rem;
+        }
+
+        .badge-preview-wrapper {
+            width: 270px;
+            border: 2px solid var(--white);
+            overflow: hidden;
+        }
+
+        .badge-content {
+            width: 100%;
+            aspect-ratio: 4/5;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(180deg, #0a0a0a 0%, #1a0808 40%, #2a0a0a 60%, #0a0a0a 100%);
+            position: relative;
+        }
+
+        .badge-content::before {
+            content: 'SALT';
+            position: absolute;
+            font-family: 'Black Ops One', cursive;
+            font-size: 6rem;
+            color: rgba(230, 57, 70, 0.04);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            pointer-events: none;
+        }
+
+        .badge-header {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .badge-logo {
+            font-family: 'Black Ops One', cursive;
+            font-size: 2rem;
+            color: var(--salt);
+            text-shadow: 2px 2px 0 var(--red);
+        }
+
+        .badge-acronym {
+            font-size: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.6);
+            margin-top: 0.25rem;
+        }
+
+        .badge-tagline {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            color: var(--white);
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .badge-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            margin: 0.5rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .badge-list-item {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .badge-list-item .x-mark {
+            color: var(--red);
+            font-weight: bold;
+        }
+
+        .badge-empty-state {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.4);
+            padding: 1rem;
+        }
+
+        .badge-impact {
+            text-align: center;
+            padding: 0.75rem 0;
+            margin-top: auto;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .badge-impact-amount {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            color: var(--orange);
+            letter-spacing: 0.05em;
+        }
+
+        .badge-footer {
+            text-align: center;
+            margin-top: 0.75rem;
+        }
+
+        .badge-url {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.9rem;
+            color: var(--orange);
+            letter-spacing: 0.1em;
+        }
+
+        .badge-hashtags {
+            font-size: 0.5rem;
+            color: rgba(255,255,255,0.5);
+            margin-top: 0.25rem;
+        }
+
+        .badge-actions {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .badge-action-btn {
+            padding: 0.75rem 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .badge-action-btn.primary {
+            background: var(--orange);
+            color: var(--black);
+            border: none;
+            font-weight: bold;
+        }
+
+        .badge-action-btn.primary:hover {
+            background: var(--white);
+        }
+
+        .badge-action-btn.primary:disabled {
+            background: rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.4);
+            cursor: not-allowed;
+        }
+
+        .badge-action-btn.secondary {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .badge-action-btn.secondary:hover {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .badge-action-btn.secondary:disabled {
+            border-color: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.3);
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 500px) {
+            .badge-checklist {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1896,6 +2335,7 @@
                 <!-- Banner 1: Collective Power -->
                 <div class="share-banner vibe-power" id="banner-1">
                     <div class="banner-logo">SALT</div>
+                    <div class="banner-acronym">Subscribers Against Lawless Tyranny</div>
                     <div class="banner-headline">THEY CAN'T IGNORE ALL OF US</div>
                     <div class="banner-count"><span class="banner-count-num">0</span> VOTING</div>
                     <div class="banner-subtext">Thousands canceling on the same day is a crisis. We vote. We cancel. Together.</div>
@@ -1911,6 +2351,7 @@
                 <!-- Banner 2: Corporate Pressure -->
                 <div class="share-banner vibe-crisis" id="banner-2">
                     <div class="banner-logo">SALT</div>
+                    <div class="banner-acronym">Subscribers Against Lawless Tyranny</div>
                     <div class="banner-headline">THE GOVERNMENT WON'T LISTEN. CORPORATIONS WILL.</div>
                     <div class="banner-count"><span class="banner-count-num">0</span> VOTING</div>
                     <div class="banner-subtext">We can live without streaming. They can't live without us. Hit them where it hurts.</div>
@@ -1926,6 +2367,7 @@
                 <!-- Banner 3: Friday Ritual -->
                 <div class="share-banner vibe-friday" id="banner-3">
                     <div class="banner-logo">SALT</div>
+                    <div class="banner-acronym">Subscribers Against Lawless Tyranny</div>
                     <div class="banner-headline">EVERY FRIDAY AT NOON. ONE COMPANY. ALL OF US.</div>
                     <div class="banner-count"><span class="banner-count-num">0</span> VOTING</div>
                     <div class="banner-subtext">Vote for the target. Cancel together. Repeat until they hear us.</div>
@@ -1941,6 +2383,7 @@
                 <!-- Banner 4: Urgency/Alert -->
                 <div class="share-banner vibe-urgent" id="banner-4">
                     <div class="banner-logo">SALT</div>
+                    <div class="banner-acronym">Subscribers Against Lawless Tyranny</div>
                     <div class="banner-headline">THIS ISN'T A BOYCOTT.<br>IT'S A COORDINATED DROP.</div>
                     <div class="banner-count"><span class="banner-count-num">0</span> VOTING</div>
                     <div class="banner-subtext">Same company. Same moment. That's how you get their attention.</div>
@@ -1956,6 +2399,7 @@
                 <!-- Banner 5: Money Angle -->
                 <div class="share-banner vibe-money" id="banner-5">
                     <div class="banner-logo">SALT</div>
+                    <div class="banner-acronym">Subscribers Against Lawless Tyranny</div>
                     <div class="banner-headline">YOUR $15/MONTH<br>FUNDS DEPORTATIONS.</div>
                     <div class="banner-count"><span class="banner-count-num">0</span> VOTING</div>
                     <div class="banner-subtext">They have contracts with ICE. We have receipts. Cancel together Friday.</div>
@@ -1971,6 +2415,7 @@
                 <!-- Banner 6: Direct Challenge -->
                 <div class="share-banner vibe-challenge" id="banner-6">
                     <div class="banner-logo">SALT</div>
+                    <div class="banner-acronym">Subscribers Against Lawless Tyranny</div>
                     <div class="banner-headline">STILL SUBSCRIBED?<br>STILL COMPLICIT.</div>
                     <div class="banner-count"><span class="banner-count-num">0</span> VOTING</div>
                     <div class="banner-subtext">These companies bankroll Trump. Pick one. Drop it. Friday noon.</div>
@@ -1986,6 +2431,7 @@
                 <!-- Banner 7: Collective Power -->
                 <div class="share-banner vibe-collective" id="banner-7">
                     <div class="banner-logo">SALT</div>
+                    <div class="banner-acronym">Subscribers Against Lawless Tyranny</div>
                     <div class="banner-headline">ONE CANCELLATION: NOTHING.<br>THOUSANDS AT ONCE: CRISIS.</div>
                     <div class="banner-count"><span class="banner-count-num">0</span> VOTING</div>
                     <div class="banner-subtext">Friday at noon. We move together.</div>
@@ -2001,6 +2447,7 @@
                 <!-- Banner 8: Short & Punchy -->
                 <div class="share-banner vibe-punchy" id="banner-8">
                     <div class="banner-logo">SALT</div>
+                    <div class="banner-acronym">Subscribers Against Lawless Tyranny</div>
                     <div class="banner-headline">THEY PROFIT.<br>WE CANCEL.<br>EVERY FRIDAY.</div>
                     <div class="banner-count"><span class="banner-count-num">0</span> VOTING</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
@@ -2015,6 +2462,7 @@
                 <!-- Banner 9: Doomer Antidote -->
                 <div class="share-banner vibe-hope" id="banner-9">
                     <div class="banner-logo">SALT</div>
+                    <div class="banner-acronym">Subscribers Against Lawless Tyranny</div>
                     <div class="banner-headline">DONE FEELING HELPLESS?</div>
                     <div class="banner-count"><span class="banner-count-num">0</span> VOTING</div>
                     <div class="banner-subtext">Stop scrolling. Start canceling. Every Friday. One company. Together.</div>
@@ -2030,6 +2478,7 @@
                 <!-- Banner 10: Receipts Angle -->
                 <div class="share-banner vibe-receipts" id="banner-10">
                     <div class="banner-logo">SALT</div>
+                    <div class="banner-acronym">Subscribers Against Lawless Tyranny</div>
                     <div class="banner-headline">THEY HAVE ICE CONTRACTS.<br>WE HAVE RECEIPTS.</div>
                     <div class="banner-count"><span class="banner-count-num">0</span> VOTING</div>
                     <div class="banner-subtext">Vote. Cancel. Repeat. Until they hear us.</div>
@@ -2043,7 +2492,79 @@
                 </div>
             </div>
 
+            <!-- Leaderboard Text Snippets -->
+            <div class="leaderboard-snippets">
+                <div class="snippets-title">Copy & Paste Leaderboard Updates</div>
+                <div class="snippet-grid">
+                    <div class="leaderboard-snippet" onclick="copySnippet(this)" id="snippet-leaderboard">
+                        <span class="snippet-label">Leaderboard</span>
+                        <span class="snippet-text">Cancel Friday Leaderboard:
+🥇 Amazon Prime — 0 votes
+🥈 Netflix — 0 votes
+🥉 Spotify — 0 votes
+
+Vote now → cancelfriday.com
+#CancelFriday #SaltTheEarth</span>
+                    </div>
+                    <div class="leaderboard-snippet" onclick="copySnippet(this)" id="snippet-race">
+                        <span class="snippet-label">Race Framing</span>
+                        <span class="snippet-text">It's a close race 👀
+
+Amazon Prime: 0
+Netflix: 0
+Spotify: 0
+
+Which one gets canceled Friday? You decide.
+cancelfriday.com #CancelFriday</span>
+                    </div>
+                    <div class="leaderboard-snippet" onclick="copySnippet(this)" id="snippet-explainer">
+                        <span class="snippet-label">Explainer</span>
+                        <span class="snippet-text">Every Friday, thousands of us cancel the same subscription at the same time.
+
+One cancellation = nothing.
+Thousands at once = crisis.
+
+Join us → cancelfriday.com
+#CancelFriday #SaltTheEarth</span>
+                    </div>
+                    <div class="leaderboard-snippet" onclick="copySnippet(this)" id="snippet-simple">
+                        <span class="snippet-label">Simple</span>
+                        <span class="snippet-text">Cancel Friday.
+
+Every week. One company. Together.
+
+cancelfriday.com
+#CancelFriday</span>
+                    </div>
+                    <div class="leaderboard-snippet" onclick="copySnippet(this)" id="snippet-question">
+                        <span class="snippet-label">Question</span>
+                        <span class="snippet-text">What if we all canceled the same subscription on the same day?
+
+That's Cancel Friday.
+
+cancelfriday.com
+#CancelFriday #SaltTheEarth</span>
+                    </div>
+                    <div class="leaderboard-snippet" onclick="copySnippet(this)" id="snippet-receipts">
+                        <span class="snippet-label">Receipts</span>
+                        <span class="snippet-text">These companies have ICE contracts, fund deportations, and bankroll billionaires.
+
+We have receipts. And cancel buttons.
+
+cancelfriday.com
+#CancelFriday #SaltTheEarth</span>
+                    </div>
+                </div>
+            </div>
+
             <div class="share-hashtags">#CancelFriday #SaltTheEarth</div>
+        </section>
+
+        <!-- Receipts Badge Section -->
+        <section class="receipts-section">
+            <div class="receipts-title">ALREADY CANCELLED SOMETHING?</div>
+            <div class="receipts-subtitle">Show off what you've dropped. Your badge. Your receipts.</div>
+            <button class="receipts-btn" onclick="openBadgeModal()">SHOW YOUR RECEIPTS →</button>
         </section>
 
         <!-- Footer -->
@@ -2084,6 +2605,105 @@
                     <button class="modal-btn secondary" onclick="copyStory()">Copy</button>
                 </div>
                 <button class="modal-btn close-btn" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Badge Generator Modal -->
+    <div class="badge-modal" id="badge-modal">
+        <div class="badge-modal-content">
+            <button class="badge-modal-close" onclick="closeBadgeModal()">✕</button>
+            <div class="badge-modal-header">
+                <div class="badge-modal-title">SHOW YOUR RECEIPTS</div>
+                <div class="badge-modal-subtitle">Check the ones you've already dropped</div>
+            </div>
+            <div class="badge-checklist" id="badge-checklist">
+                <label class="badge-checkbox-item" data-id="prime" data-name="Amazon Prime" data-price="14.99">
+                    <input type="checkbox" onchange="updateBadgePreview()">
+                    <span class="badge-checkbox-box">✓</span>
+                    <span class="badge-checkbox-label">Amazon Prime</span>
+                </label>
+                <label class="badge-checkbox-item" data-id="netflix" data-name="Netflix" data-price="15.49">
+                    <input type="checkbox" onchange="updateBadgePreview()">
+                    <span class="badge-checkbox-box">✓</span>
+                    <span class="badge-checkbox-label">Netflix</span>
+                </label>
+                <label class="badge-checkbox-item" data-id="youtube" data-name="YouTube Premium" data-price="13.99">
+                    <input type="checkbox" onchange="updateBadgePreview()">
+                    <span class="badge-checkbox-box">✓</span>
+                    <span class="badge-checkbox-label">YouTube Premium</span>
+                </label>
+                <label class="badge-checkbox-item" data-id="spotify" data-name="Spotify Premium" data-price="11.99">
+                    <input type="checkbox" onchange="updateBadgePreview()">
+                    <span class="badge-checkbox-box">✓</span>
+                    <span class="badge-checkbox-label">Spotify Premium</span>
+                </label>
+                <label class="badge-checkbox-item" data-id="chatgpt" data-name="ChatGPT Plus" data-price="20.00">
+                    <input type="checkbox" onchange="updateBadgePreview()">
+                    <span class="badge-checkbox-box">✓</span>
+                    <span class="badge-checkbox-label">ChatGPT Plus</span>
+                </label>
+                <label class="badge-checkbox-item" data-id="disney" data-name="Disney+" data-price="13.99">
+                    <input type="checkbox" onchange="updateBadgePreview()">
+                    <span class="badge-checkbox-box">✓</span>
+                    <span class="badge-checkbox-label">Disney+</span>
+                </label>
+                <label class="badge-checkbox-item" data-id="hulu" data-name="Hulu" data-price="17.99">
+                    <input type="checkbox" onchange="updateBadgePreview()">
+                    <span class="badge-checkbox-box">✓</span>
+                    <span class="badge-checkbox-label">Hulu</span>
+                </label>
+                <label class="badge-checkbox-item" data-id="max" data-name="Max" data-price="15.99">
+                    <input type="checkbox" onchange="updateBadgePreview()">
+                    <span class="badge-checkbox-box">✓</span>
+                    <span class="badge-checkbox-label">Max</span>
+                </label>
+                <label class="badge-checkbox-item" data-id="appletv" data-name="Apple TV+" data-price="9.99">
+                    <input type="checkbox" onchange="updateBadgePreview()">
+                    <span class="badge-checkbox-box">✓</span>
+                    <span class="badge-checkbox-label">Apple TV+</span>
+                </label>
+                <label class="badge-checkbox-item" data-id="paramount" data-name="Paramount+" data-price="11.99">
+                    <input type="checkbox" onchange="updateBadgePreview()">
+                    <span class="badge-checkbox-box">✓</span>
+                    <span class="badge-checkbox-label">Paramount+</span>
+                </label>
+                <label class="badge-checkbox-item" data-id="uber" data-name="Uber One" data-price="9.99">
+                    <input type="checkbox" onchange="updateBadgePreview()">
+                    <span class="badge-checkbox-box">✓</span>
+                    <span class="badge-checkbox-label">Uber One</span>
+                </label>
+                <label class="badge-checkbox-item" data-id="doordash" data-name="DashPass" data-price="9.99">
+                    <input type="checkbox" onchange="updateBadgePreview()">
+                    <span class="badge-checkbox-box">✓</span>
+                    <span class="badge-checkbox-label">DashPass</span>
+                </label>
+            </div>
+            <div class="badge-preview-section">
+                <div class="badge-preview-label">Live Preview</div>
+                <div class="badge-preview-wrapper">
+                    <div class="badge-content" id="badge-content">
+                        <div class="badge-header">
+                            <div class="badge-logo">SALT</div>
+                            <div class="badge-acronym">Subscribers Against Lawless Tyranny</div>
+                        </div>
+                        <div class="badge-tagline">I CUT THEM OFF.</div>
+                        <div class="badge-list" id="badge-list">
+                            <div class="badge-empty-state" id="badge-empty">Select at least one to generate your badge.</div>
+                        </div>
+                        <div class="badge-impact" id="badge-impact" style="display: none;">
+                            <div class="badge-impact-amount" id="badge-impact-amount">$0/mo · $0/yr GONE</div>
+                        </div>
+                        <div class="badge-footer">
+                            <div class="badge-url">CANCELFRIDAY.COM</div>
+                            <div class="badge-hashtags">#CancelFriday #SaltTheEarth</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="badge-actions">
+                <button class="badge-action-btn primary" id="badge-save-btn" onclick="saveBadge()" disabled>Save Image</button>
+                <button class="badge-action-btn secondary" id="badge-copy-btn" onclick="copyBadge()" disabled>Copy</button>
             </div>
         </div>
     </div>
@@ -3490,6 +4110,41 @@
             document.querySelectorAll('.banner-count-num').forEach(el => {
                 el.textContent = bannerCount.toLocaleString();
             });
+
+            // Update leaderboard snippets with real data
+            updateLeaderboardSnippets(sortedCandidates);
+        }
+
+        function updateLeaderboardSnippets(sortedCandidates) {
+            const top3 = sortedCandidates.slice(0, 3);
+            const c1 = top3[0] || { name: 'TBD', vote_count: 0 };
+            const c2 = top3[1] || { name: 'TBD', vote_count: 0 };
+            const c3 = top3[2] || { name: 'TBD', vote_count: 0 };
+
+            // Dynamic snippets with vote counts
+            const snippetLeaderboard = document.querySelector('#snippet-leaderboard .snippet-text');
+            if (snippetLeaderboard) {
+                snippetLeaderboard.textContent = `Cancel Friday Leaderboard:
+🥇 ${c1.name} — ${c1.vote_count.toLocaleString()} votes
+🥈 ${c2.name} — ${c2.vote_count.toLocaleString()} votes
+🥉 ${c3.name} — ${c3.vote_count.toLocaleString()} votes
+
+Vote now → cancelfriday.com
+#CancelFriday #SaltTheEarth`;
+            }
+
+            const snippetRace = document.querySelector('#snippet-race .snippet-text');
+            if (snippetRace) {
+                snippetRace.textContent = `It's a close race 👀
+
+${c1.name}: ${c1.vote_count.toLocaleString()}
+${c2.name}: ${c2.vote_count.toLocaleString()}
+${c3.name}: ${c3.vote_count.toLocaleString()}
+
+Which one gets canceled Friday? You decide.
+cancelfriday.com #CancelFriday`;
+            }
+            // Other snippets (explainer, simple, question, receipts) are static - no updates needed
         }
 
         function renderStoryData(winner, leader) {
@@ -3681,6 +4336,126 @@
                 showToast('Copy failed. Try Save instead.', true);
             }
         }
+
+        function copySnippet(element) {
+            const textEl = element.querySelector('.snippet-text');
+            if (textEl) {
+                navigator.clipboard.writeText(textEl.textContent)
+                    .then(() => showToast('Copied to clipboard!'))
+                    .catch(() => showToast('Copy failed', true));
+            }
+        }
+
+        // ============================================
+        // BADGE GENERATOR
+        // ============================================
+        function openBadgeModal() {
+            document.getElementById('badge-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeBadgeModal() {
+            document.getElementById('badge-modal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function updateBadgePreview() {
+            const checklist = document.getElementById('badge-checklist');
+            const items = checklist.querySelectorAll('.badge-checkbox-item');
+            const selected = [];
+
+            items.forEach(item => {
+                const checkbox = item.querySelector('input');
+                if (checkbox.checked) {
+                    item.classList.add('checked');
+                    selected.push({
+                        id: item.dataset.id,
+                        name: item.dataset.name,
+                        price: parseFloat(item.dataset.price)
+                    });
+                } else {
+                    item.classList.remove('checked');
+                }
+            });
+
+            const badgeList = document.getElementById('badge-list');
+            const badgeEmpty = document.getElementById('badge-empty');
+            const badgeImpact = document.getElementById('badge-impact');
+            const badgeImpactAmount = document.getElementById('badge-impact-amount');
+            const saveBtn = document.getElementById('badge-save-btn');
+            const copyBtn = document.getElementById('badge-copy-btn');
+
+            if (selected.length === 0) {
+                badgeList.innerHTML = '<div class="badge-empty-state" id="badge-empty">Select at least one to generate your badge.</div>';
+                badgeImpact.style.display = 'none';
+                saveBtn.disabled = true;
+                copyBtn.disabled = true;
+            } else {
+                const listHTML = selected.map(s =>
+                    `<div class="badge-list-item"><span class="x-mark">✕</span> ${s.name.toUpperCase()}</div>`
+                ).join('');
+                badgeList.innerHTML = listHTML;
+
+                const monthly = selected.reduce((sum, s) => sum + s.price, 0);
+                const annual = monthly * 12;
+                badgeImpactAmount.textContent = `$${monthly.toFixed(2)}/mo · $${annual.toFixed(0)}/yr GONE`;
+                badgeImpact.style.display = 'block';
+
+                saveBtn.disabled = false;
+                copyBtn.disabled = false;
+            }
+        }
+
+        async function getBadgeBlob() {
+            const content = document.getElementById('badge-content');
+            const canvas = await html2canvas(content, {
+                scale: 4,
+                backgroundColor: '#0a0a0a',
+                logging: false,
+                useCORS: true
+            });
+            return new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+        }
+
+        async function saveBadge() {
+            try {
+                const blob = await getBadgeBlob();
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'salt-receipts.png';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showToast('Badge saved!');
+            } catch (err) {
+                console.error('Save error:', err);
+                showToast('Save failed. Try again.', true);
+            }
+        }
+
+        async function copyBadge() {
+            try {
+                const blob = await getBadgeBlob();
+                await navigator.clipboard.write([
+                    new ClipboardItem({ 'image/png': blob })
+                ]);
+                showToast('Copied! Paste anywhere.');
+            } catch (err) {
+                showToast('Copy failed. Try Save instead.', true);
+            }
+        }
+
+        // Close badge modal on escape or background click
+        document.addEventListener('DOMContentLoaded', () => {
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape') closeBadgeModal();
+            });
+            document.getElementById('badge-modal').addEventListener('click', e => {
+                if (e.target.id === 'badge-modal') closeBadgeModal();
+            });
+        });
 
         function showToast(message, isError = false) {
             const toast = document.getElementById('toast');
