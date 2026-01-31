@@ -1112,28 +1112,40 @@
             letter-spacing: 0.05em;
         }
 
-        /* Shareable Banners */
+        /* Shareable Banners - Instagram Story Size (9:16) */
         .banners-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            display: flex;
             gap: 1.5rem;
-            max-width: 1000px;
+            justify-content: center;
+            max-width: 100%;
             margin: 0 auto 2rem;
+            overflow-x: auto;
+            padding: 1rem;
+            -webkit-overflow-scrolling: touch;
         }
 
         @media (max-width: 800px) {
             .banners-grid {
-                grid-template-columns: 1fr;
-                max-width: 320px;
+                justify-content: flex-start;
+                padding-left: 2rem;
+                padding-right: 2rem;
             }
         }
 
         .share-banner {
             background: var(--black);
             border: 2px solid rgba(255,255,255,0.2);
-            padding: 2rem 1.5rem;
+            padding: 2.5rem 1.5rem;
             text-align: center;
             position: relative;
+            /* 9:16 aspect ratio for Instagram stories */
+            width: 202px;
+            min-width: 202px;
+            height: 360px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-sizing: border-box;
         }
 
         .share-banner.vibe-power {
@@ -1153,34 +1165,47 @@
 
         .banner-logo {
             font-family: 'Black Ops One', cursive;
-            font-size: 1.5rem;
+            font-size: 2rem;
             color: var(--salt);
             text-shadow: 2px 2px 0 var(--red);
             letter-spacing: 0.05em;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .banner-headline {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(1.3rem, 3vw, 1.6rem);
+            font-size: 1.4rem;
             line-height: 1.2;
             color: var(--white);
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
         }
 
         .banner-subtext {
             font-size: 0.7rem;
             line-height: 1.5;
             opacity: 0.7;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .banner-cta {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: var(--orange);
             letter-spacing: 0.1em;
             margin-bottom: 1rem;
+        }
+
+        .banner-count {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            color: var(--orange);
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+
+        .banner-count-num {
+            font-size: 1.4rem;
+            font-weight: bold;
         }
 
         .banner-hashtag {
@@ -1822,6 +1847,7 @@
                 <div class="share-banner vibe-power" id="banner-1">
                     <div class="banner-logo">SALT</div>
                     <div class="banner-headline">THEY CAN'T IGNORE ALL OF US</div>
+                    <div class="banner-count"><span class="banner-count-num">0</span> COMMITTED</div>
                     <div class="banner-subtext">Thousands canceling on the same day is a crisis. We vote. We cancel. Together.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-hashtag">#CancelFriday #SaltTheEarth</div>
@@ -1836,6 +1862,7 @@
                 <div class="share-banner vibe-crisis" id="banner-2">
                     <div class="banner-logo">SALT</div>
                     <div class="banner-headline">THE GOVERNMENT WON'T LISTEN. CORPORATIONS WILL.</div>
+                    <div class="banner-count"><span class="banner-count-num">0</span> COMMITTED</div>
                     <div class="banner-subtext">We can live without streaming. They can't live without us. Hit them where it hurts.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-hashtag">#CancelFriday #SaltTheEarth</div>
@@ -1850,6 +1877,7 @@
                 <div class="share-banner vibe-friday" id="banner-3">
                     <div class="banner-logo">SALT</div>
                     <div class="banner-headline">EVERY FRIDAY AT NOON. ONE COMPANY. ALL OF US.</div>
+                    <div class="banner-count"><span class="banner-count-num">0</span> COMMITTED</div>
                     <div class="banner-subtext">Vote for the target. Cancel together. Repeat until they hear us.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-hashtag">#CancelFriday #SaltTheEarth</div>
@@ -2104,9 +2132,12 @@
             'doordash': 9.99
         };
 
-        const IMPACT_THRESHOLDS = [100, 500, 1000, 5000, 10000, 25000, 50000, 100000];
+        const IMPACT_THRESHOLDS = [100, 500, 1000, 2000, 5000, 10000, 25000, 50000, 100000];
 
         function formatCurrency(amount) {
+            if (amount >= 1000000) {
+                return '$' + (amount / 1000000).toFixed(1) + 'M';
+            }
             return new Intl.NumberFormat('en-US', {
                 style: 'currency',
                 currency: 'USD',
@@ -2140,7 +2171,10 @@
         }
 
         function getNextThreshold(currentCommits) {
-            return IMPACT_THRESHOLDS.find(t => t > currentCommits) || IMPACT_THRESHOLDS[IMPACT_THRESHOLDS.length - 1];
+            // Find the next threshold above current commits
+            const next = IMPACT_THRESHOLDS.find(t => t > currentCommits);
+            // If we've passed all thresholds, return current (no projection needed)
+            return next || currentCommits;
         }
 
         function calculateProjectedImpact(targetId, threshold) {
@@ -3220,6 +3254,11 @@
                 document.getElementById('participants-count').textContent = currentWeek.commitment_count.toLocaleString();
                 participantsLabel.textContent = 'people committed';
 
+                // Update banner counts
+                document.querySelectorAll('.banner-count-num').forEach(el => {
+                    el.textContent = currentWeek.commitment_count.toLocaleString();
+                });
+
                 actionButtons.style.display = 'flex';
                 statusNote.style.display = 'block';
 
@@ -3336,11 +3375,11 @@
                     storyCommitted.style.display = 'inline-block';
                 }
             } else {
-                // VOTING phase
+                // VOTING phase - show commitment count, not votes
                 storyAction.textContent = 'I\'m voting to cancel';
-                const totalVotes = candidates.reduce((sum, c) => sum + c.vote_count, 0);
-                if (totalVotes >= 10) {
-                    storyCommitted.textContent = `${totalVotes.toLocaleString()} votes cast`;
+                const commitCount = currentWeek.commitment_count || 0;
+                if (commitCount >= 10) {
+                    storyCommitted.textContent = `${commitCount.toLocaleString()} committed`;
                     storyCommitted.style.display = 'inline-block';
                 } else {
                     storyCommitted.textContent = 'Join the first wave';
@@ -3409,9 +3448,13 @@
             actions.style.display = 'none';
 
             try {
+                // Capture at Instagram story resolution (1080x1920)
+                // Scale factor: 1080 / 202 ≈ 5.35
                 const canvas = await html2canvas(banner, {
                     backgroundColor: '#0a0a0a',
-                    scale: 2
+                    scale: 5.35,
+                    width: 202,
+                    height: 360
                 });
 
                 actions.style.display = 'flex';
