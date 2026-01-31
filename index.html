@@ -3103,7 +3103,10 @@
             const banner = document.getElementById('projected-banner');
 
             if ((phase === 'VOTING' || phase === 'TARGET_LOCKED') && leader) {
-                const commitCount = currentWeek.commitment_count || 0;
+                // During voting: show total votes. After target locked: show winner's votes only
+                const commitCount = phase === 'VOTING'
+                    ? (currentWeek.commitment_count || 0)
+                    : (leader.vote_count || 0);
                 const nextThreshold = getNextThreshold(commitCount);
                 const projected = calculateProjectedImpact(leader.id, nextThreshold);
                 const leaderData = CANDIDATES.find(c => c.id === leader.id);
@@ -3324,8 +3327,9 @@
                 statusNote.textContent = 'Next week\'s voting opens Monday.';
             }
 
-            // Always update banner counts regardless of phase
-            const bannerCount = currentWeek.commitment_count || 0;
+            // Update banner counts - show winner's votes after target locks, total during voting
+            const winner = phase !== 'VOTING' ? getWinner() : null;
+            const bannerCount = winner ? (winner.vote_count || 0) : (currentWeek.commitment_count || 0);
             document.querySelectorAll('.banner-count-num').forEach(el => {
                 el.textContent = bannerCount.toLocaleString();
             });
@@ -3372,7 +3376,8 @@
                 }
             } else if (phase === 'TARGET_LOCKED') {
                 storyAction.textContent = 'I\'m canceling';
-                const count = currentWeek.commitment_count || 0;
+                // Show winner's vote count only
+                const count = winner ? (winner.vote_count || 0) : 0;
                 if (count >= 10) {
                     storyCommitted.textContent = `${count.toLocaleString()} committed`;
                     storyCommitted.style.display = 'inline-block';
@@ -3381,7 +3386,7 @@
                     storyCommitted.style.display = 'inline-block';
                 }
             } else {
-                // VOTING phase - show commitment count, not votes
+                // VOTING phase - show total votes
                 storyAction.textContent = 'I\'m voting to cancel';
                 const commitCount = currentWeek.commitment_count || 0;
                 if (commitCount >= 10) {
@@ -3396,7 +3401,10 @@
             // Add projected impact to story
             const storyImpact = document.getElementById('story-impact');
             if (storyCandidate) {
-                const commitCount = currentWeek.commitment_count || 0;
+                // Use winner's count after target locked, total during voting
+                const commitCount = (phase !== 'VOTING' && winner)
+                    ? (winner.vote_count || 0)
+                    : (currentWeek.commitment_count || 0);
                 const nextThreshold = getNextThreshold(commitCount);
                 const projected = calculateProjectedImpact(storyCandidate.id, nextThreshold);
                 storyImpact.textContent = `At ${nextThreshold.toLocaleString()}, that's ${projected.annual}/year gone`;
