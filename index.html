@@ -1688,7 +1688,7 @@
             </p>
             <div class="mission-steps">VOTE = COMMIT</div>
             <p class="mission-text" style="margin-top: 0.5rem;">
-                Pick the subscription you'll cancel Friday. Your vote is your pledge.<br>The most-voted company wins. If yours wins, you cancel.
+                Choose what you'll drop. Your vote is your pledge.<br>Friday at noon, we move as one.
             </p>
             <div class="mission-tagline" style="margin-top: 1rem; color: var(--orange);">We can live without streaming. They can't live without us.</div>
         </section>
@@ -1842,7 +1842,7 @@
                 <div class="share-banner vibe-power" id="banner-1">
                     <div class="banner-logo">SALT</div>
                     <div class="banner-headline">THEY CAN'T IGNORE ALL OF US</div>
-                    <div class="banner-count"><span class="banner-count-num">0</span> COMMITTED</div>
+                    <div class="banner-count"><span class="banner-count-num">0</span> VOTING</div>
                     <div class="banner-subtext">Thousands canceling on the same day is a crisis. We vote. We cancel. Together.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-hashtag">#CancelFriday #SaltTheEarth</div>
@@ -1857,7 +1857,7 @@
                 <div class="share-banner vibe-crisis" id="banner-2">
                     <div class="banner-logo">SALT</div>
                     <div class="banner-headline">THE GOVERNMENT WON'T LISTEN. CORPORATIONS WILL.</div>
-                    <div class="banner-count"><span class="banner-count-num">0</span> COMMITTED</div>
+                    <div class="banner-count"><span class="banner-count-num">0</span> VOTING</div>
                     <div class="banner-subtext">We can live without streaming. They can't live without us. Hit them where it hurts.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-hashtag">#CancelFriday #SaltTheEarth</div>
@@ -1872,7 +1872,7 @@
                 <div class="share-banner vibe-friday" id="banner-3">
                     <div class="banner-logo">SALT</div>
                     <div class="banner-headline">EVERY FRIDAY AT NOON. ONE COMPANY. ALL OF US.</div>
-                    <div class="banner-count"><span class="banner-count-num">0</span> COMMITTED</div>
+                    <div class="banner-count"><span class="banner-count-num">0</span> VOTING</div>
                     <div class="banner-subtext">Vote for the target. Cancel together. Repeat until they hear us.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-hashtag">#CancelFriday #SaltTheEarth</div>
@@ -3226,30 +3226,26 @@
                 if (userVotedFor) {
                     const votedCandidate = candidates.find(c => c.id === userVotedFor);
                     const sorted = [...candidates].sort((a, b) => b.vote_count - a.vote_count);
-                    const isWinning = sorted[0]?.id === userVotedFor;
                     const leaderCandidate = sorted[0];
+                    const leaderData = CANDIDATES.find(c => c.id === leaderCandidate?.id);
 
                     const voteSummary = document.getElementById('vote-summary');
                     const voteSummaryText = document.getElementById('vote-summary-text');
                     const voteComparison = document.getElementById('vote-comparison');
                     const changeVoteBtn = document.getElementById('change-vote-btn');
 
-                    if (isWinning) {
-                        // Your company is winning
-                        targetLabel.textContent = 'YOU\'RE CANCELING';
-                        const voteCount = votedCandidate?.vote_count || 0;
-                        const nextThreshold = getNextThreshold(voteCount);
-                        const projected = calculateProjectedImpact(userVotedFor, nextThreshold);
-                        voteSummaryText.innerHTML = `You're canceling <strong>${votedCandidate?.name}</strong> Friday at noon.<br>${(voteCount - 1).toLocaleString()} others are in. At ${nextThreshold.toLocaleString()}, that's ${projected.annual}/year gone.`;
-                    } else {
-                        // Your company is losing
-                        targetLabel.textContent = 'YOUR VOTE';
-                        const rank = sorted.findIndex(c => c.id === userVotedFor) + 1;
-                        voteSummaryText.innerHTML = `You voted <strong>${votedCandidate?.name}</strong>. Currently #${rank}.<br><strong>${leaderCandidate?.name}</strong> is ahead with ${leaderCandidate?.vote_count.toLocaleString()} votes. Rally others or switch.`;
-                    }
+                    // Always show current leader info
+                    targetLabel.textContent = 'CURRENT LEADER';
+                    const leaderVotes = leaderCandidate?.vote_count || 0;
+                    const nextThreshold = getNextThreshold(leaderVotes);
+                    const projected = calculateProjectedImpact(leaderCandidate?.id, nextThreshold);
 
-                    voteComparison.innerHTML = sorted.slice(0, 3).map(c => `<span>${c.name}: <strong>${c.vote_count.toLocaleString()}</strong></span>`).join('');
+                    voteSummaryText.innerHTML = `<strong style="font-size: 1.1rem;">${leaderCandidate?.name?.toUpperCase()}</strong><br>${leaderVotes.toLocaleString()} votes · At ${nextThreshold.toLocaleString()}, that's ${projected.annual}/year gone`;
+
+                    // Show user's vote
+                    voteComparison.innerHTML = `You voted <strong>${votedCandidate?.name}</strong>`;
                     changeVoteBtn.style.display = 'inline-block';
+                    changeVoteBtn.textContent = 'Change vote →';
                     changeVoteBtn.onclick = changeVote;
                     voteSummary.style.display = 'block';
 
