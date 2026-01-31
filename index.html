@@ -2638,10 +2638,8 @@
                 currentWeek = {
                     ...WEEK_DATA,
                     week_number: weekData.week_number,
-                    drop_time: weekData.drop_time,
-                    commitment_count: weekData.participant_count || 0
+                    drop_time: weekData.drop_time
                 };
-                console.log('Loaded commitment_count:', weekData.participant_count);
 
                 // Load candidates
                 const { data: candidatesData, error: candidatesError } = await supabaseClient
@@ -2651,6 +2649,9 @@
 
                 if (candidatesError) throw candidatesError;
                 candidates = candidatesData;
+
+                // Commitment count = total votes (voting IS committing)
+                currentWeek.commitment_count = candidates.reduce((sum, c) => sum + (c.vote_count || 0), 0);
 
                 // Check user's actions
                 const { data: actionsData } = await supabaseClient
@@ -2673,7 +2674,8 @@
                         table: 'weeks',
                         filter: `week_number=eq.${weekData.week_number}`
                     }, (payload) => {
-                        currentWeek.commitment_count = payload.new.participant_count;
+                        // Keep for confirmed_count updates after drop time
+                        currentWeek.confirmed_count = payload.new.confirmed_count;
                         render();
                     })
                     .on('postgres_changes', {
@@ -2685,6 +2687,8 @@
                         const idx = candidates.findIndex(c => c.id === payload.new.id);
                         if (idx !== -1) {
                             candidates[idx] = payload.new;
+                            // Recalculate commitment count from total votes
+                            currentWeek.commitment_count = candidates.reduce((sum, c) => sum + (c.vote_count || 0), 0);
                             render();
                         }
                     })
