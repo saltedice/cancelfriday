@@ -3127,7 +3127,7 @@
                     const actualImpact = calculateRevenueLost(leader.id, winnerVotes);
 
                     document.getElementById('projected-headline').textContent = `${winnerVotes.toLocaleString()} canceling ${targetName} Friday`;
-                    document.getElementById('projected-projection').innerHTML = `That's <strong>${actualImpact.annual}/year</strong> gone.`;
+                    document.getElementById('projected-projection').innerHTML = `That's <strong>${actualImpact.formatted.annual}/year</strong> gone.`;
                     document.getElementById('projected-progress').style.width = '100%';
                     document.getElementById('projected-cta').textContent = 'Share to grow the movement';
                 }
@@ -3408,7 +3408,7 @@
                     // Target locked: show actual impact
                     const winnerVotes = winner.vote_count || 0;
                     const actualImpact = calculateRevenueLost(storyCandidate.id, winnerVotes);
-                    storyImpact.textContent = `${winnerVotes.toLocaleString()} cancellations = ${actualImpact.annual}/year`;
+                    storyImpact.textContent = `${winnerVotes.toLocaleString()} cancellations = ${actualImpact.formatted.annual}/year`;
                 }
                 storyImpact.style.display = 'block';
             } else {
