@@ -1050,52 +1050,65 @@
         </footer>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         // ============================================
-        // COMMUNITY SUGGESTIONS (localStorage for demo)
+        // SUPABASE CONFIG
         // ============================================
-        const STORAGE_KEY = 'salt_suggestions_v1';
+        const SUPABASE_URL = 'https://nwrehybllhhqocyxtanf.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53cmVoeWJsbGhocW9jeXh0YW5mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk1NzAxNjksImV4cCI6MjA4NTE0NjE2OX0.EHFci8UuWxriFBA8kfluJewDlGgjcsNm2s6oMWnchwg';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Track votes locally (no user accounts)
         const VOTE_KEY = 'salt_suggestion_votes_v1';
 
-        const DEFAULT_SUGGESTIONS = [
-            { id: 1, company: 'Meta (Instagram/WhatsApp)', reason: 'Zuckerberg met with Trump at Mar-a-Lago, donated $1M to inauguration, removed fact-checking on Facebook', votes: 47 },
-            { id: 2, company: 'X Premium (Twitter)', reason: 'Elon Musk is literally in the administration (DOGE). X amplifies anti-immigrant content and reinstated banned accounts', votes: 39 },
-            { id: 3, company: 'Microsoft (Xbox Game Pass)', reason: 'Azure cloud powers ICE systems, $19.4B contract with US military, GitHub Copilot trains on open source without consent', votes: 22 },
-            { id: 4, company: 'Walmart+ (Walmart)', reason: 'Donated to Trump inauguration, largest private employer with history of exploiting immigrant labor, anti-union practices', votes: 15 },
-        ];
-
-        function getSuggestions() {
-            const stored = localStorage.getItem(STORAGE_KEY);
-            if (stored) return JSON.parse(stored);
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_SUGGESTIONS));
-            return DEFAULT_SUGGESTIONS;
-        }
-
-        function saveSuggestions(suggestions) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(suggestions));
-        }
-
-        function getVotes() {
+        function getLocalVotes() {
             const stored = localStorage.getItem(VOTE_KEY);
             return stored ? JSON.parse(stored) : [];
         }
 
-        function saveVotes(votes) {
+        function saveLocalVotes(votes) {
             localStorage.setItem(VOTE_KEY, JSON.stringify(votes));
         }
 
-        function renderSuggestions() {
-            const suggestions = getSuggestions().sort((a, b) => b.votes - a.votes);
-            const votes = getVotes();
+        // ============================================
+        // LOAD & RENDER SUGGESTIONS
+        // ============================================
+        async function loadSuggestions() {
             const list = document.getElementById('suggest-list');
+            list.innerHTML = '<div style="opacity: 0.5; padding: 1rem;">Loading suggestions...</div>';
+
+            try {
+                const { data, error } = await supabase
+                    .from('suggestions')
+                    .select('*')
+                    .order('votes', { ascending: false });
+
+                if (error) throw error;
+
+                renderSuggestions(data || []);
+            } catch (err) {
+                console.error('Failed to load suggestions:', err);
+                list.innerHTML = '<div style="opacity: 0.5; padding: 1rem;">Failed to load suggestions</div>';
+            }
+        }
+
+        function renderSuggestions(suggestions) {
+            const votes = getLocalVotes();
+            const list = document.getElementById('suggest-list');
+
+            if (suggestions.length === 0) {
+                list.innerHTML = '<div style="opacity: 0.5; padding: 1rem;">No suggestions yet. Be the first!</div>';
+                return;
+            }
 
             list.innerHTML = suggestions.map(s => {
                 const hasVoted = votes.includes(s.id);
                 return `
                     <div class="suggest-item">
                         <div class="suggest-item-info">
-                            <div class="suggest-item-name">${s.company}</div>
-                            <div class="suggest-item-reason">${s.reason}</div>
+                            <div class="suggest-item-name">${escapeHtml(s.company)}</div>
+                            <div class="suggest-item-reason">${escapeHtml(s.reason)}</div>
                         </div>
                         <div class="suggest-item-votes">
                             <span class="suggest-vote-count">${s.votes} votes</span>
@@ -1110,49 +1123,83 @@
             }).join('');
         }
 
-        function voteSuggestion(id) {
-            const suggestions = getSuggestions();
-            const votes = getVotes();
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
 
+        // ============================================
+        // VOTE FOR SUGGESTION
+        // ============================================
+        async function voteSuggestion(id) {
+            const votes = getLocalVotes();
             if (votes.includes(id)) return;
 
-            const suggestion = suggestions.find(s => s.id === id);
-            if (suggestion) {
-                suggestion.votes++;
-                saveSuggestions(suggestions);
+            try {
+                // Increment vote in Supabase
+                const { data, error } = await supabase.rpc('increment_suggestion_vote', { suggestion_id: id });
+
+                if (error) throw error;
+
+                // Track locally
                 votes.push(id);
-                saveVotes(votes);
-                renderSuggestions();
+                saveLocalVotes(votes);
+
+                // Reload
+                loadSuggestions();
+            } catch (err) {
+                console.error('Vote failed:', err);
+                alert('Failed to vote. Please try again.');
             }
         }
 
-        function submitSuggestion(e) {
+        // ============================================
+        // SUBMIT NEW SUGGESTION
+        // ============================================
+        async function submitSuggestion(e) {
             e.preventDefault();
             const company = document.getElementById('suggest-company').value.trim();
             const reason = document.getElementById('suggest-reason').value.trim();
 
             if (!company || !reason) return;
 
-            const suggestions = getSuggestions();
-            const newId = Math.max(...suggestions.map(s => s.id), 0) + 1;
-            suggestions.push({ id: newId, company, reason, votes: 1 });
-            saveSuggestions(suggestions);
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.textContent = 'Submitting...';
 
-            const votes = getVotes();
-            votes.push(newId);
-            saveVotes(votes);
+            try {
+                const { data, error } = await supabase
+                    .from('suggestions')
+                    .insert([{ company, reason, votes: 1 }])
+                    .select()
+                    .single();
 
-            document.getElementById('suggest-form').reset();
-            document.getElementById('form-success').style.display = 'block';
-            setTimeout(() => {
-                document.getElementById('form-success').style.display = 'none';
-            }, 4000);
+                if (error) throw error;
 
-            renderSuggestions();
+                // Track as voted locally
+                const votes = getLocalVotes();
+                votes.push(data.id);
+                saveLocalVotes(votes);
+
+                document.getElementById('suggest-form').reset();
+                document.getElementById('form-success').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('form-success').style.display = 'none';
+                }, 4000);
+
+                loadSuggestions();
+            } catch (err) {
+                console.error('Submit failed:', err);
+                alert('Failed to submit. Please try again.');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'SUBMIT SUGGESTION';
+            }
         }
 
         // Init
-        renderSuggestions();
+        loadSuggestions();
     </script>
 </body>
 </html>
