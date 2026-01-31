@@ -3254,11 +3254,6 @@
                 document.getElementById('participants-count').textContent = currentWeek.commitment_count.toLocaleString();
                 participantsLabel.textContent = 'people committed';
 
-                // Update banner counts
-                document.querySelectorAll('.banner-count-num').forEach(el => {
-                    el.textContent = currentWeek.commitment_count.toLocaleString();
-                });
-
                 actionButtons.style.display = 'flex';
                 statusNote.style.display = 'block';
 
@@ -3323,6 +3318,11 @@
                 statusNote.style.display = 'block';
                 statusNote.textContent = 'Next week\'s voting opens Monday.';
             }
+
+            // Always update banner counts regardless of phase
+            document.querySelectorAll('.banner-count-num').forEach(el => {
+                el.textContent = currentWeek.commitment_count.toLocaleString();
+            });
         }
 
         function renderSaltedList() {
