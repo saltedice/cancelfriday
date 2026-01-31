@@ -3011,7 +3011,12 @@
             const maxVotes = Math.max(...candidates.map(c => c.vote_count), 1);
             const canVote = phase === 'VOTING' && !userVotedFor;
 
-            grid.innerHTML = sortedCandidates.slice(0, 12).map((c, i) => {
+            // After voting closes, only show the winner prominently
+            const cardsToShow = (phase !== 'VOTING' && winner)
+                ? sortedCandidates.filter(c => c.id === winner.id)
+                : sortedCandidates.slice(0, 12);
+
+            grid.innerHTML = cardsToShow.map((c, i) => {
                 const pct = totalVotes > 0 ? Math.round((c.vote_count / maxVotes) * 100) : 0;
                 const isVoted = userVotedFor === c.id;
                 const isSelected = selectedCandidate === c.id;
@@ -3214,25 +3219,36 @@
             document.getElementById('cancel-preview').style.display = 'none';
 
             if (phase === 'VOTING') {
-                targetLabel.textContent = userVotedFor ? 'You voted for' : 'Review and cast your vote';
                 dropInfo.style.display = 'none';
                 participantsSection.style.display = 'none';
                 actionButtons.style.display = 'flex';
 
                 if (userVotedFor) {
-                    // Vote summary with social proof
                     const votedCandidate = candidates.find(c => c.id === userVotedFor);
+                    const sorted = [...candidates].sort((a, b) => b.vote_count - a.vote_count);
+                    const isWinning = sorted[0]?.id === userVotedFor;
+                    const leaderCandidate = sorted[0];
+
                     const voteSummary = document.getElementById('vote-summary');
                     const voteSummaryText = document.getElementById('vote-summary-text');
                     const voteComparison = document.getElementById('vote-comparison');
                     const changeVoteBtn = document.getElementById('change-vote-btn');
 
-                    voteSummaryText.innerHTML = `You voted for <strong>${votedCandidate?.name || ''}</strong>. ${votedCandidate && votedCandidate.vote_count > 1 ? (votedCandidate.vote_count - 1).toLocaleString() + ' others agree.' : ''} Share to build momentum.`;
+                    if (isWinning) {
+                        // Your company is winning
+                        targetLabel.textContent = 'YOU\'RE CANCELING';
+                        const voteCount = votedCandidate?.vote_count || 0;
+                        const nextThreshold = getNextThreshold(voteCount);
+                        const projected = calculateProjectedImpact(userVotedFor, nextThreshold);
+                        voteSummaryText.innerHTML = `You're canceling <strong>${votedCandidate?.name}</strong> Friday at noon.<br>${(voteCount - 1).toLocaleString()} others are in. At ${nextThreshold.toLocaleString()}, that's ${projected.annual}/year gone.`;
+                    } else {
+                        // Your company is losing
+                        targetLabel.textContent = 'YOUR VOTE';
+                        const rank = sorted.findIndex(c => c.id === userVotedFor) + 1;
+                        voteSummaryText.innerHTML = `You voted <strong>${votedCandidate?.name}</strong>. Currently #${rank}.<br><strong>${leaderCandidate?.name}</strong> is ahead with ${leaderCandidate?.vote_count.toLocaleString()} votes. Rally others or switch.`;
+                    }
 
-                    // Mini comparison
-                    const sorted = [...candidates].sort((a, b) => b.vote_count - a.vote_count).slice(0, 3);
-                    voteComparison.innerHTML = sorted.map(c => `<span>${c.name}: <strong>${c.vote_count.toLocaleString()}</strong></span>`).join('');
-
+                    voteComparison.innerHTML = sorted.slice(0, 3).map(c => `<span>${c.name}: <strong>${c.vote_count.toLocaleString()}</strong></span>`).join('');
                     changeVoteBtn.style.display = 'inline-block';
                     changeVoteBtn.onclick = changeVote;
                     voteSummary.style.display = 'block';
@@ -3243,79 +3259,63 @@
                     cancelSteps.innerHTML = displayCandidate.how.steps.map(s => `<li>${s}</li>`).join('');
                     cancelPreview.style.display = 'block';
 
-                    statusNote.style.display = 'block';
-                    statusNote.textContent = 'Come back Friday to cancel together!';
                     shareBtn.style.display = 'inline-block';
+                    statusNote.style.display = 'none';
                 } else if (selectedCandidate) {
+                    targetLabel.textContent = 'Review and cast your vote';
                     voteBtn.style.display = 'inline-block';
                     voteBtn.disabled = false;
                     voteBtn.textContent = 'VOTE FOR THIS TARGET';
                     voteBtn.onclick = () => voteForCandidate(selectedCandidate);
                     statusNote.style.display = 'none';
+                } else {
+                    targetLabel.textContent = 'Select a company above';
                 }
 
-            } else if (phase === 'TARGET_LOCKED') {
-                targetLabel.textContent = 'THIS FRIDAY\'S TARGET';
+            } else if (phase === 'TARGET_LOCKED' || phase === 'DROP_TIME') {
+                const userVotedForWinner = userVotedFor && winner && userVotedFor === winner.id;
+                const winnerVotes = winner?.vote_count || 0;
+                const actualImpact = winner ? calculateRevenueLost(winner.id, winnerVotes) : null;
+
                 dropInfo.style.display = 'flex';
-                dropLabel.textContent = 'We all cancel at';
-                document.getElementById('drop-date').textContent = formatDropDate(currentWeek.drop_time);
-                document.getElementById('countdown').textContent = formatCountdown(time);
-
                 participantsSection.style.display = 'block';
-                document.getElementById('participants-count').textContent = currentWeek.commitment_count.toLocaleString();
-                participantsLabel.textContent = 'people committed';
-
                 actionButtons.style.display = 'flex';
                 statusNote.style.display = 'block';
 
-                if (userCommittedIn) {
-                    commitBtn.style.display = 'inline-block';
-                    commitBtn.textContent = 'YOU\'RE IN ✓';
-                    commitBtn.disabled = true;
-                    commitBtn.classList.add('committed');
+                if (userVotedForWinner || !userVotedFor) {
+                    // Your company won OR you didn't vote
+                    targetLabel.textContent = 'IT\'S TIME';
+                    dropLabel.textContent = 'Cancel now';
+                    document.getElementById('drop-date').textContent = formatDropDate(currentWeek.drop_time);
+                    document.getElementById('countdown').textContent = phase === 'DROP_TIME' ? 'NOW!' : formatCountdown(time);
+                    document.getElementById('participants-count').textContent = winnerVotes.toLocaleString();
+                    participantsLabel.textContent = 'of us doing this together';
+                    statusNote.textContent = actualImpact ? `That's ${actualImpact.formatted.annual}/year they just lost.` : '';
+
+                    if (phase === 'DROP_TIME') {
+                        if (userConfirmed) {
+                            confirmBtn.style.display = 'inline-block';
+                            confirmBtn.textContent = 'CANCELLED ✓';
+                            confirmBtn.disabled = true;
+                            confirmBtn.classList.add('committed');
+                        } else {
+                            confirmBtn.style.display = 'inline-block';
+                            confirmBtn.textContent = 'I DID IT';
+                            confirmBtn.disabled = false;
+                            confirmBtn.onclick = confirmCancelled;
+                        }
+                    }
                     shareBtn.style.display = 'inline-block';
-                    statusNote.textContent = 'See you at noon!';
                 } else {
-                    commitBtn.style.display = 'inline-block';
-                    commitBtn.textContent = 'I\'M IN';
-                    commitBtn.disabled = false;
-                    commitBtn.onclick = commitToCancel;
-                    dontHaveBtn.style.display = 'inline-block';
-                    dontHaveBtn.onclick = toggleDontHave;
+                    // Your company lost
+                    const votedCandidate = candidates.find(c => c.id === userVotedFor);
+                    const winnerData = CANDIDATES.find(c => c.id === winner.id);
+                    targetLabel.textContent = 'YOU\'RE OFF THE HOOK';
+                    dropInfo.style.display = 'none';
+                    document.getElementById('participants-count').textContent = winnerVotes.toLocaleString();
+                    participantsLabel.textContent = `canceling ${winnerData?.name || 'the winner'}`;
+                    statusNote.innerHTML = `<strong>${winnerData?.name}</strong> won this week. You voted ${votedCandidate?.name} — you're off the hook.<br><br>Want to join anyway? Or hold tight — ${votedCandidate?.name} carries ${votedCandidate?.vote_count.toLocaleString()} votes into next week.`;
                     shareBtn.style.display = 'inline-block';
-                    statusNote.textContent = 'Click "I\'m In" if you have this subscription and will cancel on Friday.';
-                }
-
-            } else if (phase === 'DROP_TIME') {
-                targetLabel.textContent = 'CANCEL NOW';
-                dropInfo.style.display = 'flex';
-                dropLabel.textContent = 'IT\'S TIME';
-                document.getElementById('drop-date').textContent = 'NOW';
-                document.getElementById('countdown').textContent = 'GO!';
-
-                participantsSection.style.display = 'block';
-                document.getElementById('participants-count').textContent = (currentWeek.confirmed_count || 0).toLocaleString();
-                participantsLabel.textContent = 'confirmed cancellations';
-
-                actionButtons.style.display = 'flex';
-                statusNote.style.display = 'block';
-
-                if (userConfirmed) {
-                    confirmBtn.style.display = 'inline-block';
-                    confirmBtn.textContent = 'CANCELLED ✓';
-                    confirmBtn.disabled = true;
-                    confirmBtn.classList.add('committed');
-                    shareBtn.style.display = 'inline-block';
-                    statusNote.textContent = 'You did it! Share your victory.';
-                } else {
-                    confirmBtn.style.display = 'inline-block';
-                    confirmBtn.textContent = 'I DID IT';
-                    confirmBtn.disabled = false;
-                    confirmBtn.onclick = confirmCancelled;
-                    dontHaveBtn.style.display = 'inline-block';
-                    dontHaveBtn.onclick = toggleDontHave;
-                    shareBtn.style.display = 'inline-block';
-                    statusNote.textContent = 'Cancel now, then click "I Did It" to be counted.';
                 }
 
             } else { // AFTER
