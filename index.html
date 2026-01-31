@@ -1887,6 +1887,7 @@
                         <div class="story-datetime" id="story-datetime">FRI JAN 31 • 12PM EST</div>
                         <div class="story-timezone">Together. All at once.</div>
                         <div class="story-committed" id="story-committed"></div>
+                        <div class="story-impact" id="story-impact" style="font-size: 0.55rem; margin-top: 0.5rem; opacity: 0.8;"></div>
                     </div>
                     <div class="story-footer">
                         <div class="story-reason">They can't afford to lose us.</div>
@@ -3345,6 +3346,18 @@
                     storyCommitted.textContent = 'Join the first wave';
                     storyCommitted.style.display = 'inline-block';
                 }
+            }
+
+            // Add projected impact to story
+            const storyImpact = document.getElementById('story-impact');
+            if (storyCandidate) {
+                const commitCount = currentWeek.commitment_count || 0;
+                const nextThreshold = getNextThreshold(commitCount);
+                const projected = calculateProjectedImpact(storyCandidate.id, nextThreshold);
+                storyImpact.textContent = `At ${nextThreshold.toLocaleString()}, that's ${projected.annual}/year gone`;
+                storyImpact.style.display = 'block';
+            } else {
+                storyImpact.style.display = 'none';
             }
         }
 
