@@ -3114,14 +3114,14 @@
                 const targetName = leaderData?.name || leader.name;
 
                 if (phase === 'VOTING') {
-                    // Voting: total votes, project to next threshold
-                    const totalVotes = currentWeek.commitment_count || 0;
-                    const nextThreshold = getNextThreshold(totalVotes);
+                    // Voting: show leader's votes (those committed to cancel THIS company)
+                    const leaderVotes = leader.vote_count || 0;
+                    const nextThreshold = getNextThreshold(leaderVotes);
                     const projected = calculateProjectedImpact(leader.id, nextThreshold);
-                    const remaining = nextThreshold - totalVotes;
-                    const progressPct = Math.min((totalVotes / nextThreshold) * 100, 100);
+                    const remaining = nextThreshold - leaderVotes;
+                    const progressPct = Math.min((leaderVotes / nextThreshold) * 100, 100);
 
-                    document.getElementById('projected-headline').textContent = `${totalVotes.toLocaleString()} committed to cancel ${targetName} Friday`;
+                    document.getElementById('projected-headline').textContent = `${leaderVotes.toLocaleString()} committed to cancel ${targetName} Friday`;
                     document.getElementById('projected-projection').innerHTML = `At <strong>${nextThreshold.toLocaleString()}</strong>, that's <strong>${projected.annual}/year</strong> gone.`;
                     document.getElementById('projected-progress').style.width = `${progressPct}%`;
                     document.getElementById('projected-cta').textContent = `${remaining.toLocaleString()} more to hit ${nextThreshold.toLocaleString()}`;
