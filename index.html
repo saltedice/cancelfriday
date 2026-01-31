@@ -2996,17 +2996,14 @@
             const mainSubtitle = document.getElementById('main-subtitle');
 
             if (phase === 'VOTING') {
-                mainTitle.textContent = 'WHO ARE YOU GOING TO CANCEL?';
-                mainSubtitle.innerHTML = 'Which can you live without? Click for receipts. <a href="why.html" style="color: var(--orange); text-decoration: none;">Why these companies? →</a>';
-            } else if (phase === 'TARGET_LOCKED') {
-                mainTitle.textContent = 'THIS FRIDAY\'S TARGET';
-                mainSubtitle.textContent = 'Voting is closed. Get ready to cancel at noon.';
-            } else if (phase === 'DROP_TIME') {
-                mainTitle.innerHTML = '<span class="now-badge">NOW. CANCEL NOW.</span>';
-                mainSubtitle.textContent = 'The moment is here. Cancel and confirm below.';
+                mainTitle.textContent = 'WHO ARE YOU CANCELING?';
+                mainSubtitle.innerHTML = 'Click any card for receipts. <a href="why.html" style="color: var(--orange); text-decoration: none;">Why these companies? →</a>';
+            } else if (phase === 'TARGET_LOCKED' || phase === 'DROP_TIME') {
+                mainTitle.textContent = 'IT\'S TIME';
+                mainSubtitle.textContent = 'Cancel now. Together.';
             } else {
                 mainTitle.textContent = 'WEEK ' + currentWeek.week_number + ' COMPLETE';
-                mainSubtitle.textContent = 'Next week\'s voting opens Monday.';
+                mainSubtitle.textContent = 'Next target drops Monday.';
             }
 
             // Candidates grid
@@ -3103,14 +3100,14 @@
                 const targetName = leaderData?.name || leader.name;
 
                 if (phase === 'VOTING') {
-                    // Voting: show leader's votes (those committed to cancel THIS company)
+                    // Voting: show leader's votes for this company, project to threshold
                     const leaderVotes = leader.vote_count || 0;
                     const nextThreshold = getNextThreshold(leaderVotes);
                     const projected = calculateProjectedImpact(leader.id, nextThreshold);
                     const remaining = nextThreshold - leaderVotes;
                     const progressPct = Math.min((leaderVotes / nextThreshold) * 100, 100);
 
-                    document.getElementById('projected-headline').textContent = `${leaderVotes.toLocaleString()} committed to cancel ${targetName} Friday`;
+                    document.getElementById('projected-headline').textContent = `${leaderVotes.toLocaleString()} voting to cancel ${targetName}`;
                     document.getElementById('projected-projection').innerHTML = `At <strong>${nextThreshold.toLocaleString()}</strong>, that's <strong>${projected.annual}/year</strong> gone.`;
                     document.getElementById('projected-progress').style.width = `${progressPct}%`;
                     document.getElementById('projected-cta').textContent = `${remaining.toLocaleString()} more to hit ${nextThreshold.toLocaleString()}`;
@@ -3119,7 +3116,7 @@
                     const winnerVotes = leader.vote_count || 0;
                     const actualImpact = calculateRevenueLost(leader.id, winnerVotes);
 
-                    document.getElementById('projected-headline').textContent = `${winnerVotes.toLocaleString()} canceling ${targetName} Friday`;
+                    document.getElementById('projected-headline').textContent = `${winnerVotes.toLocaleString()} canceling ${targetName}`;
                     document.getElementById('projected-projection').innerHTML = `That's <strong>${actualImpact.formatted.annual}/year</strong> gone.`;
                     document.getElementById('projected-progress').style.width = '100%';
                     document.getElementById('projected-cta').textContent = 'Share to grow the movement';
@@ -3355,42 +3352,36 @@
             const storyAction = document.getElementById('story-action');
             const storyCommitted = document.getElementById('story-committed');
 
+            const storyImpact = document.getElementById('story-impact');
+
             if (phase === 'DROP_TIME' || phase === 'AFTER') {
                 const count = currentWeek.confirmed_count || 0;
-                storyAction.textContent = userConfirmed ? 'I cancelled' : 'We cancelled';
-                storyCommitted.textContent = count >= 10 ? `${count.toLocaleString()} of us did it together.` : 'We did it together.';
+                const actualImpact = storyCandidate ? calculateRevenueLost(storyCandidate.id, count) : null;
+                storyAction.textContent = 'I cancelled';
+                storyCommitted.textContent = `${count.toLocaleString()} of us did it together.`;
                 storyCommitted.style.display = 'inline-block';
+                storyImpact.textContent = actualImpact ? `That's ${actualImpact.formatted.annual}/year gone.` : '';
+                storyImpact.style.display = actualImpact ? 'block' : 'none';
             } else if (phase === 'TARGET_LOCKED') {
-                // "I'm canceling [Company] right now. [X] of us are doing this together."
-                storyAction.textContent = 'I\'m canceling';
+                // "I'm canceling [Company] right now. [X] of us doing this together. That's [$/year] gone."
                 const count = winner ? (winner.vote_count || 0) : 0;
-                storyCommitted.textContent = count >= 10 ? `right now. ${count.toLocaleString()} of us are doing this together.` : 'right now. Join us.';
+                const actualImpact = storyCandidate ? calculateRevenueLost(storyCandidate.id, count) : null;
+                storyAction.textContent = 'I\'m canceling';
+                storyCommitted.textContent = `right now. ${count.toLocaleString()} of us doing this together.`;
                 storyCommitted.style.display = 'inline-block';
+                storyImpact.textContent = actualImpact ? `That's ${actualImpact.formatted.annual}/year gone.` : '';
+                storyImpact.style.display = actualImpact ? 'block' : 'none';
             } else {
-                // VOTING phase: "I'm voting to cancel [Company]. Join me."
+                // VOTING: "I'm voting to cancel [Company] this Friday. If [X] of us do this, that's [$/year] gone. [count] votes so far."
+                const votedCandidate = userVotedFor ? candidates.find(c => c.id === userVotedFor) : leader;
+                const voteCount = votedCandidate ? (votedCandidate.vote_count || 0) : 0;
+                const nextThreshold = getNextThreshold(voteCount);
+                const projected = storyCandidate ? calculateProjectedImpact(storyCandidate.id, nextThreshold) : null;
                 storyAction.textContent = 'I\'m voting to cancel';
-                storyCommitted.textContent = 'Join me.';
+                storyCommitted.textContent = `this Friday. ${voteCount.toLocaleString()} votes so far.`;
                 storyCommitted.style.display = 'inline-block';
-            }
-
-            // Add impact to story
-            const storyImpact = document.getElementById('story-impact');
-            if (storyCandidate) {
-                if (phase === 'VOTING') {
-                    // Voting: project to next threshold
-                    const totalVotes = currentWeek.commitment_count || 0;
-                    const nextThreshold = getNextThreshold(totalVotes);
-                    const projected = calculateProjectedImpact(storyCandidate.id, nextThreshold);
-                    storyImpact.textContent = `At ${nextThreshold.toLocaleString()}, that's ${projected.annual}/year gone`;
-                } else if (winner) {
-                    // Target locked: show actual impact
-                    const winnerVotes = winner.vote_count || 0;
-                    const actualImpact = calculateRevenueLost(storyCandidate.id, winnerVotes);
-                    storyImpact.textContent = `${winnerVotes.toLocaleString()} cancellations = ${actualImpact.formatted.annual}/year`;
-                }
-                storyImpact.style.display = 'block';
-            } else {
-                storyImpact.style.display = 'none';
+                storyImpact.textContent = projected ? `If ${nextThreshold.toLocaleString()} of us do this, that's ${projected.annual}/year gone.` : '';
+                storyImpact.style.display = projected ? 'block' : 'none';
             }
         }
 
