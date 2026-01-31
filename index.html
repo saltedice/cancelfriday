@@ -1163,6 +1163,61 @@
             background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, var(--black) 100%);
         }
 
+        .share-banner.vibe-urgent {
+            border-color: #ffd700;
+            background: linear-gradient(180deg, rgba(255,215,0,0.2) 0%, var(--black) 100%);
+        }
+        .share-banner.vibe-urgent .banner-headline {
+            color: #ffd700;
+        }
+
+        .share-banner.vibe-money {
+            border-color: #00ff88;
+            background: linear-gradient(180deg, rgba(0,255,136,0.1) 0%, var(--black) 100%);
+        }
+        .share-banner.vibe-money .banner-count {
+            color: #00ff88;
+        }
+
+        .share-banner.vibe-challenge {
+            border-color: var(--red);
+            background: repeating-linear-gradient(
+                -45deg,
+                var(--black),
+                var(--black) 10px,
+                rgba(230,57,70,0.1) 10px,
+                rgba(230,57,70,0.1) 20px
+            );
+        }
+
+        .share-banner.vibe-collective {
+            border-color: #4a9eff;
+            background: linear-gradient(180deg, rgba(74,158,255,0.15) 0%, var(--black) 100%);
+        }
+
+        .share-banner.vibe-punchy {
+            border: 3px solid var(--white);
+            background: var(--black);
+        }
+        .share-banner.vibe-punchy .banner-headline {
+            font-size: 1.6rem;
+            letter-spacing: 0.1em;
+        }
+
+        .share-banner.vibe-hope {
+            border-color: #ff6b9d;
+            background: linear-gradient(135deg, rgba(255,107,157,0.15) 0%, rgba(74,158,255,0.15) 100%);
+        }
+
+        .share-banner.vibe-receipts {
+            border: 2px dashed var(--orange);
+            background: linear-gradient(180deg, rgba(247,127,0,0.05) 0%, var(--black) 100%);
+        }
+        .share-banner.vibe-receipts .banner-headline {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+        }
+
         .banner-logo {
             font-family: 'Black Ops One', cursive;
             font-size: 2rem;
@@ -1880,6 +1935,110 @@
                         <button class="banner-share-btn save" onclick="saveBanner(3)">Save</button>
                         <a href="https://twitter.com/intent/tweet?text=Every%20Friday%20at%20noon.%20One%20company.%20All%20of%20us.%20Vote.%20Cancel.%20Repeat.%20%23CancelFriday%20%23SaltTheEarth&url=https://cancelfriday.com" target="_blank" rel="noopener" class="banner-share-btn">X</a>
                         <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com&quote=Every%20Friday%20at%20noon.%20One%20company.%20All%20of%20us.%20Vote.%20Cancel.%20Repeat." target="_blank" rel="noopener" class="banner-share-btn">FB</a>
+                    </div>
+                </div>
+
+                <!-- Banner 4: Urgency/Alert -->
+                <div class="share-banner vibe-urgent" id="banner-4">
+                    <div class="banner-logo">SALT</div>
+                    <div class="banner-headline">THIS ISN'T A BOYCOTT.<br>IT'S A COORDINATED DROP.</div>
+                    <div class="banner-count"><span class="banner-count-num">0</span> VOTING</div>
+                    <div class="banner-subtext">Same company. Same moment. That's how you get their attention.</div>
+                    <div class="banner-cta">CANCELFRIDAY.COM</div>
+                    <div class="banner-hashtag">#CancelFriday #SaltTheEarth</div>
+                    <div class="banner-actions">
+                        <button class="banner-share-btn save" onclick="saveBanner(4)">Save</button>
+                        <a href="https://twitter.com/intent/tweet?text=This%20isn%27t%20a%20boycott.%20It%27s%20a%20coordinated%20drop.%20Same%20company.%20Same%20moment.%20%23CancelFriday%20%23SaltTheEarth&url=https://cancelfriday.com" target="_blank" rel="noopener" class="banner-share-btn">X</a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com&quote=This%20isn%27t%20a%20boycott.%20It%27s%20a%20coordinated%20drop." target="_blank" rel="noopener" class="banner-share-btn">FB</a>
+                    </div>
+                </div>
+
+                <!-- Banner 5: Money Angle -->
+                <div class="share-banner vibe-money" id="banner-5">
+                    <div class="banner-logo">SALT</div>
+                    <div class="banner-headline">YOUR $15/MONTH<br>FUNDS DEPORTATIONS.</div>
+                    <div class="banner-count"><span class="banner-count-num">0</span> VOTING</div>
+                    <div class="banner-subtext">They have contracts with ICE. We have receipts. Cancel together Friday.</div>
+                    <div class="banner-cta">CANCELFRIDAY.COM</div>
+                    <div class="banner-hashtag">#CancelFriday #SaltTheEarth</div>
+                    <div class="banner-actions">
+                        <button class="banner-share-btn save" onclick="saveBanner(5)">Save</button>
+                        <a href="https://twitter.com/intent/tweet?text=Your%20%2415%2Fmonth%20funds%20deportations.%20They%20have%20ICE%20contracts.%20We%20have%20receipts.%20%23CancelFriday%20%23SaltTheEarth&url=https://cancelfriday.com" target="_blank" rel="noopener" class="banner-share-btn">X</a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com&quote=Your%20%2415%2Fmonth%20funds%20deportations.%20They%20have%20ICE%20contracts.%20We%20have%20receipts." target="_blank" rel="noopener" class="banner-share-btn">FB</a>
+                    </div>
+                </div>
+
+                <!-- Banner 6: Direct Challenge -->
+                <div class="share-banner vibe-challenge" id="banner-6">
+                    <div class="banner-logo">SALT</div>
+                    <div class="banner-headline">STILL SUBSCRIBED?<br>STILL COMPLICIT.</div>
+                    <div class="banner-count"><span class="banner-count-num">0</span> VOTING</div>
+                    <div class="banner-subtext">These companies bankroll Trump. Pick one. Drop it. Friday noon.</div>
+                    <div class="banner-cta">CANCELFRIDAY.COM</div>
+                    <div class="banner-hashtag">#CancelFriday #SaltTheEarth</div>
+                    <div class="banner-actions">
+                        <button class="banner-share-btn save" onclick="saveBanner(6)">Save</button>
+                        <a href="https://twitter.com/intent/tweet?text=Still%20subscribed%3F%20Still%20complicit.%20These%20companies%20bankroll%20Trump.%20Pick%20one.%20Drop%20it.%20%23CancelFriday%20%23SaltTheEarth&url=https://cancelfriday.com" target="_blank" rel="noopener" class="banner-share-btn">X</a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com&quote=Still%20subscribed%3F%20Still%20complicit.%20These%20companies%20bankroll%20Trump." target="_blank" rel="noopener" class="banner-share-btn">FB</a>
+                    </div>
+                </div>
+
+                <!-- Banner 7: Collective Power -->
+                <div class="share-banner vibe-collective" id="banner-7">
+                    <div class="banner-logo">SALT</div>
+                    <div class="banner-headline">ONE CANCELLATION: NOTHING.<br>THOUSANDS AT ONCE: CRISIS.</div>
+                    <div class="banner-count"><span class="banner-count-num">0</span> VOTING</div>
+                    <div class="banner-subtext">Friday at noon. We move together.</div>
+                    <div class="banner-cta">CANCELFRIDAY.COM</div>
+                    <div class="banner-hashtag">#CancelFriday #SaltTheEarth</div>
+                    <div class="banner-actions">
+                        <button class="banner-share-btn save" onclick="saveBanner(7)">Save</button>
+                        <a href="https://twitter.com/intent/tweet?text=One%20cancellation%3A%20nothing.%20Thousands%20at%20once%3A%20crisis.%20Friday%20at%20noon.%20We%20move%20together.%20%23CancelFriday%20%23SaltTheEarth&url=https://cancelfriday.com" target="_blank" rel="noopener" class="banner-share-btn">X</a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com&quote=One%20cancellation%3A%20nothing.%20Thousands%20at%20once%3A%20crisis." target="_blank" rel="noopener" class="banner-share-btn">FB</a>
+                    </div>
+                </div>
+
+                <!-- Banner 8: Short & Punchy -->
+                <div class="share-banner vibe-punchy" id="banner-8">
+                    <div class="banner-logo">SALT</div>
+                    <div class="banner-headline">THEY PROFIT.<br>WE CANCEL.<br>EVERY FRIDAY.</div>
+                    <div class="banner-count"><span class="banner-count-num">0</span> VOTING</div>
+                    <div class="banner-cta">CANCELFRIDAY.COM</div>
+                    <div class="banner-hashtag">#CancelFriday #SaltTheEarth</div>
+                    <div class="banner-actions">
+                        <button class="banner-share-btn save" onclick="saveBanner(8)">Save</button>
+                        <a href="https://twitter.com/intent/tweet?text=They%20profit.%20We%20cancel.%20Every%20Friday.%20%23CancelFriday%20%23SaltTheEarth&url=https://cancelfriday.com" target="_blank" rel="noopener" class="banner-share-btn">X</a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com&quote=They%20profit.%20We%20cancel.%20Every%20Friday." target="_blank" rel="noopener" class="banner-share-btn">FB</a>
+                    </div>
+                </div>
+
+                <!-- Banner 9: Doomer Antidote -->
+                <div class="share-banner vibe-hope" id="banner-9">
+                    <div class="banner-logo">SALT</div>
+                    <div class="banner-headline">DONE FEELING HELPLESS?</div>
+                    <div class="banner-count"><span class="banner-count-num">0</span> VOTING</div>
+                    <div class="banner-subtext">Stop scrolling. Start canceling. Every Friday. One company. Together.</div>
+                    <div class="banner-cta">CANCELFRIDAY.COM</div>
+                    <div class="banner-hashtag">#CancelFriday #SaltTheEarth</div>
+                    <div class="banner-actions">
+                        <button class="banner-share-btn save" onclick="saveBanner(9)">Save</button>
+                        <a href="https://twitter.com/intent/tweet?text=Done%20feeling%20helpless%3F%20Stop%20scrolling.%20Start%20canceling.%20Every%20Friday.%20%23CancelFriday%20%23SaltTheEarth&url=https://cancelfriday.com" target="_blank" rel="noopener" class="banner-share-btn">X</a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com&quote=Done%20feeling%20helpless%3F%20Stop%20scrolling.%20Start%20canceling.%20Every%20Friday." target="_blank" rel="noopener" class="banner-share-btn">FB</a>
+                    </div>
+                </div>
+
+                <!-- Banner 10: Receipts Angle -->
+                <div class="share-banner vibe-receipts" id="banner-10">
+                    <div class="banner-logo">SALT</div>
+                    <div class="banner-headline">THEY HAVE ICE CONTRACTS.<br>WE HAVE RECEIPTS.</div>
+                    <div class="banner-count"><span class="banner-count-num">0</span> VOTING</div>
+                    <div class="banner-subtext">Vote. Cancel. Repeat. Until they hear us.</div>
+                    <div class="banner-cta">CANCELFRIDAY.COM</div>
+                    <div class="banner-hashtag">#CancelFriday #SaltTheEarth</div>
+                    <div class="banner-actions">
+                        <button class="banner-share-btn save" onclick="saveBanner(10)">Save</button>
+                        <a href="https://twitter.com/intent/tweet?text=They%20have%20ICE%20contracts.%20We%20have%20receipts.%20Vote.%20Cancel.%20Repeat.%20%23CancelFriday%20%23SaltTheEarth&url=https://cancelfriday.com" target="_blank" rel="noopener" class="banner-share-btn">X</a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com&quote=They%20have%20ICE%20contracts.%20We%20have%20receipts.%20Vote.%20Cancel.%20Repeat." target="_blank" rel="noopener" class="banner-share-btn">FB</a>
                     </div>
                 </div>
             </div>
