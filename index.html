@@ -813,63 +813,6 @@
             margin-bottom: 2rem;
         }
 
-        /* Debug Panel */
-        .debug-panel {
-            position: fixed;
-            bottom: 1rem;
-            right: 1rem;
-            background: rgba(0,0,0,0.95);
-            border: 2px solid var(--orange);
-            padding: 1rem;
-            font-size: 0.75rem;
-            z-index: 9999;
-            min-width: 220px;
-        }
-
-        .debug-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1rem;
-            color: var(--orange);
-            margin-bottom: 0.75rem;
-        }
-
-        .debug-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .debug-row select {
-            background: var(--black);
-            color: var(--white);
-            border: 1px solid rgba(255,255,255,0.3);
-            padding: 0.25rem 0.5rem;
-            font-family: inherit;
-            font-size: 0.7rem;
-        }
-
-        .debug-row button {
-            background: transparent;
-            color: var(--white);
-            border: 1px solid rgba(255,255,255,0.3);
-            padding: 0.25rem 0.5rem;
-            font-family: inherit;
-            font-size: 0.65rem;
-            cursor: pointer;
-            flex: 1;
-        }
-
-        .debug-row button:hover {
-            background: rgba(255,255,255,0.1);
-        }
-
-        #debug-current-phase {
-            color: var(--orange);
-            font-weight: bold;
-        }
-
         /* Now/Go Badge for Drop Time */
         .now-badge {
             font-family: 'Bebas Neue', sans-serif;
@@ -943,6 +886,133 @@
         .salted-empty {
             font-size: 0.7rem;
             opacity: 0.3;
+        }
+
+        /* Impact Screen */
+        .impact-reveal {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: linear-gradient(180deg, rgba(230, 57, 70, 0.15) 0%, transparent 100%);
+            border: 2px solid var(--red);
+            margin: 2rem 0;
+        }
+
+        .impact-reveal.hidden {
+            display: none;
+        }
+
+        .impact-header h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2rem, 6vw, 3rem);
+            color: var(--red);
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .impact-header .week-label {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 2rem;
+        }
+
+        .impact-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .impact-stats .stat {
+            text-align: center;
+        }
+
+        .impact-stats .stat-number {
+            display: block;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--white);
+        }
+
+        .impact-stats .stat.primary .stat-number {
+            font-size: clamp(2.5rem, 7vw, 4rem);
+            color: var(--red);
+        }
+
+        .impact-stats .stat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.6;
+        }
+
+        .impact-math {
+            font-size: 0.8rem;
+            opacity: 0.5;
+            margin-bottom: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .impact-message {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            color: var(--orange);
+            margin-bottom: 1rem;
+        }
+
+        .impact-cta {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .impact-disclaimer {
+            font-size: 0.6rem;
+            opacity: 0.4;
+            margin-top: 1.5rem;
+        }
+
+        /* Projected Impact Banner */
+        .projected-banner {
+            background: linear-gradient(90deg, rgba(247,127,0,0.1), rgba(230,57,70,0.1));
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .projected-banner .banner-headline {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .projected-banner .banner-projection {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-bottom: 0.75rem;
+        }
+
+        .projected-banner .banner-projection strong {
+            color: var(--orange);
+        }
+
+        .projected-banner .banner-progress {
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+        }
+
+        .projected-banner .progress-bar {
+            height: 100%;
+            background: var(--orange);
+            transition: width 0.5s ease;
+        }
+
+        .projected-banner .banner-cta {
+            font-size: 0.75rem;
+            opacity: 0.6;
         }
 
         /* Footer */
@@ -1702,6 +1772,46 @@
             <div class="after-week-message">Next week's voting opens Monday</div>
         </section>
 
+        <!-- Impact Reveal Screen (shown after Friday noon) -->
+        <div id="impact-reveal" class="impact-reveal hidden">
+            <div class="impact-header">
+                <h2>MISSION COMPLETE</h2>
+                <p class="week-label" id="impact-week-label">Week 1: Netflix</p>
+            </div>
+
+            <div class="impact-stats">
+                <div class="stat">
+                    <span class="stat-number" id="impact-commit-count">0</span>
+                    <span class="stat-label">Cancellations</span>
+                </div>
+
+                <div class="stat primary">
+                    <span class="stat-number" id="impact-annual-lost">$0</span>
+                    <span class="stat-label">Annual Revenue Lost</span>
+                </div>
+
+                <div class="stat">
+                    <span class="stat-number" id="impact-monthly-lost">$0</span>
+                    <span class="stat-label">Lost This Month</span>
+                </div>
+            </div>
+
+            <p class="impact-math" id="impact-math">0 cancellations × $0/mo × 12 months</p>
+            <p class="impact-message" id="impact-message">That's just the start.</p>
+            <p class="impact-cta">Next target drops Monday. Stay ready.</p>
+            <p class="impact-disclaimer">Based on committed cancellations</p>
+        </div>
+
+        <!-- Projected Impact Banner (shown during voting) -->
+        <div id="projected-banner" class="projected-banner" style="display: none;">
+            <p class="banner-headline" id="projected-headline"></p>
+            <p class="banner-projection" id="projected-projection"></p>
+            <div class="banner-progress">
+                <div class="progress-bar" id="projected-progress"></div>
+            </div>
+            <p class="banner-cta" id="projected-cta"></p>
+        </div>
+
         <!-- Social Share Section -->
         <section class="share-section">
             <div class="share-title">SPREAD THE WORD</div>
@@ -1759,28 +1869,6 @@
             <div class="footer-badge" id="mode-badge">🔒 Anonymous voting • No IP addresses or personal data recorded</div>
         </footer>
 
-        <!-- Debug Panel (Demo Mode Only) -->
-        <div class="debug-panel" id="debug-panel" style="display: none;">
-            <div class="debug-title">🧪 DEMO CONTROLS</div>
-            <div class="debug-row">
-                <span>Phase:</span>
-                <select id="debug-phase" onchange="setDebugPhase(this.value)">
-                    <option value="auto">Auto (Real Time)</option>
-                    <option value="VOTING">Phase 1: Voting</option>
-                    <option value="TARGET_LOCKED">Phase 2: Target Locked</option>
-                    <option value="DROP_TIME">Phase 3: Drop Time</option>
-                    <option value="AFTER">Phase 4: After</option>
-                </select>
-            </div>
-            <div class="debug-row">
-                <span>Current:</span>
-                <span id="debug-current-phase">—</span>
-            </div>
-            <div class="debug-row">
-                <button onclick="resetDemoData()">Reset All Data</button>
-                <button onclick="addDemoVotes()">Add Demo Votes</button>
-            </div>
-        </div>
     </div>
 
     <!-- Story Modal -->
@@ -1993,6 +2081,75 @@
                     currentPhaseEl.textContent = getCurrentPhase();
                 }
             }
+        }
+
+        // ============================================
+        // SUBSCRIPTION PRICES & IMPACT CALCULATIONS
+        // ============================================
+        const SUBSCRIPTION_PRICES = {
+            'prime': 14.99,
+            'netflix': 15.49,
+            'spotify': 11.99,
+            'hulu': 17.99,
+            'disney': 13.99,
+            'appletv': 9.99,
+            'youtube': 13.99,
+            'max': 15.99,
+            'paramount': 11.99,
+            'peacock': 7.99,
+            'chatgpt': 20.00,
+            'meta': 14.99,
+            'uber': 9.99,
+            'doordash': 9.99
+        };
+
+        const IMPACT_THRESHOLDS = [100, 500, 1000, 5000, 10000, 25000, 50000, 100000];
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
+
+        function calculateRevenueLost(targetId, commitCount) {
+            const monthlyPrice = SUBSCRIPTION_PRICES[targetId] || 12.99;
+            const monthlyLost = commitCount * monthlyPrice;
+            const annualLost = monthlyLost * 12;
+
+            return {
+                commits: commitCount,
+                monthlyPrice: monthlyPrice,
+                monthlyLost: monthlyLost,
+                annualLost: annualLost,
+                formatted: {
+                    monthly: formatCurrency(monthlyLost),
+                    annual: formatCurrency(annualLost)
+                }
+            };
+        }
+
+        function getImpactMessage(annualLost) {
+            if (annualLost >= 1000000) return "That's a board meeting.";
+            if (annualLost >= 100000) return "That's a quarterly report problem.";
+            if (annualLost >= 10000) return "That's a manager's bad day.";
+            return "That's just the start.";
+        }
+
+        function getNextThreshold(currentCommits) {
+            return IMPACT_THRESHOLDS.find(t => t > currentCommits) || IMPACT_THRESHOLDS[IMPACT_THRESHOLDS.length - 1];
+        }
+
+        function calculateProjectedImpact(targetId, threshold) {
+            const monthlyPrice = SUBSCRIPTION_PRICES[targetId] || 12.99;
+            const annualLost = threshold * monthlyPrice * 12;
+            return {
+                threshold: threshold,
+                annual: formatCurrency(annualLost),
+                monthly: formatCurrency(threshold * monthlyPrice)
+            };
         }
 
         const CANDIDATES = [
@@ -2873,6 +3030,56 @@
 
             // After week section
             document.getElementById('after-week-section').style.display = phase === 'AFTER' ? 'block' : 'none';
+
+            // Impact reveal (after Friday noon)
+            renderImpactScreen(phase, winner);
+
+            // Projected impact banner (during voting/pre-Friday)
+            renderProjectedBanner(phase, leader);
+        }
+
+        function renderImpactScreen(phase, winner) {
+            const impactReveal = document.getElementById('impact-reveal');
+
+            if (phase === 'AFTER' && winner) {
+                const commitCount = currentWeek.confirmed_count || currentWeek.commitment_count || 0;
+                const impact = calculateRevenueLost(winner.id, commitCount);
+                const winnerData = CANDIDATES.find(c => c.id === winner.id);
+
+                document.getElementById('impact-week-label').textContent = `Week ${currentWeek.week_number}: ${winnerData?.name || winner.name}`;
+                document.getElementById('impact-commit-count').textContent = impact.commits.toLocaleString();
+                document.getElementById('impact-annual-lost').textContent = impact.formatted.annual;
+                document.getElementById('impact-monthly-lost').textContent = impact.formatted.monthly;
+                document.getElementById('impact-math').textContent = `${impact.commits.toLocaleString()} cancellations × $${impact.monthlyPrice.toFixed(2)}/mo × 12 months`;
+                document.getElementById('impact-message').textContent = getImpactMessage(impact.annualLost);
+
+                impactReveal.classList.remove('hidden');
+            } else {
+                impactReveal.classList.add('hidden');
+            }
+        }
+
+        function renderProjectedBanner(phase, leader) {
+            const banner = document.getElementById('projected-banner');
+
+            if ((phase === 'VOTING' || phase === 'TARGET_LOCKED') && leader) {
+                const commitCount = currentWeek.commitment_count || 0;
+                const nextThreshold = getNextThreshold(commitCount);
+                const projected = calculateProjectedImpact(leader.id, nextThreshold);
+                const leaderData = CANDIDATES.find(c => c.id === leader.id);
+                const targetName = leaderData?.name || leader.name;
+                const remaining = nextThreshold - commitCount;
+                const progressPct = Math.min((commitCount / nextThreshold) * 100, 100);
+
+                document.getElementById('projected-headline').textContent = `${commitCount.toLocaleString()} committed to cancel ${targetName} Friday`;
+                document.getElementById('projected-projection').innerHTML = `At <strong>${nextThreshold.toLocaleString()}</strong>, that's <strong>${projected.annual}/year</strong> gone.`;
+                document.getElementById('projected-progress').style.width = `${progressPct}%`;
+                document.getElementById('projected-cta').textContent = `${remaining.toLocaleString()} more to hit ${nextThreshold.toLocaleString()}`;
+
+                banner.style.display = 'block';
+            } else {
+                banner.style.display = 'none';
+            }
         }
 
         function renderTargetSection(phase, winner, time) {
