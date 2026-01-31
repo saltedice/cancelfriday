@@ -1787,14 +1787,6 @@
             </div>
         </section>
 
-        <!-- Salted Section -->
-        <section class="salted-section">
-            <div class="salted-title">Already Salted</div>
-            <div class="salted-list" id="salted-list">
-                <div class="salted-empty">Week 1 — You're here at the beginning</div>
-            </div>
-        </section>
-
         <!-- After Week Message -->
         <section class="after-week-section" id="after-week-section" style="display: none;">
             <div class="after-week-message">Next week's voting opens Monday</div>
@@ -3066,9 +3058,6 @@
             // Render target section based on phase
             renderTargetSection(phase, winner, time);
 
-            // Salted list
-            renderSaltedList();
-
             // Story modal data
             renderStoryData(winner, leader);
 
@@ -3349,20 +3338,6 @@
             document.querySelectorAll('.banner-count-num').forEach(el => {
                 el.textContent = bannerCount.toLocaleString();
             });
-        }
-
-        function renderSaltedList() {
-            const saltedList = document.getElementById('salted-list');
-            if (SALTED.length > 0) {
-                saltedList.innerHTML = SALTED.map(s => `
-                    <div class="salted-item">
-                        <div class="salted-name">${s.name}</div>
-                        <div class="salted-stats">Week ${s.week} • ${s.cancellations?.toLocaleString() || '?'} cancellations</div>
-                    </div>
-                `).join('');
-            } else {
-                saltedList.innerHTML = '<div class="salted-empty">Week 1 — You\'re here at the beginning</div>';
-            }
         }
 
         function renderStoryData(winner, leader) {
