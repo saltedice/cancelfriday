@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cancel Friday | SALT - Subscribers Against Lawless Tyranny</title>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Black+Ops+One&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Black+Ops+One&family=JetBrains+Mono:wght@400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -2026,35 +2026,57 @@
         }
 
         .badge-tagline {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.2rem;
-            color: var(--white);
+            font-family: Georgia, serif;
+            font-size: 0.65rem;
+            font-style: italic;
+            color: rgba(255,255,255,0.7);
             text-align: center;
-            margin: 1rem 0;
+            margin: 0.5rem 0;
+        }
+
+        .badge-section-label {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.8rem;
+            color: var(--white);
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
         }
 
         .badge-list {
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 0.4rem;
-            margin: 0.5rem 0;
+            gap: 0.5rem;
+            margin: 0.25rem 0;
             position: relative;
             z-index: 1;
         }
 
         .badge-list-item {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 0.6rem 0.75rem 0.6rem 2rem;
+            background: rgba(0,0,0,0.3);
         }
 
         .badge-list-item .x-mark {
+            position: absolute;
+            left: -0.3rem;
+            top: 50%;
+            transform: translateY(-50%) rotate(-12deg);
+            font-family: 'Permanent Marker', cursive;
+            font-size: 2.2rem;
             color: var(--red);
-            font-weight: bold;
+            line-height: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .badge-list-item .item-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .badge-empty-state {
@@ -2070,35 +2092,35 @@
 
         .badge-impact {
             text-align: center;
-            padding: 0.75rem 0;
+            padding: 0.5rem 0;
             margin-top: auto;
-            border-top: 1px solid rgba(255,255,255,0.2);
-            border-bottom: 1px solid rgba(255,255,255,0.2);
         }
 
         .badge-impact-amount {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--orange);
             letter-spacing: 0.05em;
         }
 
         .badge-footer {
             text-align: center;
-            margin-top: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .badge-cta-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            color: var(--white);
+            letter-spacing: 0.15em;
+            margin-bottom: 0.25rem;
         }
 
         .badge-url {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: var(--orange);
             letter-spacing: 0.1em;
-        }
-
-        .badge-hashtags {
-            font-size: 0.5rem;
-            color: rgba(255,255,255,0.5);
-            margin-top: 0.25rem;
         }
 
         .badge-actions {
@@ -2498,8 +2520,8 @@
 
         <!-- Receipts Badge Section -->
         <section class="receipts-section">
-            <div class="receipts-title">ALREADY CANCELLED SOMETHING?</div>
-            <div class="receipts-subtitle">Show off what you've dropped. Your badge. Your receipts.</div>
+            <div class="receipts-title">ALREADY UNSUBSCRIBED?</div>
+            <div class="receipts-subtitle">Join the club! We'll count you too. We are all-inclusive.</div>
             <button class="receipts-btn" onclick="openBadgeModal()">SHOW YOUR RECEIPTS →</button>
         </section>
 
@@ -2641,7 +2663,8 @@
                             <div class="badge-logo">SALT</div>
                             <div class="badge-acronym">Subscribers Against Lawless Tyranny</div>
                         </div>
-                        <div class="badge-tagline">I CUT THEM OFF.</div>
+                        <div class="badge-tagline">"The only vote that counts is your wallet."</div>
+                        <div class="badge-section-label">UNSUBSCRIBED:</div>
                         <div class="badge-list" id="badge-list">
                             <div class="badge-empty-state" id="badge-empty">Select at least one to generate your badge.</div>
                         </div>
@@ -2649,8 +2672,8 @@
                             <div class="badge-impact-amount" id="badge-impact-amount">$0/mo · $0/yr GONE</div>
                         </div>
                         <div class="badge-footer">
+                            <div class="badge-cta-text">JOIN US</div>
                             <div class="badge-url">CANCELFRIDAY.COM</div>
-                            <div class="badge-hashtags">#CancelFriday</div>
                         </div>
                     </div>
                 </div>
@@ -4343,7 +4366,7 @@
                 copyBtn.disabled = true;
             } else {
                 const listHTML = selected.map(s =>
-                    `<div class="badge-list-item"><span class="x-mark">✕</span> ${s.name.toUpperCase()}</div>`
+                    `<div class="badge-list-item"><span class="x-mark">X</span><span class="item-name">${s.name.toUpperCase()}</span></div>`
                 ).join('');
                 badgeList.innerHTML = listHTML;
 
