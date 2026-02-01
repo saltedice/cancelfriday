@@ -1116,19 +1116,24 @@
         .banners-grid {
             display: flex;
             gap: 1.5rem;
-            justify-content: center;
+            justify-content: flex-start;
             max-width: 100%;
             margin: 0 auto 2rem;
             overflow-x: auto;
-            padding: 1rem;
+            padding: 1rem 2rem;
             -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+        }
+
+        .banners-grid > * {
+            scroll-snap-align: center;
+            flex-shrink: 0;
         }
 
         @media (max-width: 800px) {
             .banners-grid {
-                justify-content: flex-start;
-                padding-left: 2rem;
-                padding-right: 2rem;
+                padding-left: 1rem;
+                padding-right: 1rem;
             }
         }
 
