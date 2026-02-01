@@ -1720,82 +1720,6 @@
             }
         }
 
-        /* Leaderboard Text Snippets */
-        .leaderboard-snippets {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .snippets-title {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: rgba(255,255,255,0.5);
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .snippet-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.75rem;
-        }
-
-        @media (max-width: 600px) {
-            .snippet-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .leaderboard-snippet {
-            background: rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.15);
-            padding: 0.75rem;
-            font-size: 0.65rem;
-            line-height: 1.5;
-            color: rgba(255,255,255,0.8);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            position: relative;
-        }
-
-        .leaderboard-snippet:hover {
-            border-color: var(--orange);
-            background: rgba(247,127,0,0.1);
-        }
-
-        .leaderboard-snippet::after {
-            content: 'TAP TO COPY';
-            position: absolute;
-            bottom: 0.4rem;
-            right: 0.5rem;
-            font-size: 0.5rem;
-            color: var(--orange);
-            opacity: 0;
-            transition: opacity 0.2s ease;
-        }
-
-        .leaderboard-snippet:hover::after {
-            opacity: 1;
-        }
-
-        .snippet-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--orange);
-            margin-bottom: 0.4rem;
-            display: block;
-        }
-
-        .snippet-text {
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            white-space: pre-line;
-        }
-
     </style>
 </head>
 <body>
@@ -2135,71 +2059,6 @@
                         <button class="banner-share-btn save" onclick="saveBanner(10)">Save</button>
                         <a href="https://twitter.com/intent/tweet?text=They%20have%20ICE%20contracts.%20We%20have%20receipts.%20Vote.%20Cancel.%20Repeat.%20%23CancelFriday%20%23SaltTheEarth&url=https://cancelfriday.com" target="_blank" rel="noopener" class="banner-share-btn">X</a>
                         <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com&quote=They%20have%20ICE%20contracts.%20We%20have%20receipts.%20Vote.%20Cancel.%20Repeat." target="_blank" rel="noopener" class="banner-share-btn">FB</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Leaderboard Text Snippets -->
-            <div class="leaderboard-snippets">
-                <div class="snippets-title">Copy & Paste Leaderboard Updates</div>
-                <div class="snippet-grid">
-                    <div class="leaderboard-snippet" onclick="copySnippet(this)" id="snippet-leaderboard">
-                        <span class="snippet-label">Leaderboard</span>
-                        <span class="snippet-text">Cancel Friday Leaderboard:
-🥇 Amazon Prime — 0 votes
-🥈 Netflix — 0 votes
-🥉 Spotify — 0 votes
-
-Vote now → cancelfriday.com
-#CancelFriday #SaltTheEarth</span>
-                    </div>
-                    <div class="leaderboard-snippet" onclick="copySnippet(this)" id="snippet-race">
-                        <span class="snippet-label">Race Framing</span>
-                        <span class="snippet-text">It's a close race 👀
-
-Amazon Prime: 0
-Netflix: 0
-Spotify: 0
-
-Which one gets canceled Friday? You decide.
-cancelfriday.com #CancelFriday</span>
-                    </div>
-                    <div class="leaderboard-snippet" onclick="copySnippet(this)" id="snippet-explainer">
-                        <span class="snippet-label">Explainer</span>
-                        <span class="snippet-text">Every Friday, thousands of us cancel the same subscription at the same time.
-
-One cancellation = nothing.
-Thousands at once = crisis.
-
-Join us → cancelfriday.com
-#CancelFriday #SaltTheEarth</span>
-                    </div>
-                    <div class="leaderboard-snippet" onclick="copySnippet(this)" id="snippet-simple">
-                        <span class="snippet-label">Simple</span>
-                        <span class="snippet-text">Cancel Friday.
-
-Every week. One company. Together.
-
-cancelfriday.com
-#CancelFriday</span>
-                    </div>
-                    <div class="leaderboard-snippet" onclick="copySnippet(this)" id="snippet-question">
-                        <span class="snippet-label">Question</span>
-                        <span class="snippet-text">What if we all canceled the same subscription on the same day?
-
-That's Cancel Friday.
-
-cancelfriday.com
-#CancelFriday #SaltTheEarth</span>
-                    </div>
-                    <div class="leaderboard-snippet" onclick="copySnippet(this)" id="snippet-receipts">
-                        <span class="snippet-label">Receipts</span>
-                        <span class="snippet-text">These companies have ICE contracts, fund deportations, and bankroll billionaires.
-
-We have receipts. And cancel buttons.
-
-cancelfriday.com
-#CancelFriday #SaltTheEarth</span>
                     </div>
                 </div>
             </div>
@@ -3651,41 +3510,6 @@ cancelfriday.com
             document.querySelectorAll('.banner-count-num').forEach(el => {
                 el.textContent = bannerCount.toLocaleString();
             });
-
-            // Update leaderboard snippets with real data
-            updateLeaderboardSnippets(sortedCandidates);
-        }
-
-        function updateLeaderboardSnippets(sortedCandidates) {
-            const top3 = sortedCandidates.slice(0, 3);
-            const c1 = top3[0] || { name: 'TBD', vote_count: 0 };
-            const c2 = top3[1] || { name: 'TBD', vote_count: 0 };
-            const c3 = top3[2] || { name: 'TBD', vote_count: 0 };
-
-            // Dynamic snippets with vote counts
-            const snippetLeaderboard = document.querySelector('#snippet-leaderboard .snippet-text');
-            if (snippetLeaderboard) {
-                snippetLeaderboard.textContent = `Cancel Friday Leaderboard:
-🥇 ${c1.name} — ${c1.vote_count.toLocaleString()} votes
-🥈 ${c2.name} — ${c2.vote_count.toLocaleString()} votes
-🥉 ${c3.name} — ${c3.vote_count.toLocaleString()} votes
-
-Vote now → cancelfriday.com
-#CancelFriday #SaltTheEarth`;
-            }
-
-            const snippetRace = document.querySelector('#snippet-race .snippet-text');
-            if (snippetRace) {
-                snippetRace.textContent = `It's a close race 👀
-
-${c1.name}: ${c1.vote_count.toLocaleString()}
-${c2.name}: ${c2.vote_count.toLocaleString()}
-${c3.name}: ${c3.vote_count.toLocaleString()}
-
-Which one gets canceled Friday? You decide.
-cancelfriday.com #CancelFriday`;
-            }
-            // Other snippets (explainer, simple, question, receipts) are static - no updates needed
         }
 
         function renderStoryData(winner, leader) {
@@ -3875,15 +3699,6 @@ cancelfriday.com #CancelFriday`;
                 showToast('Copied! Paste anywhere.');
             } catch (err) {
                 showToast('Copy failed. Try Save instead.', true);
-            }
-        }
-
-        function copySnippet(element) {
-            const textEl = element.querySelector('.snippet-text');
-            if (textEl) {
-                navigator.clipboard.writeText(textEl.textContent)
-                    .then(() => showToast('Copied to clipboard!'))
-                    .catch(() => showToast('Copy failed', true));
             }
         }
 
