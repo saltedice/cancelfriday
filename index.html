@@ -1758,6 +1758,91 @@
             color: var(--black);
         }
 
+        /* Feedback Section */
+        .feedback-section {
+            text-align: center;
+            padding: 2rem 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .feedback-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            color: var(--white);
+            margin-bottom: 0.25rem;
+        }
+
+        .feedback-subtitle {
+            font-size: 0.85rem;
+            color: var(--orange);
+            margin-bottom: 1rem;
+        }
+
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .feedback-input {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: var(--white);
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 0.9rem;
+            padding: 0.75rem;
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .feedback-input::placeholder {
+            color: rgba(255,255,255,0.4);
+        }
+
+        .feedback-input:focus {
+            outline: none;
+            border-color: var(--orange);
+        }
+
+        .feedback-btn {
+            background: var(--orange);
+            color: var(--black);
+            border: none;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            padding: 0.6rem 1.5rem;
+            cursor: pointer;
+            letter-spacing: 0.1em;
+            transition: all 0.2s ease;
+            align-self: flex-end;
+        }
+
+        .feedback-btn:hover {
+            background: var(--white);
+        }
+
+        .feedback-btn:disabled {
+            background: rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.4);
+            cursor: not-allowed;
+        }
+
+        .feedback-status {
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            min-height: 1.2em;
+        }
+
+        .feedback-status.success {
+            color: #4ade80;
+        }
+
+        .feedback-status.error {
+            color: var(--red);
+        }
+
         /* Badge Modal */
         .badge-modal {
             display: none;
@@ -2416,6 +2501,24 @@
             <div class="receipts-title">ALREADY CANCELLED SOMETHING?</div>
             <div class="receipts-subtitle">Show off what you've dropped. Your badge. Your receipts.</div>
             <button class="receipts-btn" onclick="openBadgeModal()">SHOW YOUR RECEIPTS →</button>
+        </section>
+
+        <!-- Feedback Section -->
+        <section class="feedback-section">
+            <div class="feedback-title">Questions, comments, concerns, tips or feedback?</div>
+            <div class="feedback-subtitle">We're listening!</div>
+            <form class="feedback-form" id="feedback-form" onsubmit="submitFeedback(event)">
+                <textarea
+                    class="feedback-input"
+                    id="feedback-input"
+                    placeholder="Type your message here..."
+                    rows="3"
+                    maxlength="2000"
+                    required
+                ></textarea>
+                <button type="submit" class="feedback-btn" id="feedback-btn">Send</button>
+            </form>
+            <div class="feedback-status" id="feedback-status"></div>
         </section>
 
         <!-- Footer -->
@@ -4150,6 +4253,48 @@
                 showToast('Copied! Paste anywhere.');
             } catch (err) {
                 showToast('Copy failed. Try Save instead.', true);
+            }
+        }
+
+        // ============================================
+        // FEEDBACK SUBMISSION
+        // ============================================
+        async function submitFeedback(event) {
+            event.preventDefault();
+
+            const input = document.getElementById('feedback-input');
+            const btn = document.getElementById('feedback-btn');
+            const status = document.getElementById('feedback-status');
+            const message = input.value.trim();
+
+            if (!message) return;
+
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+            status.textContent = '';
+            status.className = 'feedback-status';
+
+            try {
+                if (!supabaseClient) {
+                    throw new Error('Database not available');
+                }
+
+                const { error } = await supabaseClient
+                    .from('feedback')
+                    .insert([{ message: message }]);
+
+                if (error) throw error;
+
+                input.value = '';
+                status.textContent = 'Thank you! Your message has been received.';
+                status.className = 'feedback-status success';
+            } catch (err) {
+                console.error('Feedback error:', err);
+                status.textContent = 'Failed to send. Please try again.';
+                status.className = 'feedback-status error';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Send';
             }
         }
 
