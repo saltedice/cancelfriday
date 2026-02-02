@@ -4162,50 +4162,44 @@
             const banner = document.getElementById(`banner-${bannerNum}`);
             const actions = banner.querySelector('.banner-actions');
 
-            // Store original border and hide it for clean capture
-            const originalBorder = banner.style.border;
-            banner.style.border = 'none';
+            // Hide actions while capturing
             actions.style.display = 'none';
 
             try {
-                // Capture at high resolution
+                // Capture at Instagram story resolution (1080x1920)
+                // Scale factor: 1080 / 202 ≈ 5.35
                 const canvas = await html2canvas(banner, {
                     backgroundColor: '#0a0a0a',
-                    scale: 6
+                    scale: 5.35,
+                    width: 202,
+                    height: 360
                 });
 
-                // Create final canvas at exact target dimensions
-                let finalCanvas = document.createElement('canvas');
-                let targetW, targetH, cropY = 0, cropH = canvas.height;
+                actions.style.display = 'flex';
+
+                let finalCanvas;
 
                 if (format === 'story') {
-                    targetW = 1080;
-                    targetH = 1920;
+                    // Full vertical 1080x1920 - use as-is
+                    finalCanvas = canvas;
                 } else if (format === 'square') {
-                    targetW = 1080;
-                    targetH = 1080;
-                    // Crop from center vertically
-                    cropH = canvas.width; // Make it square based on width
-                    cropY = (canvas.height - cropH) / 2;
+                    // Crop center to 1080x1080
+                    finalCanvas = document.createElement('canvas');
+                    finalCanvas.width = 1080;
+                    finalCanvas.height = 1080;
+                    const ctx = finalCanvas.getContext('2d');
+                    const cropY = (canvas.height - 1080) / 2;
+                    ctx.drawImage(canvas, 0, cropY, 1080, 1080, 0, 0, 1080, 1080);
                 } else if (format === 'landscape') {
-                    targetW = 1200;
-                    targetH = 675;
-                    // Crop from center for 16:9ish ratio
-                    const targetRatio = targetW / targetH;
-                    cropH = canvas.width / targetRatio;
-                    cropY = (canvas.height - cropH) / 2;
+                    // Crop center to 1200x675
+                    finalCanvas = document.createElement('canvas');
+                    finalCanvas.width = 1200;
+                    finalCanvas.height = 675;
+                    const ctx = finalCanvas.getContext('2d');
+                    const cropH = 1080 / (1200 / 675); // ~607px
+                    const cropY = (canvas.height - cropH) / 2;
+                    ctx.drawImage(canvas, 0, cropY, 1080, cropH, 0, 0, 1200, 675);
                 }
-
-                finalCanvas.width = targetW;
-                finalCanvas.height = targetH;
-                const ctx = finalCanvas.getContext('2d');
-                ctx.fillStyle = '#0a0a0a';
-                ctx.fillRect(0, 0, targetW, targetH);
-                ctx.drawImage(canvas, 0, cropY, canvas.width, cropH, 0, 0, targetW, targetH);
-
-                // Restore banner
-                banner.style.border = originalBorder;
-                actions.style.display = 'flex';
 
                 // Download
                 const link = document.createElement('a');
@@ -4214,7 +4208,6 @@
                 link.click();
                 showToast('Saved!');
             } catch (err) {
-                banner.style.border = originalBorder;
                 actions.style.display = 'flex';
                 if (err.name !== 'AbortError') {
                     showToast('Save failed. Try screenshot.', true);
