@@ -1293,41 +1293,23 @@
         }
 
         .banner-share-btn {
-            width: 32px;
-            height: 32px;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 0.4rem 0.75rem;
+            font-size: 0.65rem;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
             border: 1px solid rgba(255,255,255,0.3);
-            background: transparent;
-            color: var(--white);
+            background: var(--orange);
+            color: var(--black);
+            border-color: var(--orange);
+            font-weight: bold;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
-        .banner-share-btn .shape {
-            border: 2px solid currentColor;
-        }
-
-        .banner-share-btn .shape-vertical {
-            width: 10px;
-            height: 16px;
-        }
-
-        .banner-share-btn .shape-square {
-            width: 14px;
-            height: 14px;
-        }
-
-        .banner-share-btn .shape-horizontal {
-            width: 18px;
-            height: 10px;
-        }
-
         .banner-share-btn:hover {
             background: var(--white);
-            color: var(--black);
+            border-color: var(--white);
         }
 
         /* Story Modal */
@@ -2383,9 +2365,9 @@
                     <div class="banner-subtext">They don't fear protests. They fear earnings calls.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn" onclick="saveBanner(1, 'ig-story')" title="IG Story"><span class="shape shape-vertical"></span></button>
-                        <button class="banner-share-btn" onclick="saveBanner(1, 'ig-post')" title="IG Post"><span class="shape shape-square"></span></button>
-                        <button class="banner-share-btn" onclick="saveBanner(1, 'twitter')" title="Twitter/X"><span class="shape shape-horizontal"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(1, 'story')" title="Vertical">▯</button>
+                        <button class="banner-share-btn" onclick="saveBanner(1, 'square')" title="Square">□</button>
+                        <button class="banner-share-btn" onclick="saveBanner(1, 'landscape')" title="Landscape">▭</button>
                     </div>
                 </div>
 
@@ -2397,9 +2379,9 @@
                     <div class="banner-subtext">Still cool with that? No? Join us on Friday.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn" onclick="saveBanner(2, 'ig-story')" title="IG Story"><span class="shape shape-vertical"></span></button>
-                        <button class="banner-share-btn" onclick="saveBanner(2, 'ig-post')" title="IG Post"><span class="shape shape-square"></span></button>
-                        <button class="banner-share-btn" onclick="saveBanner(2, 'twitter')" title="Twitter/X"><span class="shape shape-horizontal"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(2, 'story')" title="Vertical">▯</button>
+                        <button class="banner-share-btn" onclick="saveBanner(2, 'square')" title="Square">□</button>
+                        <button class="banner-share-btn" onclick="saveBanner(2, 'landscape')" title="Landscape">▭</button>
                     </div>
                 </div>
 
@@ -2411,9 +2393,9 @@
                     <div class="banner-subtext">Cancel one. This Friday. Together.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn" onclick="saveBanner(3, 'ig-story')" title="IG Story"><span class="shape shape-vertical"></span></button>
-                        <button class="banner-share-btn" onclick="saveBanner(3, 'ig-post')" title="IG Post"><span class="shape shape-square"></span></button>
-                        <button class="banner-share-btn" onclick="saveBanner(3, 'twitter')" title="Twitter/X"><span class="shape shape-horizontal"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(3, 'story')" title="Vertical">▯</button>
+                        <button class="banner-share-btn" onclick="saveBanner(3, 'square')" title="Square">□</button>
+                        <button class="banner-share-btn" onclick="saveBanner(3, 'landscape')" title="Landscape">▭</button>
                     </div>
                 </div>
 
@@ -2425,9 +2407,9 @@
                     <div class="banner-subtext">They declared war on us. We're hitting back.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn" onclick="saveBanner(4, 'ig-story')" title="IG Story"><span class="shape shape-vertical"></span></button>
-                        <button class="banner-share-btn" onclick="saveBanner(4, 'ig-post')" title="IG Post"><span class="shape shape-square"></span></button>
-                        <button class="banner-share-btn" onclick="saveBanner(4, 'twitter')" title="Twitter/X"><span class="shape shape-horizontal"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(4, 'story')" title="Vertical">▯</button>
+                        <button class="banner-share-btn" onclick="saveBanner(4, 'square')" title="Square">□</button>
+                        <button class="banner-share-btn" onclick="saveBanner(4, 'landscape')" title="Landscape">▭</button>
                     </div>
                 </div>
 
@@ -2439,9 +2421,9 @@
                     <div class="banner-subtext">They have contracts with ICE. We have receipts. Cancel together Friday.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn" onclick="saveBanner(5, 'ig-story')" title="IG Story"><span class="shape shape-vertical"></span></button>
-                        <button class="banner-share-btn" onclick="saveBanner(5, 'ig-post')" title="IG Post"><span class="shape shape-square"></span></button>
-                        <button class="banner-share-btn" onclick="saveBanner(5, 'twitter')" title="Twitter/X"><span class="shape shape-horizontal"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(5, 'story')" title="Vertical">▯</button>
+                        <button class="banner-share-btn" onclick="saveBanner(5, 'square')" title="Square">□</button>
+                        <button class="banner-share-btn" onclick="saveBanner(5, 'landscape')" title="Landscape">▭</button>
                     </div>
                 </div>
 
@@ -2453,9 +2435,9 @@
                     <div class="banner-subtext">These companies bankroll Trump. Pick one. Drop it. Friday noon.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn" onclick="saveBanner(6, 'ig-story')" title="IG Story"><span class="shape shape-vertical"></span></button>
-                        <button class="banner-share-btn" onclick="saveBanner(6, 'ig-post')" title="IG Post"><span class="shape shape-square"></span></button>
-                        <button class="banner-share-btn" onclick="saveBanner(6, 'twitter')" title="Twitter/X"><span class="shape shape-horizontal"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(6, 'story')" title="Vertical">▯</button>
+                        <button class="banner-share-btn" onclick="saveBanner(6, 'square')" title="Square">□</button>
+                        <button class="banner-share-btn" onclick="saveBanner(6, 'landscape')" title="Landscape">▭</button>
                     </div>
                 </div>
 
@@ -2467,9 +2449,9 @@
                     <div class="banner-subtext">Friday at noon. We move together.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn" onclick="saveBanner(7, 'ig-story')" title="IG Story"><span class="shape shape-vertical"></span></button>
-                        <button class="banner-share-btn" onclick="saveBanner(7, 'ig-post')" title="IG Post"><span class="shape shape-square"></span></button>
-                        <button class="banner-share-btn" onclick="saveBanner(7, 'twitter')" title="Twitter/X"><span class="shape shape-horizontal"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(7, 'story')" title="Vertical">▯</button>
+                        <button class="banner-share-btn" onclick="saveBanner(7, 'square')" title="Square">□</button>
+                        <button class="banner-share-btn" onclick="saveBanner(7, 'landscape')" title="Landscape">▭</button>
                     </div>
                 </div>
 
@@ -2481,9 +2463,9 @@
                     <div class="banner-subtext">Every Friday. One company. Until they feel it.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn" onclick="saveBanner(8, 'ig-story')" title="IG Story"><span class="shape shape-vertical"></span></button>
-                        <button class="banner-share-btn" onclick="saveBanner(8, 'ig-post')" title="IG Post"><span class="shape shape-square"></span></button>
-                        <button class="banner-share-btn" onclick="saveBanner(8, 'twitter')" title="Twitter/X"><span class="shape shape-horizontal"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(8, 'story')" title="Vertical">▯</button>
+                        <button class="banner-share-btn" onclick="saveBanner(8, 'square')" title="Square">□</button>
+                        <button class="banner-share-btn" onclick="saveBanner(8, 'landscape')" title="Landscape">▭</button>
                     </div>
                 </div>
 
@@ -2495,9 +2477,9 @@
                     <div class="banner-subtext">One cancellation. Every Friday. Join or watch.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn" onclick="saveBanner(9, 'ig-story')" title="IG Story"><span class="shape shape-vertical"></span></button>
-                        <button class="banner-share-btn" onclick="saveBanner(9, 'ig-post')" title="IG Post"><span class="shape shape-square"></span></button>
-                        <button class="banner-share-btn" onclick="saveBanner(9, 'twitter')" title="Twitter/X"><span class="shape shape-horizontal"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(9, 'story')" title="Vertical">▯</button>
+                        <button class="banner-share-btn" onclick="saveBanner(9, 'square')" title="Square">□</button>
+                        <button class="banner-share-btn" onclick="saveBanner(9, 'landscape')" title="Landscape">▭</button>
                     </div>
                 </div>
 
@@ -2509,9 +2491,9 @@
                     <div class="banner-subtext">Cut them off. Friday noon.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn" onclick="saveBanner(10, 'ig-story')" title="IG Story"><span class="shape shape-vertical"></span></button>
-                        <button class="banner-share-btn" onclick="saveBanner(10, 'ig-post')" title="IG Post"><span class="shape shape-square"></span></button>
-                        <button class="banner-share-btn" onclick="saveBanner(10, 'twitter')" title="Twitter/X"><span class="shape shape-horizontal"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(10, 'story')" title="Vertical">▯</button>
+                        <button class="banner-share-btn" onclick="saveBanner(10, 'square')" title="Square">□</button>
+                        <button class="banner-share-btn" onclick="saveBanner(10, 'landscape')" title="Landscape">▭</button>
                     </div>
                 </div>
             </div>
@@ -4176,85 +4158,59 @@
             });
         }
 
-        // Platform sizes for download
-        const platformSizes = {
-            'ig-story': { width: 1080, height: 1920, label: 'Story' },
-            'ig-post': { width: 1080, height: 1080, label: 'Square' },
-            'twitter': { width: 1200, height: 675, label: 'Landscape' }
-        };
-
-        async function saveBanner(bannerNum, platform = 'ig-story') {
+        async function saveBanner(bannerNum, format = 'story') {
             const banner = document.getElementById(`banner-${bannerNum}`);
             const actions = banner.querySelector('.banner-actions');
-            const size = platformSizes[platform];
 
             // Hide actions while capturing
             actions.style.display = 'none';
 
             try {
-                // Calculate scale based on target size
-                // Banner display size is 202x360 (9:16 ratio)
-                const bannerWidth = 202;
-                const bannerHeight = 360;
-
-                // For different aspect ratios, we need to adjust how we capture
-                const targetRatio = size.width / size.height;
-                const bannerRatio = bannerWidth / bannerHeight;
-
-                let captureWidth, captureHeight, scale;
-
-                if (targetRatio > bannerRatio) {
-                    // Target is wider - scale based on width
-                    scale = size.width / bannerWidth;
-                    captureWidth = bannerWidth;
-                    captureHeight = size.height / scale;
-                } else {
-                    // Target is taller - scale based on height
-                    scale = size.height / bannerHeight;
-                    captureWidth = size.width / scale;
-                    captureHeight = bannerHeight;
-                }
-
+                // Capture at high resolution (1080x1920 for story)
                 const canvas = await html2canvas(banner, {
                     backgroundColor: '#0a0a0a',
-                    scale: scale,
-                    width: bannerWidth,
-                    height: bannerHeight
+                    scale: 5.35,
+                    width: 202,
+                    height: 360
                 });
 
-                // Create final canvas with exact platform dimensions
-                const finalCanvas = document.createElement('canvas');
-                finalCanvas.width = size.width;
-                finalCanvas.height = size.height;
-                const ctx = finalCanvas.getContext('2d');
+                let finalCanvas;
+                const srcW = canvas.width;  // 1080
+                const srcH = canvas.height; // 1920
 
-                // Fill background
-                ctx.fillStyle = '#0a0a0a';
-                ctx.fillRect(0, 0, size.width, size.height);
-
-                // Calculate positioning to center the banner
-                const scaledWidth = canvas.width;
-                const scaledHeight = canvas.height;
-
-                // Fit the banner within the target dimensions
-                let drawWidth, drawHeight;
-                const fitRatio = Math.min(size.width / scaledWidth, size.height / scaledHeight);
-                drawWidth = scaledWidth * fitRatio;
-                drawHeight = scaledHeight * fitRatio;
-
-                const x = (size.width - drawWidth) / 2;
-                const y = (size.height - drawHeight) / 2;
-
-                ctx.drawImage(canvas, x, y, drawWidth, drawHeight);
+                if (format === 'story') {
+                    // Full vertical - no cropping
+                    finalCanvas = canvas;
+                } else if (format === 'square') {
+                    // Crop to square (1080x1080) from center
+                    finalCanvas = document.createElement('canvas');
+                    finalCanvas.width = 1080;
+                    finalCanvas.height = 1080;
+                    const ctx = finalCanvas.getContext('2d');
+                    // Take center 1080x1080 from the 1080x1920 source
+                    const cropY = (srcH - 1080) / 2;
+                    ctx.drawImage(canvas, 0, cropY, 1080, 1080, 0, 0, 1080, 1080);
+                } else if (format === 'landscape') {
+                    // Crop to landscape (1200x675) from center
+                    finalCanvas = document.createElement('canvas');
+                    finalCanvas.width = 1200;
+                    finalCanvas.height = 675;
+                    const ctx = finalCanvas.getContext('2d');
+                    // Scale up width and crop height to get 16:9ish from center
+                    const targetRatio = 1200 / 675;
+                    const cropH = srcW / targetRatio;
+                    const cropY = (srcH - cropH) / 2;
+                    ctx.drawImage(canvas, 0, cropY, srcW, cropH, 0, 0, 1200, 675);
+                }
 
                 actions.style.display = 'flex';
 
-                // Download the image
+                // Download
                 const link = document.createElement('a');
-                link.download = `salt-banner-${bannerNum}-${platform}.png`;
+                link.download = `salt-banner-${bannerNum}-${format}.png`;
                 link.href = finalCanvas.toDataURL('image/png');
                 link.click();
-                showToast(`${size.label} saved!`);
+                showToast('Saved!');
             } catch (err) {
                 actions.style.display = 'flex';
                 if (err.name !== 'AbortError') {
