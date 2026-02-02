@@ -4162,47 +4162,49 @@
             const banner = document.getElementById(`banner-${bannerNum}`);
             const actions = banner.querySelector('.banner-actions');
 
-            // Hide actions while capturing
+            // Store original border and hide it for clean capture
+            const originalBorder = banner.style.border;
+            banner.style.border = 'none';
             actions.style.display = 'none';
 
             try {
-                // Capture at high resolution (1080x1920 for story)
+                // Capture at high resolution
                 const canvas = await html2canvas(banner, {
                     backgroundColor: '#0a0a0a',
-                    scale: 5.35,
-                    width: 202,
-                    height: 360
+                    scale: 6
                 });
 
-                let finalCanvas;
-                const srcW = canvas.width;  // 1080
-                const srcH = canvas.height; // 1920
+                // Create final canvas at exact target dimensions
+                let finalCanvas = document.createElement('canvas');
+                let targetW, targetH, cropY = 0, cropH = canvas.height;
 
                 if (format === 'story') {
-                    // Full vertical - no cropping
-                    finalCanvas = canvas;
+                    targetW = 1080;
+                    targetH = 1920;
                 } else if (format === 'square') {
-                    // Crop to square (1080x1080) from center
-                    finalCanvas = document.createElement('canvas');
-                    finalCanvas.width = 1080;
-                    finalCanvas.height = 1080;
-                    const ctx = finalCanvas.getContext('2d');
-                    // Take center 1080x1080 from the 1080x1920 source
-                    const cropY = (srcH - 1080) / 2;
-                    ctx.drawImage(canvas, 0, cropY, 1080, 1080, 0, 0, 1080, 1080);
+                    targetW = 1080;
+                    targetH = 1080;
+                    // Crop from center vertically
+                    cropH = canvas.width; // Make it square based on width
+                    cropY = (canvas.height - cropH) / 2;
                 } else if (format === 'landscape') {
-                    // Crop to landscape (1200x675) from center
-                    finalCanvas = document.createElement('canvas');
-                    finalCanvas.width = 1200;
-                    finalCanvas.height = 675;
-                    const ctx = finalCanvas.getContext('2d');
-                    // Scale up width and crop height to get 16:9ish from center
-                    const targetRatio = 1200 / 675;
-                    const cropH = srcW / targetRatio;
-                    const cropY = (srcH - cropH) / 2;
-                    ctx.drawImage(canvas, 0, cropY, srcW, cropH, 0, 0, 1200, 675);
+                    targetW = 1200;
+                    targetH = 675;
+                    // Crop from center for 16:9ish ratio
+                    const targetRatio = targetW / targetH;
+                    cropH = canvas.width / targetRatio;
+                    cropY = (canvas.height - cropH) / 2;
                 }
 
+                finalCanvas.width = targetW;
+                finalCanvas.height = targetH;
+                const ctx = finalCanvas.getContext('2d');
+                ctx.fillStyle = '#0a0a0a';
+                ctx.fillRect(0, 0, targetW, targetH);
+                ctx.drawImage(canvas, 0, cropY, canvas.width, cropH, 0, 0, targetW, targetH);
+
+                // Restore banner
+                banner.style.border = originalBorder;
                 actions.style.display = 'flex';
 
                 // Download
@@ -4212,6 +4214,7 @@
                 link.click();
                 showToast('Saved!');
             } catch (err) {
+                banner.style.border = originalBorder;
                 actions.style.display = 'flex';
                 if (err.name !== 'AbortError') {
                     showToast('Save failed. Try screenshot.', true);
