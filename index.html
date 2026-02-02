@@ -1293,29 +1293,36 @@
         }
 
         .banner-share-btn {
-            padding: 0.4rem 0.75rem;
-            font-size: 0.65rem;
-            font-family: 'JetBrains Mono', monospace;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border: 1px solid rgba(255,255,255,0.3);
             background: transparent;
             color: var(--white);
             cursor: pointer;
-            text-decoration: none;
             transition: all 0.2s ease;
         }
 
-        .banner-share-btn.save {
-            background: var(--orange);
-            color: var(--black);
-            border-color: var(--orange);
-            font-weight: bold;
+        .banner-share-btn .shape {
+            border: 2px solid currentColor;
         }
 
-        .banner-share-btn.save:hover {
-            background: var(--white);
-            border-color: var(--white);
+        .banner-share-btn .shape-vertical {
+            width: 10px;
+            height: 16px;
+        }
+
+        .banner-share-btn .shape-square {
+            width: 14px;
+            height: 14px;
+        }
+
+        .banner-share-btn .shape-horizontal {
+            width: 18px;
+            height: 10px;
         }
 
         .banner-share-btn:hover {
@@ -2376,9 +2383,9 @@
                     <div class="banner-subtext">They don't fear protests. They fear earnings calls.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn save" onclick="saveBanner(1)">Save</button>
-                        <a href="https://twitter.com/intent/tweet?text=Marching%20didn%27t%20work.%20Neither%20did%20the%20general%20strike.%20They%20don%27t%20fear%20protests.%20They%20fear%20earnings%20calls.%20%23CancelFriday&url=https://cancelfriday.com" target="_blank" rel="noopener" class="banner-share-btn">X</a>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com&quote=Marching%20didn%27t%20work.%20Neither%20did%20the%20general%20strike.%20They%20don%27t%20fear%20protests.%20They%20fear%20earnings%20calls." target="_blank" rel="noopener" class="banner-share-btn">FB</a>
+                        <button class="banner-share-btn" onclick="saveBanner(1, 'ig-story')" title="IG Story"><span class="shape shape-vertical"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(1, 'ig-post')" title="IG Post"><span class="shape shape-square"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(1, 'twitter')" title="Twitter/X"><span class="shape shape-horizontal"></span></button>
                     </div>
                 </div>
 
@@ -2390,9 +2397,9 @@
                     <div class="banner-subtext">Still cool with that? No? Join us on Friday.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn save" onclick="saveBanner(2)">Save</button>
-                        <a href="https://twitter.com/intent/tweet?text=Your%20subscription%20paid%20for%20someone%27s%20deportation.%20Still%20cool%20with%20that%3F%20No%3F%20Join%20us%20on%20Friday.%20%23CancelFriday&url=https://cancelfriday.com" target="_blank" rel="noopener" class="banner-share-btn">X</a>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com&quote=Your%20subscription%20paid%20for%20someone%27s%20deportation.%20Still%20cool%20with%20that%3F%20No%3F%20Join%20us%20on%20Friday." target="_blank" rel="noopener" class="banner-share-btn">FB</a>
+                        <button class="banner-share-btn" onclick="saveBanner(2, 'ig-story')" title="IG Story"><span class="shape shape-vertical"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(2, 'ig-post')" title="IG Post"><span class="shape shape-square"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(2, 'twitter')" title="Twitter/X"><span class="shape shape-horizontal"></span></button>
                     </div>
                 </div>
 
@@ -2404,9 +2411,9 @@
                     <div class="banner-subtext">Cancel one. This Friday. Together.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn save" onclick="saveBanner(3)">Save</button>
-                        <a href="https://twitter.com/intent/tweet?text=They%20chose%20fascism.%20Choose%20consequences.%20Cancel%20one.%20This%20Friday.%20Together.%20%23CancelFriday&url=https://cancelfriday.com" target="_blank" rel="noopener" class="banner-share-btn">X</a>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com&quote=They%20chose%20fascism.%20Choose%20consequences.%20Cancel%20one.%20This%20Friday.%20Together." target="_blank" rel="noopener" class="banner-share-btn">FB</a>
+                        <button class="banner-share-btn" onclick="saveBanner(3, 'ig-story')" title="IG Story"><span class="shape shape-vertical"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(3, 'ig-post')" title="IG Post"><span class="shape shape-square"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(3, 'twitter')" title="Twitter/X"><span class="shape shape-horizontal"></span></button>
                     </div>
                 </div>
 
@@ -2418,9 +2425,9 @@
                     <div class="banner-subtext">They declared war on us. We're hitting back.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn save" onclick="saveBanner(4)">Save</button>
-                        <a href="https://twitter.com/intent/tweet?text=This%20isn%27t%20a%20boycott.%20It%27s%20economic%20warfare.%20They%20declared%20war%20on%20us.%20We%27re%20hitting%20back.%20%23CancelFriday&url=https://cancelfriday.com" target="_blank" rel="noopener" class="banner-share-btn">X</a>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com&quote=This%20isn%27t%20a%20boycott.%20It%27s%20economic%20warfare.%20They%20declared%20war%20on%20us.%20We%27re%20hitting%20back." target="_blank" rel="noopener" class="banner-share-btn">FB</a>
+                        <button class="banner-share-btn" onclick="saveBanner(4, 'ig-story')" title="IG Story"><span class="shape shape-vertical"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(4, 'ig-post')" title="IG Post"><span class="shape shape-square"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(4, 'twitter')" title="Twitter/X"><span class="shape shape-horizontal"></span></button>
                     </div>
                 </div>
 
@@ -2432,9 +2439,9 @@
                     <div class="banner-subtext">They have contracts with ICE. We have receipts. Cancel together Friday.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn save" onclick="saveBanner(5)">Save</button>
-                        <a href="https://twitter.com/intent/tweet?text=Your%20%2415%2Fmonth%20funds%20deportations.%20They%20have%20contracts%20with%20ICE.%20We%20have%20receipts.%20%23CancelFriday&url=https://cancelfriday.com" target="_blank" rel="noopener" class="banner-share-btn">X</a>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com&quote=Your%20%2415%2Fmonth%20funds%20deportations.%20They%20have%20contracts%20with%20ICE.%20We%20have%20receipts." target="_blank" rel="noopener" class="banner-share-btn">FB</a>
+                        <button class="banner-share-btn" onclick="saveBanner(5, 'ig-story')" title="IG Story"><span class="shape shape-vertical"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(5, 'ig-post')" title="IG Post"><span class="shape shape-square"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(5, 'twitter')" title="Twitter/X"><span class="shape shape-horizontal"></span></button>
                     </div>
                 </div>
 
@@ -2446,9 +2453,9 @@
                     <div class="banner-subtext">These companies bankroll Trump. Pick one. Drop it. Friday noon.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn save" onclick="saveBanner(6)">Save</button>
-                        <a href="https://twitter.com/intent/tweet?text=Still%20subscribed%3F%20Still%20complicit.%20These%20companies%20bankroll%20Trump.%20Pick%20one.%20Drop%20it.%20%23CancelFriday&url=https://cancelfriday.com" target="_blank" rel="noopener" class="banner-share-btn">X</a>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com&quote=Still%20subscribed%3F%20Still%20complicit.%20These%20companies%20bankroll%20Trump.%20Pick%20one.%20Drop%20it." target="_blank" rel="noopener" class="banner-share-btn">FB</a>
+                        <button class="banner-share-btn" onclick="saveBanner(6, 'ig-story')" title="IG Story"><span class="shape shape-vertical"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(6, 'ig-post')" title="IG Post"><span class="shape shape-square"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(6, 'twitter')" title="Twitter/X"><span class="shape shape-horizontal"></span></button>
                     </div>
                 </div>
 
@@ -2460,9 +2467,9 @@
                     <div class="banner-subtext">Friday at noon. We move together.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn save" onclick="saveBanner(7)">Save</button>
-                        <a href="https://twitter.com/intent/tweet?text=One%20cancellation%3A%20nothing.%20Thousands%20at%20once%3A%20crisis.%20Friday%20at%20noon.%20We%20move%20together.%20%23CancelFriday&url=https://cancelfriday.com" target="_blank" rel="noopener" class="banner-share-btn">X</a>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com&quote=One%20cancellation%3A%20nothing.%20Thousands%20at%20once%3A%20crisis.%20Friday%20at%20noon.%20We%20move%20together." target="_blank" rel="noopener" class="banner-share-btn">FB</a>
+                        <button class="banner-share-btn" onclick="saveBanner(7, 'ig-story')" title="IG Story"><span class="shape shape-vertical"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(7, 'ig-post')" title="IG Post"><span class="shape shape-square"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(7, 'twitter')" title="Twitter/X"><span class="shape shape-horizontal"></span></button>
                     </div>
                 </div>
 
@@ -2474,9 +2481,9 @@
                     <div class="banner-subtext">Every Friday. One company. Until they feel it.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn save" onclick="saveBanner(8)">Save</button>
-                        <a href="https://twitter.com/intent/tweet?text=They%20fundraise%20for%20tyranny.%20We%20unsubscribe.%20Every%20Friday.%20One%20company.%20Until%20they%20feel%20it.%20%23CancelFriday&url=https://cancelfriday.com" target="_blank" rel="noopener" class="banner-share-btn">X</a>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com&quote=They%20fundraise%20for%20tyranny.%20We%20unsubscribe.%20Every%20Friday.%20One%20company.%20Until%20they%20feel%20it." target="_blank" rel="noopener" class="banner-share-btn">FB</a>
+                        <button class="banner-share-btn" onclick="saveBanner(8, 'ig-story')" title="IG Story"><span class="shape shape-vertical"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(8, 'ig-post')" title="IG Post"><span class="shape shape-square"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(8, 'twitter')" title="Twitter/X"><span class="shape shape-horizontal"></span></button>
                     </div>
                 </div>
 
@@ -2488,9 +2495,9 @@
                     <div class="banner-subtext">One cancellation. Every Friday. Join or watch.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn save" onclick="saveBanner(9)">Save</button>
-                        <a href="https://twitter.com/intent/tweet?text=F**k%20your%20streaming.%20ICE%20is%20killing%20us.%20One%20cancellation.%20Every%20Friday.%20Join%20or%20watch.%20%23CancelFriday&url=https://cancelfriday.com" target="_blank" rel="noopener" class="banner-share-btn">X</a>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com&quote=One%20cancellation.%20Every%20Friday.%20Join%20or%20watch." target="_blank" rel="noopener" class="banner-share-btn">FB</a>
+                        <button class="banner-share-btn" onclick="saveBanner(9, 'ig-story')" title="IG Story"><span class="shape shape-vertical"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(9, 'ig-post')" title="IG Post"><span class="shape shape-square"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(9, 'twitter')" title="Twitter/X"><span class="shape shape-horizontal"></span></button>
                     </div>
                 </div>
 
@@ -2502,9 +2509,9 @@
                     <div class="banner-subtext">Cut them off. Friday noon.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn save" onclick="saveBanner(10)">Save</button>
-                        <a href="https://twitter.com/intent/tweet?text=They%20build%20the%20cages.%20You%20pay%20for%20the%20streaming.%20Cut%20them%20off.%20Friday%20noon.%20%23CancelFriday&url=https://cancelfriday.com" target="_blank" rel="noopener" class="banner-share-btn">X</a>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://cancelfriday.com&quote=They%20build%20the%20cages.%20You%20pay%20for%20the%20streaming.%20Cut%20them%20off.%20Friday%20noon." target="_blank" rel="noopener" class="banner-share-btn">FB</a>
+                        <button class="banner-share-btn" onclick="saveBanner(10, 'ig-story')" title="IG Story"><span class="shape shape-vertical"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(10, 'ig-post')" title="IG Post"><span class="shape shape-square"></span></button>
+                        <button class="banner-share-btn" onclick="saveBanner(10, 'twitter')" title="Twitter/X"><span class="shape shape-horizontal"></span></button>
                     </div>
                 </div>
             </div>
@@ -4169,44 +4176,85 @@
             });
         }
 
-        async function saveBanner(bannerNum) {
+        // Platform sizes for download
+        const platformSizes = {
+            'ig-story': { width: 1080, height: 1920, label: 'Story' },
+            'ig-post': { width: 1080, height: 1080, label: 'Square' },
+            'twitter': { width: 1200, height: 675, label: 'Landscape' }
+        };
+
+        async function saveBanner(bannerNum, platform = 'ig-story') {
             const banner = document.getElementById(`banner-${bannerNum}`);
             const actions = banner.querySelector('.banner-actions');
+            const size = platformSizes[platform];
 
             // Hide actions while capturing
             actions.style.display = 'none';
 
             try {
-                // Capture at Instagram story resolution (1080x1920)
-                // Scale factor: 1080 / 202 ≈ 5.35
+                // Calculate scale based on target size
+                // Banner display size is 202x360 (9:16 ratio)
+                const bannerWidth = 202;
+                const bannerHeight = 360;
+
+                // For different aspect ratios, we need to adjust how we capture
+                const targetRatio = size.width / size.height;
+                const bannerRatio = bannerWidth / bannerHeight;
+
+                let captureWidth, captureHeight, scale;
+
+                if (targetRatio > bannerRatio) {
+                    // Target is wider - scale based on width
+                    scale = size.width / bannerWidth;
+                    captureWidth = bannerWidth;
+                    captureHeight = size.height / scale;
+                } else {
+                    // Target is taller - scale based on height
+                    scale = size.height / bannerHeight;
+                    captureWidth = size.width / scale;
+                    captureHeight = bannerHeight;
+                }
+
                 const canvas = await html2canvas(banner, {
                     backgroundColor: '#0a0a0a',
-                    scale: 5.35,
-                    width: 202,
-                    height: 360
+                    scale: scale,
+                    width: bannerWidth,
+                    height: bannerHeight
                 });
+
+                // Create final canvas with exact platform dimensions
+                const finalCanvas = document.createElement('canvas');
+                finalCanvas.width = size.width;
+                finalCanvas.height = size.height;
+                const ctx = finalCanvas.getContext('2d');
+
+                // Fill background
+                ctx.fillStyle = '#0a0a0a';
+                ctx.fillRect(0, 0, size.width, size.height);
+
+                // Calculate positioning to center the banner
+                const scaledWidth = canvas.width;
+                const scaledHeight = canvas.height;
+
+                // Fit the banner within the target dimensions
+                let drawWidth, drawHeight;
+                const fitRatio = Math.min(size.width / scaledWidth, size.height / scaledHeight);
+                drawWidth = scaledWidth * fitRatio;
+                drawHeight = scaledHeight * fitRatio;
+
+                const x = (size.width - drawWidth) / 2;
+                const y = (size.height - drawHeight) / 2;
+
+                ctx.drawImage(canvas, x, y, drawWidth, drawHeight);
 
                 actions.style.display = 'flex';
 
-                const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-                const file = new File([blob], `salt-banner-${bannerNum}.png`, { type: 'image/png' });
-
-                // Try Web Share API first (works great on mobile)
-                if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                    await navigator.share({
-                        files: [file],
-                        title: 'Cancel Friday',
-                        text: '#CancelFriday'
-                    });
-                    showToast('Share it everywhere!');
-                } else {
-                    // Fallback to download
-                    const link = document.createElement('a');
-                    link.download = `salt-banner-${bannerNum}.png`;
-                    link.href = canvas.toDataURL('image/png');
-                    link.click();
-                    showToast('Saved! Share it everywhere.');
-                }
+                // Download the image
+                const link = document.createElement('a');
+                link.download = `salt-banner-${bannerNum}-${platform}.png`;
+                link.href = finalCanvas.toDataURL('image/png');
+                link.click();
+                showToast(`${size.label} saved!`);
             } catch (err) {
                 actions.style.display = 'flex';
                 if (err.name !== 'AbortError') {
