@@ -608,12 +608,14 @@
             background: none;
             border: 1px solid var(--orange);
             color: var(--orange);
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             cursor: pointer;
             font-family: 'JetBrains Mono', monospace;
-            padding: 0.4rem 1rem;
+            padding: 0.5rem 1.25rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
+            line-height: 1.4;
+            text-align: center;
         }
 
         .change-vote-link:hover {
@@ -2274,7 +2276,7 @@
 
             <div class="user-vote-indicator" id="user-vote-indicator" style="display: none;">
                 <div class="user-vote-text">You voted for <strong id="user-vote-name"></strong>. If it has the most votes by Friday at noon, we cancel together.</div>
-                <button class="change-vote-link" id="change-vote-link">Change</button>
+                <button class="change-vote-link" id="change-vote-link">Change<br>Your Vote</button>
             </div>
         </section>
 
