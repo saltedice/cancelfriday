@@ -4008,8 +4008,6 @@
                     const nextThreshold = getNextThreshold(leaderVotes);
                     const projected = calculateProjectedImpact(leaderCandidate?.id, nextThreshold);
 
-                    voteSummaryText.innerHTML = `<strong style="font-size: 1.1rem;">${leaderCandidate?.name?.toUpperCase()}</strong><br>${leaderVotes.toLocaleString()} ${leaderVotes === 1 ? 'vote' : 'votes'} · At ${nextThreshold.toLocaleString()}, that's ${projected.annual}/year gone`;
-
                     // Show user's vote in new location (below total votes)
                     const userVoteIndicator = document.getElementById('user-vote-indicator');
                     const userVoteName = document.getElementById('user-vote-name');
@@ -4018,10 +4016,10 @@
                     changeVoteLink.onclick = changeVote;
                     userVoteIndicator.style.display = 'flex';
 
-                    // Hide old vote comparison
+                    // Hide vote summary box (info now shown in projected banner)
                     voteComparison.innerHTML = '';
                     changeVoteBtn.style.display = 'none';
-                    voteSummary.style.display = 'block';
+                    voteSummary.style.display = 'none';
 
                     // Cancel preview
                     const cancelPreview = document.getElementById('cancel-preview');
