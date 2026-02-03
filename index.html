@@ -589,6 +589,30 @@
             opacity: 0.5;
         }
 
+        .user-vote-indicator {
+            margin-top: 0.75rem;
+            font-size: 0.8rem;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .change-vote-link {
+            background: none;
+            border: none;
+            color: var(--orange);
+            font-size: 0.7rem;
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 0;
+        }
+
+        .change-vote-link:hover {
+            text-decoration: underline;
+        }
+
         .candidates-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -2238,6 +2262,11 @@
 
             <div class="vote-count-total">
                 <span id="total-votes">0</span> total votes cast
+            </div>
+
+            <div class="user-vote-indicator" id="user-vote-indicator" style="display: none;">
+                You voted <strong id="user-vote-name"></strong>
+                <button class="change-vote-link" id="change-vote-link">Change →</button>
             </div>
         </section>
 
@@ -3945,6 +3974,7 @@
             document.getElementById('vote-summary').style.display = 'none';
             document.getElementById('change-vote-btn').style.display = 'none';
             document.getElementById('cancel-preview').style.display = 'none';
+            document.getElementById('user-vote-indicator').style.display = 'none';
 
             if (phase === 'VOTING') {
                 dropInfo.style.display = 'none';
@@ -3970,11 +4000,17 @@
 
                     voteSummaryText.innerHTML = `<strong style="font-size: 1.1rem;">${leaderCandidate?.name?.toUpperCase()}</strong><br>${leaderVotes.toLocaleString()} ${leaderVotes === 1 ? 'vote' : 'votes'} · At ${nextThreshold.toLocaleString()}, that's ${projected.annual}/year gone`;
 
-                    // Show user's vote
-                    voteComparison.innerHTML = `You voted <strong>${votedCandidate?.name}</strong>`;
-                    changeVoteBtn.style.display = 'inline-block';
-                    changeVoteBtn.textContent = 'Change vote →';
-                    changeVoteBtn.onclick = changeVote;
+                    // Show user's vote in new location (below total votes)
+                    const userVoteIndicator = document.getElementById('user-vote-indicator');
+                    const userVoteName = document.getElementById('user-vote-name');
+                    const changeVoteLink = document.getElementById('change-vote-link');
+                    userVoteName.textContent = votedCandidate?.name;
+                    changeVoteLink.onclick = changeVote;
+                    userVoteIndicator.style.display = 'flex';
+
+                    // Hide old vote comparison
+                    voteComparison.innerHTML = '';
+                    changeVoteBtn.style.display = 'none';
                     voteSummary.style.display = 'block';
 
                     // Cancel preview
