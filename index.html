@@ -2083,9 +2083,9 @@
 
         .badge-list {
             flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.4rem;
             margin: 0.25rem 0;
             position: relative;
             z-index: 1;
@@ -2094,28 +2094,28 @@
         .badge-list-item {
             position: relative;
             border: 1px solid rgba(255,255,255,0.3);
-            padding: 0.6rem 0.75rem 0.6rem 2rem;
+            padding: 0.4rem 0.5rem 0.4rem 1.5rem;
             background: rgba(0,0,0,0.3);
         }
 
         .badge-list-item .x-mark {
             position: absolute;
-            left: -0.3rem;
+            left: -0.2rem;
             top: 50%;
             transform: translateY(-50%) rotate(-12deg);
             font-family: 'Permanent Marker', cursive;
-            font-size: 2.2rem;
+            font-size: 1.6rem;
             color: var(--red);
             line-height: 1;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
         }
 
         .badge-list-item .item-name {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
+            font-size: 0.55rem;
             color: var(--white);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.03em;
         }
 
         .badge-empty-state {
@@ -2403,8 +2403,8 @@
 
         <!-- Receipts Badge Section -->
         <section class="receipts-section">
-            <div class="receipts-title">ALREADY UNSUBSCRIBED?</div>
-            <div class="receipts-subtitle">Join the club! We'll count you too. We are all-inclusive.</div>
+            <div class="receipts-title">ALREADY CANCELLED?</div>
+            <div class="receipts-subtitle">Good, now spread the word.</div>
             <button class="receipts-btn" onclick="openBadgeModal()">SHOW YOUR RECEIPTS →</button>
         </section>
 
