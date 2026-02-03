@@ -590,27 +590,35 @@
         }
 
         .user-vote-indicator {
-            margin-top: 0.75rem;
-            font-size: 0.8rem;
+            margin-top: 1rem;
+            font-size: 0.85rem;
             color: var(--white);
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
+            text-align: center;
+            gap: 0.5rem;
+        }
+
+        .user-vote-text {
+            max-width: 400px;
         }
 
         .change-vote-link {
             background: none;
-            border: none;
+            border: 1px solid var(--orange);
             color: var(--orange);
             font-size: 0.7rem;
             cursor: pointer;
             font-family: 'JetBrains Mono', monospace;
-            padding: 0;
+            padding: 0.4rem 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .change-vote-link:hover {
-            text-decoration: underline;
+            background: var(--orange);
+            color: var(--black);
         }
 
         .candidates-grid {
@@ -2265,8 +2273,8 @@
             </div>
 
             <div class="user-vote-indicator" id="user-vote-indicator" style="display: none;">
-                You voted <strong id="user-vote-name"></strong>
-                <button class="change-vote-link" id="change-vote-link">Change →</button>
+                <div class="user-vote-text">You voted for <strong id="user-vote-name"></strong>. If it has the most votes by Friday at noon, we cancel together.</div>
+                <button class="change-vote-link" id="change-vote-link">Change</button>
             </div>
         </section>
 
