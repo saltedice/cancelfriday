@@ -1299,17 +1299,28 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
             border: 1px solid rgba(255,255,255,0.3);
+            background: transparent;
+            color: var(--white);
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .banner-share-btn.save {
             background: var(--orange);
             color: var(--black);
             border-color: var(--orange);
             font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s ease;
+        }
+
+        .banner-share-btn.save:hover {
+            background: var(--white);
+            border-color: var(--white);
         }
 
         .banner-share-btn:hover {
             background: var(--white);
-            border-color: var(--white);
+            color: var(--black);
         }
 
         /* Story Modal */
@@ -2365,9 +2376,7 @@
                     <div class="banner-subtext">They don't fear protests. They fear earnings calls.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn" onclick="saveBanner(1, 'story')" title="Vertical">▯</button>
-                        <button class="banner-share-btn" onclick="saveBanner(1, 'square')" title="Square">□</button>
-                        <button class="banner-share-btn" onclick="saveBanner(1, 'landscape')" title="Landscape">▭</button>
+                        <button class="banner-share-btn save" onclick="saveBanner(1)">Save</button>
                     </div>
                 </div>
 
@@ -2379,9 +2388,7 @@
                     <div class="banner-subtext">Still cool with that? No? Join us on Friday.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn" onclick="saveBanner(2, 'story')" title="Vertical">▯</button>
-                        <button class="banner-share-btn" onclick="saveBanner(2, 'square')" title="Square">□</button>
-                        <button class="banner-share-btn" onclick="saveBanner(2, 'landscape')" title="Landscape">▭</button>
+                        <button class="banner-share-btn save" onclick="saveBanner(2)">Save</button>
                     </div>
                 </div>
 
@@ -2393,9 +2400,7 @@
                     <div class="banner-subtext">Cancel one. This Friday. Together.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn" onclick="saveBanner(3, 'story')" title="Vertical">▯</button>
-                        <button class="banner-share-btn" onclick="saveBanner(3, 'square')" title="Square">□</button>
-                        <button class="banner-share-btn" onclick="saveBanner(3, 'landscape')" title="Landscape">▭</button>
+                        <button class="banner-share-btn save" onclick="saveBanner(3)">Save</button>
                     </div>
                 </div>
 
@@ -2407,9 +2412,7 @@
                     <div class="banner-subtext">They declared war on us. We're hitting back.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn" onclick="saveBanner(4, 'story')" title="Vertical">▯</button>
-                        <button class="banner-share-btn" onclick="saveBanner(4, 'square')" title="Square">□</button>
-                        <button class="banner-share-btn" onclick="saveBanner(4, 'landscape')" title="Landscape">▭</button>
+                        <button class="banner-share-btn save" onclick="saveBanner(4)">Save</button>
                     </div>
                 </div>
 
@@ -2421,9 +2424,7 @@
                     <div class="banner-subtext">They have contracts with ICE. We have receipts. Cancel together Friday.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn" onclick="saveBanner(5, 'story')" title="Vertical">▯</button>
-                        <button class="banner-share-btn" onclick="saveBanner(5, 'square')" title="Square">□</button>
-                        <button class="banner-share-btn" onclick="saveBanner(5, 'landscape')" title="Landscape">▭</button>
+                        <button class="banner-share-btn save" onclick="saveBanner(5)">Save</button>
                     </div>
                 </div>
 
@@ -2435,9 +2436,7 @@
                     <div class="banner-subtext">These companies bankroll Trump. Pick one. Drop it. Friday noon.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn" onclick="saveBanner(6, 'story')" title="Vertical">▯</button>
-                        <button class="banner-share-btn" onclick="saveBanner(6, 'square')" title="Square">□</button>
-                        <button class="banner-share-btn" onclick="saveBanner(6, 'landscape')" title="Landscape">▭</button>
+                        <button class="banner-share-btn save" onclick="saveBanner(6)">Save</button>
                     </div>
                 </div>
 
@@ -2449,9 +2448,7 @@
                     <div class="banner-subtext">Friday at noon. We move together.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn" onclick="saveBanner(7, 'story')" title="Vertical">▯</button>
-                        <button class="banner-share-btn" onclick="saveBanner(7, 'square')" title="Square">□</button>
-                        <button class="banner-share-btn" onclick="saveBanner(7, 'landscape')" title="Landscape">▭</button>
+                        <button class="banner-share-btn save" onclick="saveBanner(7)">Save</button>
                     </div>
                 </div>
 
@@ -2463,9 +2460,7 @@
                     <div class="banner-subtext">Every Friday. One company. Until they feel it.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn" onclick="saveBanner(8, 'story')" title="Vertical">▯</button>
-                        <button class="banner-share-btn" onclick="saveBanner(8, 'square')" title="Square">□</button>
-                        <button class="banner-share-btn" onclick="saveBanner(8, 'landscape')" title="Landscape">▭</button>
+                        <button class="banner-share-btn save" onclick="saveBanner(8)">Save</button>
                     </div>
                 </div>
 
@@ -2477,9 +2472,7 @@
                     <div class="banner-subtext">One cancellation. Every Friday. Join or watch.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn" onclick="saveBanner(9, 'story')" title="Vertical">▯</button>
-                        <button class="banner-share-btn" onclick="saveBanner(9, 'square')" title="Square">□</button>
-                        <button class="banner-share-btn" onclick="saveBanner(9, 'landscape')" title="Landscape">▭</button>
+                        <button class="banner-share-btn save" onclick="saveBanner(9)">Save</button>
                     </div>
                 </div>
 
@@ -2491,9 +2484,7 @@
                     <div class="banner-subtext">Cut them off. Friday noon.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-share-btn" onclick="saveBanner(10, 'story')" title="Vertical">▯</button>
-                        <button class="banner-share-btn" onclick="saveBanner(10, 'square')" title="Square">□</button>
-                        <button class="banner-share-btn" onclick="saveBanner(10, 'landscape')" title="Landscape">▭</button>
+                        <button class="banner-share-btn save" onclick="saveBanner(10)">Save</button>
                     </div>
                 </div>
             </div>
@@ -4158,7 +4149,7 @@
             });
         }
 
-        async function saveBanner(bannerNum, format = 'story') {
+        async function saveBanner(bannerNum) {
             const banner = document.getElementById(`banner-${bannerNum}`);
             const actions = banner.querySelector('.banner-actions');
 
@@ -4166,51 +4157,36 @@
             actions.style.display = 'none';
 
             try {
-                // Capture at high resolution (scale 6 = ~1212x2160)
+                // Capture at Instagram story resolution (1080x1920)
+                // Scale factor: 1080 / 202 ≈ 5.35
                 const canvas = await html2canvas(banner, {
                     backgroundColor: '#0a0a0a',
-                    scale: 6,
+                    scale: 5.35,
                     width: 202,
                     height: 360
                 });
 
                 actions.style.display = 'flex';
 
-                // Always create exact-sized final canvas
-                const finalCanvas = document.createElement('canvas');
-                let ctx;
+                const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+                const file = new File([blob], `salt-banner-${bannerNum}.png`, { type: 'image/png' });
 
-                if (format === 'story') {
-                    // Exact 1080x1920 - scale down from captured
-                    finalCanvas.width = 1080;
-                    finalCanvas.height = 1920;
-                    ctx = finalCanvas.getContext('2d');
-                    ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, 1080, 1920);
-                } else if (format === 'square') {
-                    // 1080x1080 - crop center square then scale
-                    finalCanvas.width = 1080;
-                    finalCanvas.height = 1080;
-                    ctx = finalCanvas.getContext('2d');
-                    const srcSize = canvas.width;
-                    const cropY = (canvas.height - srcSize) / 2;
-                    ctx.drawImage(canvas, 0, cropY, srcSize, srcSize, 0, 0, 1080, 1080);
-                } else if (format === 'landscape') {
-                    // 1200x675 - crop center landscape then scale
-                    finalCanvas.width = 1200;
-                    finalCanvas.height = 675;
-                    ctx = finalCanvas.getContext('2d');
-                    const targetRatio = 1200 / 675;
-                    const cropH = canvas.width / targetRatio;
-                    const cropY = (canvas.height - cropH) / 2;
-                    ctx.drawImage(canvas, 0, cropY, canvas.width, cropH, 0, 0, 1200, 675);
+                // Try Web Share API first (works great on mobile)
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    await navigator.share({
+                        files: [file],
+                        title: 'Cancel Friday',
+                        text: '#CancelFriday'
+                    });
+                    showToast('Share it everywhere!');
+                } else {
+                    // Fallback to download
+                    const link = document.createElement('a');
+                    link.download = `salt-banner-${bannerNum}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                    showToast('Saved! Share it everywhere.');
                 }
-
-                // Download
-                const link = document.createElement('a');
-                link.download = `salt-banner-${bannerNum}-${format}.png`;
-                link.href = finalCanvas.toDataURL('image/png');
-                link.click();
-                showToast('Saved!');
             } catch (err) {
                 actions.style.display = 'flex';
                 if (err.name !== 'AbortError') {
