@@ -3879,10 +3879,10 @@
                     const remaining = nextThreshold - leaderVotes;
                     const progressPct = Math.min((leaderVotes / nextThreshold) * 100, 100);
 
-                    document.getElementById('projected-headline').textContent = `${leaderVotes.toLocaleString()} voting to cancel ${targetName}`;
-                    document.getElementById('projected-projection').innerHTML = `At <strong>${nextThreshold.toLocaleString()}</strong>, that's <strong>${projected.annual}/year</strong> gone.`;
+                    document.getElementById('projected-headline').innerHTML = `CURRENT LEADER: <strong>${targetName.toUpperCase()}</strong> — ${leaderVotes.toLocaleString()} committed`;
+                    document.getElementById('projected-projection').innerHTML = `At <strong>${nextThreshold.toLocaleString()}</strong>, that's <strong>${projected.annual}/year</strong> gone. <strong>${remaining.toLocaleString()}</strong> more to hit ${nextThreshold.toLocaleString()}`;
                     document.getElementById('projected-progress').style.width = `${progressPct}%`;
-                    document.getElementById('projected-cta').textContent = `${remaining.toLocaleString()} more to hit ${nextThreshold.toLocaleString()}`;
+                    document.getElementById('projected-cta').textContent = '';
                 } else {
                     // Target locked: winner's actual votes, show actual impact
                     const winnerVotes = leader.vote_count || 0;
