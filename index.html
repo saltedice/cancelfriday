@@ -2271,11 +2271,11 @@
             </div>
 
             <div class="vote-count-total">
-                <span id="total-votes">0</span> total votes cast
+                <span id="total-votes">0</span> committed so far
             </div>
 
             <div class="user-vote-indicator" id="user-vote-indicator" style="display: none;">
-                <div class="user-vote-text">You voted for <strong id="user-vote-name"></strong>. If it has the most votes by Friday at noon, we cancel together.</div>
+                <div class="user-vote-text">You voted for <strong id="user-vote-name"></strong>. If it has the most committed by Friday at noon, we cancel together.</div>
                 <button class="change-vote-link" id="change-vote-link">Change<br>Your Vote</button>
             </div>
         </section>
@@ -3806,7 +3806,7 @@
                         <div class="vote-bar">
                             <div class="vote-fill" style="width: ${pct}%"></div>
                         </div>
-                        <div class="vote-count">${c.vote_count.toLocaleString()} ${c.vote_count === 1 ? 'vote' : 'votes'}</div>
+                        <div class="vote-count">${c.vote_count.toLocaleString()} committed</div>
                         ${isWinner && phase !== 'VOTING' ? '<div class="your-vote-badge" style="background: var(--red)">TARGET</div>' : ''}
                     </div>
                 `;
@@ -4082,7 +4082,7 @@
                     dropInfo.style.display = 'none';
                     document.getElementById('participants-count').textContent = winnerVotes.toLocaleString();
                     participantsLabel.textContent = `canceling ${winnerData?.name || 'the winner'}`;
-                    statusNote.innerHTML = `<strong>${winnerData?.name}</strong> won this week. You voted ${votedCandidate?.name} — you're off the hook.<br><br>Want to join anyway? Or hold tight — ${votedCandidate?.name} carries ${votedCandidate?.vote_count.toLocaleString()} ${votedCandidate?.vote_count === 1 ? 'vote' : 'votes'} into next week.`;
+                    statusNote.innerHTML = `<strong>${winnerData?.name}</strong> won this week. You voted ${votedCandidate?.name} — you're off the hook.<br><br>Want to join anyway? Or hold tight — ${votedCandidate?.name} carries ${votedCandidate?.vote_count.toLocaleString()} committed into next week.`;
                     shareBtn.style.display = 'inline-block';
                 }
 
@@ -4146,7 +4146,7 @@
                 const nextThreshold = getNextThreshold(voteCount);
                 const projected = storyCandidate ? calculateProjectedImpact(storyCandidate.id, nextThreshold) : null;
                 storyAction.textContent = 'I\'m voting to cancel';
-                storyCommitted.textContent = `this Friday. ${voteCount.toLocaleString()} ${voteCount === 1 ? 'vote' : 'votes'} so far.`;
+                storyCommitted.textContent = `this Friday. ${voteCount.toLocaleString()} committed so far.`;
                 storyCommitted.style.display = 'inline-block';
                 storyImpact.textContent = projected ? `If ${nextThreshold.toLocaleString()} of us do this, that's ${projected.annual}/year gone.` : '';
                 storyImpact.style.display = projected ? 'block' : 'none';
