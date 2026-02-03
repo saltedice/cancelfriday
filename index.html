@@ -4166,39 +4166,43 @@
             actions.style.display = 'none';
 
             try {
-                // Capture at Instagram story resolution (1080x1920)
-                // Scale factor: 1080 / 202 ≈ 5.35
+                // Capture at high resolution (scale 6 = ~1212x2160)
                 const canvas = await html2canvas(banner, {
                     backgroundColor: '#0a0a0a',
-                    scale: 5.35,
+                    scale: 6,
                     width: 202,
                     height: 360
                 });
 
                 actions.style.display = 'flex';
 
-                let finalCanvas;
+                // Always create exact-sized final canvas
+                const finalCanvas = document.createElement('canvas');
+                let ctx;
 
                 if (format === 'story') {
-                    // Full vertical 1080x1920 - use as-is
-                    finalCanvas = canvas;
+                    // Exact 1080x1920 - scale down from captured
+                    finalCanvas.width = 1080;
+                    finalCanvas.height = 1920;
+                    ctx = finalCanvas.getContext('2d');
+                    ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, 1080, 1920);
                 } else if (format === 'square') {
-                    // Crop center to 1080x1080
-                    finalCanvas = document.createElement('canvas');
+                    // 1080x1080 - crop center square then scale
                     finalCanvas.width = 1080;
                     finalCanvas.height = 1080;
-                    const ctx = finalCanvas.getContext('2d');
-                    const cropY = (canvas.height - 1080) / 2;
-                    ctx.drawImage(canvas, 0, cropY, 1080, 1080, 0, 0, 1080, 1080);
+                    ctx = finalCanvas.getContext('2d');
+                    const srcSize = canvas.width;
+                    const cropY = (canvas.height - srcSize) / 2;
+                    ctx.drawImage(canvas, 0, cropY, srcSize, srcSize, 0, 0, 1080, 1080);
                 } else if (format === 'landscape') {
-                    // Crop center to 1200x675
-                    finalCanvas = document.createElement('canvas');
+                    // 1200x675 - crop center landscape then scale
                     finalCanvas.width = 1200;
                     finalCanvas.height = 675;
-                    const ctx = finalCanvas.getContext('2d');
-                    const cropH = 1080 / (1200 / 675); // ~607px
+                    ctx = finalCanvas.getContext('2d');
+                    const targetRatio = 1200 / 675;
+                    const cropH = canvas.width / targetRatio;
                     const cropY = (canvas.height - cropH) / 2;
-                    ctx.drawImage(canvas, 0, cropY, 1080, cropH, 0, 0, 1200, 675);
+                    ctx.drawImage(canvas, 0, cropY, canvas.width, cropH, 0, 0, 1200, 675);
                 }
 
                 // Download
