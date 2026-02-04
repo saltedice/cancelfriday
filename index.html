@@ -196,6 +196,55 @@
             color: var(--green);
         }
 
+        /* Threshold Hit State */
+        .threshold-section.hit {
+            background: rgba(46, 204, 113, 0.15);
+            border-bottom-color: var(--green);
+            animation: threshold-pulse 2s ease-out;
+        }
+
+        .threshold-section.hit .threshold-title {
+            color: var(--green);
+        }
+
+        .threshold-section.hit .threshold-bar-fill {
+            background: linear-gradient(90deg, var(--green), #27ae60);
+        }
+
+        @keyframes threshold-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        /* Pre-threshold scoreboard state */
+        .scoreboard-section.pre-threshold .scoreboard-subtitle {
+            color: var(--orange);
+        }
+
+        .scoreboard-section.pre-threshold::before {
+            content: '';
+            display: block;
+            text-align: center;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            background: rgba(247, 127, 0, 0.1);
+            border: 1px dashed var(--orange);
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: var(--orange);
+        }
+
+        /* Active state - threshold hit */
+        .scoreboard-section.active .main-event {
+            animation: main-event-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes main-event-glow {
+            from { box-shadow: 0 0 20px rgba(230, 57, 70, 0.3); }
+            to { box-shadow: 0 0 40px rgba(230, 57, 70, 0.5); }
+        }
+
         /* Countdown */
         .countdown-bar {
             text-align: center;
@@ -1132,14 +1181,42 @@
             // Update threshold
             const thresholdPct = Math.min((totalCommits / THRESHOLD) * 100, 100);
             const thresholdHit = totalCommits >= THRESHOLD;
+            const wasThresholdHit = document.getElementById('threshold-section').classList.contains('hit');
+
             document.getElementById('threshold-bar-fill').style.width = `${thresholdPct}%`;
             document.getElementById('threshold-bar-text').textContent = `${totalCommits.toLocaleString()} / ${THRESHOLD.toLocaleString()}`;
 
+            // Update threshold section state
+            const thresholdSection = document.getElementById('threshold-section');
+            const thresholdMessage = document.querySelector('.threshold-message');
+            const thresholdTitle = document.querySelector('.threshold-title');
             const remainingEl = document.getElementById('threshold-remaining');
+
             if (thresholdHit) {
-                remainingEl.innerHTML = `<span class="threshold-hit">THRESHOLD HIT ✅ — ${totalCommits.toLocaleString()} committed. Friday at noon, we move.</span>`;
+                thresholdSection.classList.add('hit');
+                thresholdTitle.textContent = 'THRESHOLD HIT';
+                thresholdMessage.textContent = 'The movement is live. Friday at noon, we all cancel together.';
+                remainingEl.innerHTML = `<span class="threshold-hit">✅ ${totalCommits.toLocaleString()} committed and counting</span>`;
+
+                // Celebration toast on first hit
+                if (!wasThresholdHit) {
+                    showToast('🎉 THRESHOLD HIT! The movement is ON!');
+                }
             } else {
+                thresholdSection.classList.remove('hit');
+                thresholdTitle.textContent = 'MOVEMENT THRESHOLD';
+                thresholdMessage.textContent = 'We don\'t move until 1,000 people commit. To anything. All together.';
                 remainingEl.textContent = `${(THRESHOLD - totalCommits).toLocaleString()} to go. Then it's on.`;
+            }
+
+            // Update scoreboard section state
+            const scoreboardSection = document.querySelector('.scoreboard-section');
+            if (thresholdHit) {
+                scoreboardSection.classList.remove('pre-threshold');
+                scoreboardSection.classList.add('active');
+            } else {
+                scoreboardSection.classList.add('pre-threshold');
+                scoreboardSection.classList.remove('active');
             }
 
             // Main event
@@ -1256,6 +1333,58 @@
 
         function hideLoading() {
             document.getElementById('loading').style.display = 'none';
+        }
+
+        // ============================================
+        // DEBUG FUNCTIONS (for testing)
+        // ============================================
+        // Call these from browser console to test states
+
+        // Boost all counts to hit threshold
+        function debugHitThreshold() {
+            const demo = getDemoData();
+            let total = Object.values(demo.counts).reduce((sum, c) => sum + c, 0);
+            const needed = THRESHOLD - total + 100; // Go over by 100
+            demo.counts['amazon-prime'] += needed;
+            saveDemoData(demo);
+            commitCounts = demo.counts;
+            render();
+            console.log('🎯 Threshold boosted! Total:', Object.values(commitCounts).reduce((sum, c) => sum + c, 0));
+        }
+
+        // Reset to pre-threshold state
+        function debugResetThreshold() {
+            const demo = getDemoData();
+            COMPANIES.forEach(c => {
+                demo.counts[c.id] = Math.floor(Math.random() * 50) + 5;
+            });
+            demo.counts['amazon-prime'] = 150;
+            demo.counts['chatgpt'] = 120;
+            demo.counts['netflix'] = 95;
+            saveDemoData(demo);
+            commitCounts = demo.counts;
+            render();
+            console.log('🔄 Reset! Total:', Object.values(commitCounts).reduce((sum, c) => sum + c, 0));
+        }
+
+        // Add N commits to leader
+        function debugAddCommits(n = 100) {
+            const demo = getDemoData();
+            demo.counts['amazon-prime'] = (demo.counts['amazon-prime'] || 0) + n;
+            saveDemoData(demo);
+            commitCounts = demo.counts;
+            render();
+            console.log(`➕ Added ${n} commits to Amazon Prime`);
+        }
+
+        // Log current state
+        function debugStatus() {
+            const total = Object.values(commitCounts).reduce((sum, c) => sum + c, 0);
+            console.log('📊 Current State:');
+            console.log('  Total commits:', total);
+            console.log('  Threshold:', THRESHOLD);
+            console.log('  Threshold hit:', total >= THRESHOLD);
+            console.log('  User commits:', userCommits);
         }
 
         // ============================================
