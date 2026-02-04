@@ -295,6 +295,113 @@
             letter-spacing: 0.1em;
         }
 
+        /* Friday Mode - IT'S TIME */
+        body.friday-mode .countdown-bar {
+            background: linear-gradient(90deg, rgba(230,57,70,0.4), rgba(230,57,70,0.4));
+            animation: friday-pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes friday-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        body.friday-mode .countdown-label {
+            color: var(--white);
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+        }
+
+        /* Confirmation Button */
+        .confirm-btn {
+            padding: 0.5rem 1rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.08em;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .confirm-btn.pending {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .confirm-btn.pending:hover {
+            background: #c0313e;
+        }
+
+        .confirm-btn.done {
+            background: var(--green);
+            color: var(--black);
+            cursor: default;
+        }
+
+        /* User Commits Friday Mode */
+        .user-commits-section.friday-mode {
+            background: rgba(230, 57, 70, 0.15);
+            border-color: var(--red);
+        }
+
+        .user-commits-section.friday-mode .user-commits-title {
+            color: var(--red);
+        }
+
+        .commit-action-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem;
+            background: rgba(0,0,0,0.2);
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+        }
+
+        .commit-action-name {
+            font-weight: 600;
+        }
+
+        .commit-action-status {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .commit-action-status.confirmed {
+            color: var(--green);
+            opacity: 1;
+        }
+
+        /* Post-Friday Results */
+        .results-summary {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(180deg, rgba(46, 204, 113, 0.15) 0%, transparent 100%);
+            border: 2px solid var(--green);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .results-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            color: var(--green);
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .results-count {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2rem, 6vw, 3rem);
+            color: var(--white);
+        }
+
+        .results-impact {
+            font-size: 1rem;
+            color: var(--orange);
+            margin-top: 0.5rem;
+        }
+
         /* Scoreboard */
         .scoreboard-section {
             padding: 2rem 0;
@@ -982,26 +1089,51 @@
         // STATE
         // ============================================
         let commitCounts = {}; // { companyId: count }
+        let confirmCounts = {}; // { companyId: count } - people who confirmed they cancelled
         let userCommits = []; // Array of company IDs user committed to
+        let userConfirmed = []; // Array of company IDs user confirmed they cancelled
         let leaderId = null;
+        let currentPhase = 'PRE_FRIDAY'; // PRE_FRIDAY, FRIDAY, POST_FRIDAY
+        let debugPhaseOverride = null; // For testing
+
+        // ============================================
+        // PHASE DETECTION
+        // ============================================
+        function getCurrentPhase() {
+            if (debugPhaseOverride) return debugPhaseOverride;
+
+            const now = new Date();
+            const dropTime = new Date(WEEK_DATA.drop_time);
+            const postFridayTime = new Date(dropTime.getTime() + (12 * 60 * 60 * 1000)); // 12 hours after drop
+
+            if (now < dropTime) {
+                return 'PRE_FRIDAY';
+            } else if (now < postFridayTime) {
+                return 'FRIDAY';
+            } else {
+                return 'POST_FRIDAY';
+            }
+        }
 
         // ============================================
         // LOCAL STORAGE
         // ============================================
         function loadLocalState() {
-            const stored = localStorage.getItem('salt_scoreboard_v1');
+            const stored = localStorage.getItem('salt_scoreboard_v2');
             if (stored) {
                 const data = JSON.parse(stored);
                 if (data.week === WEEK_DATA.week_number) {
                     userCommits = data.userCommits || [];
+                    userConfirmed = data.userConfirmed || [];
                 }
             }
         }
 
         function saveLocalState() {
-            localStorage.setItem('salt_scoreboard_v1', JSON.stringify({
+            localStorage.setItem('salt_scoreboard_v2', JSON.stringify({
                 week: WEEK_DATA.week_number,
-                userCommits: userCommits
+                userCommits: userCommits,
+                userConfirmed: userConfirmed
             }));
         }
 
@@ -1009,7 +1141,7 @@
         // DEMO DATA
         // ============================================
         function getDemoData() {
-            const stored = localStorage.getItem('salt_scoreboard_demo_v1');
+            const stored = localStorage.getItem('salt_scoreboard_demo_v2');
             if (stored) {
                 const data = JSON.parse(stored);
                 if (data.week === WEEK_DATA.week_number) {
@@ -1020,12 +1152,14 @@
             // Initialize with some demo counts
             const initial = {
                 week: WEEK_DATA.week_number,
-                counts: {}
+                counts: {},
+                confirms: {}
             };
 
             // Start with varied counts for demo
             COMPANIES.forEach((c, i) => {
                 initial.counts[c.id] = Math.floor(Math.random() * 200) + 10;
+                initial.confirms[c.id] = 0;
             });
             // Make amazon-prime the leader
             initial.counts['amazon-prime'] = 420;
@@ -1037,7 +1171,7 @@
         }
 
         function saveDemoData(data) {
-            localStorage.setItem('salt_scoreboard_demo_v1', JSON.stringify(data));
+            localStorage.setItem('salt_scoreboard_demo_v2', JSON.stringify(data));
         }
 
         // ============================================
@@ -1045,11 +1179,13 @@
         // ============================================
         async function loadData() {
             loadLocalState();
+            currentPhase = getCurrentPhase();
 
             if (DEMO_MODE) {
-                console.log('🧂 SALT Scoreboard - DEMO MODE');
+                console.log('🧂 SALT Scoreboard - DEMO MODE - Phase:', currentPhase);
                 const demo = getDemoData();
                 commitCounts = demo.counts;
+                confirmCounts = demo.confirms || {};
                 render();
                 hideLoading();
                 return;
@@ -1096,6 +1232,30 @@
             }
 
             saveLocalState();
+            render();
+        }
+
+        // Confirm that user actually cancelled (Friday only)
+        function confirmCancellation(companyId) {
+            if (userConfirmed.includes(companyId)) {
+                showToast('Already confirmed!');
+                return;
+            }
+
+            userConfirmed.push(companyId);
+            confirmCounts[companyId] = (confirmCounts[companyId] || 0) + 1;
+
+            if (DEMO_MODE) {
+                const demo = getDemoData();
+                demo.confirms = demo.confirms || {};
+                demo.confirms[companyId] = confirmCounts[companyId];
+                saveDemoData(demo);
+            }
+
+            saveLocalState();
+
+            const company = COMPANIES.find(c => c.id === companyId);
+            showToast(`${company.name} cancelled! 🎉`);
             render();
         }
 
@@ -1259,10 +1419,27 @@
             document.getElementById('total-committed').textContent = totalCommits.toLocaleString();
             document.getElementById('total-impact').textContent = `$${formatMoney(totalAnnualImpact)}/year in revenue, gone`;
 
-            // User commits section
+            // Update phase
+            currentPhase = getCurrentPhase();
+
+            // Apply Friday mode to body
+            if (currentPhase === 'FRIDAY') {
+                document.body.classList.add('friday-mode');
+            } else {
+                document.body.classList.remove('friday-mode');
+            }
+
+            // User commits section - phase aware
             const userSection = document.getElementById('user-commits-section');
             if (userCommits.length > 0) {
                 userSection.classList.remove('hidden');
+
+                // Apply Friday mode styling
+                if (currentPhase === 'FRIDAY') {
+                    userSection.classList.add('friday-mode');
+                } else {
+                    userSection.classList.remove('friday-mode');
+                }
 
                 const userMonthly = userCommits.reduce((sum, id) => {
                     const company = COMPANIES.find(c => c.id === id);
@@ -1270,21 +1447,87 @@
                 }, 0);
                 const userAnnual = userMonthly * 12;
 
-                const chipsHtml = userCommits.map(id => {
-                    const company = COMPANIES.find(c => c.id === id);
-                    return `
-                        <div class="user-commit-chip">
-                            ${company ? company.name : id}
-                            <span class="user-commit-remove" onclick="event.stopPropagation(); toggleCommit('${id}')">×</span>
-                        </div>
-                    `;
-                }).join('');
+                // Different UI based on phase
+                if (currentPhase === 'FRIDAY') {
+                    // Friday: Show confirmation buttons
+                    document.querySelector('.user-commits-title').textContent = 'CANCEL NOW — CONFIRM EACH ONE';
 
-                document.getElementById('user-commits-list').innerHTML = chipsHtml;
-                document.getElementById('user-commits-impact').textContent =
-                    `You're cutting $${userMonthly.toFixed(2)}/month · $${userAnnual.toFixed(2)}/year`;
+                    const actionsHtml = userCommits.map(id => {
+                        const company = COMPANIES.find(c => c.id === id);
+                        const isConfirmed = userConfirmed.includes(id);
+                        return `
+                            <div class="commit-action-row">
+                                <div>
+                                    <div class="commit-action-name">${company ? company.name : id}</div>
+                                    <div class="commit-action-status ${isConfirmed ? 'confirmed' : ''}">
+                                        ${isConfirmed ? '✓ Cancelled!' : 'Waiting for confirmation'}
+                                    </div>
+                                </div>
+                                <button class="confirm-btn ${isConfirmed ? 'done' : 'pending'}"
+                                        onclick="event.stopPropagation(); ${isConfirmed ? '' : `confirmCancellation('${id}')`}"
+                                        ${isConfirmed ? 'disabled' : ''}>
+                                    ${isConfirmed ? 'DONE ✓' : 'I CANCELLED'}
+                                </button>
+                            </div>
+                        `;
+                    }).join('');
+
+                    document.getElementById('user-commits-list').innerHTML = actionsHtml;
+
+                    const confirmedCount = userConfirmed.length;
+                    const totalCount = userCommits.length;
+                    document.getElementById('user-commits-impact').textContent =
+                        `${confirmedCount}/${totalCount} confirmed · $${userMonthly.toFixed(2)}/month saved`;
+                } else if (currentPhase === 'POST_FRIDAY') {
+                    // Post-Friday: Show results
+                    document.querySelector('.user-commits-title').textContent = 'YOUR CANCELLATIONS THIS WEEK';
+
+                    const resultsHtml = userCommits.map(id => {
+                        const company = COMPANIES.find(c => c.id === id);
+                        const isConfirmed = userConfirmed.includes(id);
+                        return `
+                            <div class="commit-action-row">
+                                <div class="commit-action-name">${company ? company.name : id}</div>
+                                <div class="commit-action-status ${isConfirmed ? 'confirmed' : ''}">
+                                    ${isConfirmed ? '✓ Cancelled' : '○ Not confirmed'}
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+
+                    document.getElementById('user-commits-list').innerHTML = resultsHtml;
+                    document.getElementById('user-commits-impact').textContent =
+                        `You cut $${userMonthly.toFixed(2)}/month · $${userAnnual.toFixed(2)}/year`;
+                } else {
+                    // Pre-Friday: Show chips with remove option
+                    document.querySelector('.user-commits-title').textContent = 'YOUR FRIDAY CANCELLATIONS';
+
+                    const chipsHtml = userCommits.map(id => {
+                        const company = COMPANIES.find(c => c.id === id);
+                        return `
+                            <div class="user-commit-chip">
+                                ${company ? company.name : id}
+                                <span class="user-commit-remove" onclick="event.stopPropagation(); toggleCommit('${id}')">×</span>
+                            </div>
+                        `;
+                    }).join('');
+
+                    document.getElementById('user-commits-list').innerHTML = chipsHtml;
+                    document.getElementById('user-commits-impact').textContent =
+                        `You're cutting $${userMonthly.toFixed(2)}/month · $${userAnnual.toFixed(2)}/year`;
+                }
             } else {
                 userSection.classList.add('hidden');
+            }
+
+            // Update countdown label based on phase
+            const countdownLabel = document.querySelector('.countdown-label');
+            if (currentPhase === 'FRIDAY') {
+                countdownLabel.textContent = 'IT\'S TIME — CANCEL NOW';
+            } else if (currentPhase === 'POST_FRIDAY') {
+                countdownLabel.textContent = 'CANCEL FRIDAY COMPLETE';
+            } else {
+                countdownLabel.textContent = 'FRIDAY AT NOON EST. WE MOVE.';
             }
         }
 
@@ -1381,10 +1624,48 @@
         function debugStatus() {
             const total = Object.values(commitCounts).reduce((sum, c) => sum + c, 0);
             console.log('📊 Current State:');
+            console.log('  Phase:', currentPhase);
             console.log('  Total commits:', total);
             console.log('  Threshold:', THRESHOLD);
             console.log('  Threshold hit:', total >= THRESHOLD);
             console.log('  User commits:', userCommits);
+            console.log('  User confirmed:', userConfirmed);
+        }
+
+        // Set phase override for testing
+        function debugSetPhase(phase) {
+            if (!['PRE_FRIDAY', 'FRIDAY', 'POST_FRIDAY', null].includes(phase)) {
+                console.log('❌ Invalid phase. Use: PRE_FRIDAY, FRIDAY, POST_FRIDAY, or null (auto)');
+                return;
+            }
+            debugPhaseOverride = phase;
+            currentPhase = getCurrentPhase();
+            render();
+            console.log(`🗓️ Phase set to: ${phase || 'AUTO'} (current: ${currentPhase})`);
+        }
+
+        // Quick phase shortcuts
+        function debugPreFriday() { debugSetPhase('PRE_FRIDAY'); }
+        function debugFriday() { debugSetPhase('FRIDAY'); }
+        function debugPostFriday() { debugSetPhase('POST_FRIDAY'); }
+        function debugAutoPhase() { debugSetPhase(null); }
+
+        // Reset all user state
+        function debugResetUser() {
+            userCommits = [];
+            userConfirmed = [];
+            saveLocalState();
+            render();
+            console.log('🔄 User state reset');
+        }
+
+        // Add some test commits for the user
+        function debugAddUserCommits() {
+            userCommits = ['amazon-prime', 'netflix', 'chatgpt'];
+            userConfirmed = [];
+            saveLocalState();
+            render();
+            console.log('➕ Added test user commits:', userCommits);
         }
 
         // ============================================
