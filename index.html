@@ -1070,6 +1070,42 @@
             opacity: 0.6;
         }
 
+        /* Partners Section */
+        .partners-section {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .partners-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 0.15em;
+            color: var(--orange);
+            margin-bottom: 1rem;
+        }
+
+        .partners-list {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .partner-link {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            transition: opacity 0.2s, color 0.2s;
+        }
+
+        .partner-link:hover {
+            opacity: 1;
+            color: var(--red);
+        }
+
         /* Footer */
         .footer {
             text-align: center;
@@ -2576,6 +2612,14 @@
                 <button type="submit" class="feedback-btn" id="feedback-btn">Send</button>
             </form>
             <div class="feedback-status" id="feedback-status"></div>
+        </section>
+
+        <!-- Partners Section -->
+        <section class="partners-section">
+            <div class="partners-title">PARTNERS</div>
+            <div class="partners-list">
+                <a href="https://boycottbillionaires.org" target="_blank" rel="noopener noreferrer" class="partner-link">boycottbillionaires.org</a>
+            </div>
         </section>
 
         <!-- Footer -->
