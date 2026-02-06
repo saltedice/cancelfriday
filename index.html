@@ -2284,7 +2284,7 @@
         // ============================================
         const SUPABASE_URL = 'https://nwrehybllhhqocyxtanf.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53cmVoeWJsbGhocW9jeXh0YW5mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk1NzAxNjksImV4cCI6MjA4NTE0NjE2OX0.EHFci8UuWxriFBA8kfluJewDlGgjcsNm2s6oMWnchwg';
-        const DEMO_MODE = true; // Set to false for production
+        const DEMO_MODE = false; // V2 Production mode
         const THRESHOLD = 1000;
         let supabaseClient = null;
 
@@ -2667,17 +2667,98 @@
                 return;
             }
 
-            // TODO: Supabase integration for production
-            // Load commit counts from database
-            // Subscribe to realtime updates
+            // Supabase mode
+            console.log('🧂 SALT Scoreboard - LIVE MODE - Phase:', currentPhase);
+            try {
+                // Load commit counts for this week
+                const { data: countsData, error: countsError } = await supabaseClient
+                    .from('v2_commits')
+                    .select('company_id')
+                    .eq('week_number', WEEK_DATA.week_number);
 
-            hideLoading();
+                if (countsError) throw countsError;
+
+                // Aggregate counts
+                commitCounts = {};
+                countsData.forEach(row => {
+                    commitCounts[row.company_id] = (commitCounts[row.company_id] || 0) + 1;
+                });
+
+                // Load confirm counts
+                const { data: confirmsData, error: confirmsError } = await supabaseClient
+                    .from('v2_commits')
+                    .select('company_id')
+                    .eq('week_number', WEEK_DATA.week_number)
+                    .not('confirmed_at', 'is', null);
+
+                if (!confirmsError && confirmsData) {
+                    confirmCounts = {};
+                    confirmsData.forEach(row => {
+                        confirmCounts[row.company_id] = (confirmCounts[row.company_id] || 0) + 1;
+                    });
+                }
+
+                // Load user's commits for this week
+                const { data: userCommitsData, error: userError } = await supabaseClient
+                    .from('v2_commits')
+                    .select('company_id, confirmed_at')
+                    .eq('week_number', WEEK_DATA.week_number)
+                    .eq('fingerprint_hash', FINGERPRINT);
+
+                if (!userError && userCommitsData) {
+                    userCommits = userCommitsData.map(row => row.company_id);
+                    userConfirmed = userCommitsData
+                        .filter(row => row.confirmed_at)
+                        .map(row => row.company_id);
+                }
+
+                // Subscribe to realtime updates
+                supabaseClient
+                    .channel('v2-commits')
+                    .on('postgres_changes', {
+                        event: '*',
+                        schema: 'public',
+                        table: 'v2_commits',
+                        filter: `week_number=eq.${WEEK_DATA.week_number}`
+                    }, async () => {
+                        // Reload counts on any change
+                        const { data } = await supabaseClient
+                            .from('v2_commits')
+                            .select('company_id, confirmed_at')
+                            .eq('week_number', WEEK_DATA.week_number);
+
+                        if (data) {
+                            commitCounts = {};
+                            confirmCounts = {};
+                            data.forEach(row => {
+                                commitCounts[row.company_id] = (commitCounts[row.company_id] || 0) + 1;
+                                if (row.confirmed_at) {
+                                    confirmCounts[row.company_id] = (confirmCounts[row.company_id] || 0) + 1;
+                                }
+                            });
+                            render();
+                        }
+                    })
+                    .subscribe();
+
+                render();
+                hideLoading();
+            } catch (err) {
+                console.error('Supabase error:', err);
+                showToast('Connection error. Using local data.', true);
+                // Fallback to demo data
+                const demo = getDemoData();
+                commitCounts = demo.counts;
+                confirmCounts = demo.confirms || {};
+                render();
+                hideLoading();
+            }
         }
 
         // ============================================
         // ACTIONS
         // ============================================
-        function toggleCommit(companyId) {
+        async function toggleCommit(companyId) {
             const index = userCommits.indexOf(companyId);
 
             if (index === -1) {
@@ -2689,6 +2770,16 @@
                     const demo = getDemoData();
                     demo.counts[companyId] = commitCounts[companyId];
                     saveDemoData(demo);
+                } else if (supabaseClient) {
+                    // Insert into Supabase
+                    const { error } = await supabaseClient
+                        .from('v2_commits')
+                        .insert({
+                            fingerprint_hash: FINGERPRINT,
+                            company_id: companyId,
+                            week_number: WEEK_DATA.week_number
+                        });
+                    if (error) console.error('Commit error:', error);
                 }
 
                 const company = COMPANIES.find(c => c.id === companyId);
@@ -2710,6 +2801,15 @@
                     const demo = getDemoData();
                     demo.counts[companyId] = commitCounts[companyId];
                     saveDemoData(demo);
+                } else if (supabaseClient) {
+                    // Delete from Supabase
+                    const { error } = await supabaseClient
+                        .from('v2_commits')
+                        .delete()
+                        .eq('fingerprint_hash', FINGERPRINT)
+                        .eq('company_id', companyId)
+                        .eq('week_number', WEEK_DATA.week_number);
+                    if (error) console.error('Delete error:', error);
                 }
 
                 showToast('Commitment removed.');
@@ -2734,7 +2834,7 @@
         }
 
         // Confirm that user actually cancelled (Friday only)
-        function confirmCancellation(companyId) {
+        async function confirmCancellation(companyId) {
             if (userConfirmed.includes(companyId)) {
                 showToast('Already confirmed!');
                 return;
@@ -2748,6 +2848,15 @@
                 demo.confirms = demo.confirms || {};
                 demo.confirms[companyId] = confirmCounts[companyId];
                 saveDemoData(demo);
+            } else if (supabaseClient) {
+                // Update confirmed_at in Supabase
+                const { error } = await supabaseClient
+                    .from('v2_commits')
+                    .update({ confirmed_at: new Date().toISOString() })
+                    .eq('fingerprint_hash', FINGERPRINT)
+                    .eq('company_id', companyId)
+                    .eq('week_number', WEEK_DATA.week_number);
+                if (error) console.error('Confirm error:', error);
             }
 
             saveLocalState();
