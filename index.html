@@ -162,6 +162,11 @@
             line-height: 1.3;
         }
 
+        .manifesto-receipts {
+            color: var(--orange);
+            margin-top: 0.5rem;
+        }
+
         /* Aggressive Tagline */
         .aggressive-tagline {
             text-align: center;
@@ -1868,6 +1873,64 @@
             transform: scale(1.05);
         }
 
+        /* Hide copy on mobile - doesn't work */
+        @media (max-width: 768px) {
+            .banner-copy-btn {
+                display: none;
+            }
+            .banner-save-btn {
+                width: 100%;
+            }
+        }
+
+        /* Image preview modal for mobile */
+        .image-preview-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 10000;
+            padding: 1rem;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-preview-modal.show {
+            display: flex;
+        }
+
+        .image-preview-modal img {
+            max-width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+        }
+
+        .image-preview-instructions {
+            color: var(--white);
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 1.1rem;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.05em;
+        }
+
+        .image-preview-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--orange);
+            color: var(--black);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
         .download-all-container {
             text-align: center;
             margin: 1.5rem 0;
@@ -2030,7 +2093,8 @@
         <!-- Manifesto -->
         <section class="manifesto-hero">
             <div class="manifesto-line">These companies fund ICE. They build the deportation machine.</div>
-            <div class="manifesto-line">They bankroll the administration. <span style="color: var(--orange);">We have receipts.</span></div>
+            <div class="manifesto-line">They bankroll the administration.</div>
+            <div class="manifesto-line manifesto-receipts">We have receipts.</div>
         </section>
 
         <!-- Countdown Timer -->
@@ -2400,6 +2464,15 @@
     </div>
 
     <div class="toast" id="toast"></div>
+
+    <!-- Image Preview Modal for Mobile -->
+    <div class="image-preview-modal" id="image-preview-modal" onclick="closeImagePreview()">
+        <button class="image-preview-close" onclick="closeImagePreview()">✕ CLOSE</button>
+        <img id="image-preview-img" src="" alt="Banner">
+        <div class="image-preview-instructions">
+            HOLD DOWN ON IMAGE → SAVE TO PHOTOS
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -3441,31 +3514,23 @@
 
         async function saveStory() {
             try {
-                const blob = await getStoryBlob();
-                const filename = `cancelfriday-week${WEEK_DATA.week_number}-${currentStoryFormat}.png`;
-                const file = new File([blob], filename, { type: 'image/png' });
+                const canvas = await getStoryCanvas();
+                const dataUrl = canvas.toDataURL('image/png');
 
-                // Try Web Share API first (works great on mobile)
-                if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                    await navigator.share({
-                        files: [file],
-                        title: 'Cancel Friday',
-                        text: '#CancelFriday'
-                    });
-                    showToast('Share it everywhere!');
+                if (isMobile()) {
+                    // On mobile, show image in modal for long-press save
+                    closeStoryModal();
+                    showImagePreview(dataUrl);
                 } else {
-                    // Fallback to download
-                    const canvas = await getStoryCanvas();
+                    // On desktop, download directly
                     const link = document.createElement('a');
-                    link.download = filename;
-                    link.href = canvas.toDataURL('image/png');
+                    link.download = `cancelfriday-week${WEEK_DATA.week_number}-${currentStoryFormat}.png`;
+                    link.href = dataUrl;
                     link.click();
                     showToast('Saved! Share it everywhere.');
                 }
             } catch (err) {
-                if (err.name !== 'AbortError') {
-                    showToast('Save failed. Try screenshot.', true);
-                }
+                showToast('Save failed. Try screenshot.', true);
             }
         }
 
@@ -3500,6 +3565,10 @@
             btn.classList.add('active');
         }
 
+        function isMobile() {
+            return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
+        }
+
         async function downloadBanner(bannerNum) {
             const banner = document.getElementById(`banner-${bannerNum}`);
             const actions = banner.querySelector('.banner-actions');
@@ -3528,11 +3597,19 @@
                 banner.style.minWidth = origMinWidth;
                 actions.style.display = 'flex';
 
-                const link = document.createElement('a');
-                link.download = `cancelfriday-banner-${bannerNum}-${currentBannerFormat}.png`;
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-                showToast('Downloaded! Share it everywhere.');
+                const dataUrl = canvas.toDataURL('image/png');
+
+                if (isMobile()) {
+                    // On mobile, show image in modal for long-press save
+                    showImagePreview(dataUrl);
+                } else {
+                    // On desktop, download directly
+                    const link = document.createElement('a');
+                    link.download = `cancelfriday-banner-${bannerNum}-${currentBannerFormat}.png`;
+                    link.href = dataUrl;
+                    link.click();
+                    showToast('Downloaded! Share it everywhere.');
+                }
             } catch (err) {
                 banner.style.width = origWidth;
                 banner.style.height = origHeight;
@@ -3540,6 +3617,20 @@
                 actions.style.display = 'flex';
                 showToast('Download failed. Try screenshot.', true);
             }
+        }
+
+        function showImagePreview(dataUrl) {
+            const modal = document.getElementById('image-preview-modal');
+            const img = document.getElementById('image-preview-img');
+            img.src = dataUrl;
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeImagePreview() {
+            const modal = document.getElementById('image-preview-modal');
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
         }
 
         async function copyBanner(bannerNum) {
