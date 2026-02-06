@@ -2265,6 +2265,71 @@
                         <button class="banner-copy-btn" onclick="copyBanner(this.closest('.share-banner').id.split('-')[1])">📋 COPY</button>
                     </div>
                 </div>
+
+                <!-- Banner 7: THE MELANIA MATH -->
+                <div class="share-banner vibe-money" id="banner-7">
+                    <div class="banner-logo">SALT</div>
+                    <div class="banner-acronym">Subscribers Against Lawless Tyranny</div>
+                    <div class="banner-headline">AMAZON PAID $40M<br>FOR A MELANIA DOCUMENTARY.</div>
+                    <div class="banner-subtext">You're paying them $14.99/month to do it.</div>
+                    <div class="banner-cta">CANCEL FRIDAY · CANCELFRIDAY.COM</div>
+                    <div class="banner-actions">
+                        <button class="banner-save-btn" onclick="downloadBanner(7)">↓ DOWNLOAD</button>
+                        <button class="banner-copy-btn" onclick="copyBanner(this.closest('.share-banner').id.split('-')[1])">📋 COPY</button>
+                    </div>
+                </div>
+
+                <!-- Banner 8: MINNEAPOLIS -->
+                <div class="share-banner vibe-crisis" id="banner-8">
+                    <div class="banner-logo">SALT</div>
+                    <div class="banner-acronym">Subscribers Against Lawless Tyranny</div>
+                    <div class="banner-headline">2,000 ARMED FEDERAL AGENTS.<br>3,000 ARRESTS. TWO DEAD CIVILIANS.<br>96 COURT ORDERS VIOLATED.</div>
+                    <div class="banner-subtext">This is Minneapolis right now. The companies that made it possible charge you monthly.</div>
+                    <div class="banner-cta">CANCEL FRIDAY · CANCELFRIDAY.COM</div>
+                    <div class="banner-actions">
+                        <button class="banner-save-btn" onclick="downloadBanner(8)">↓ DOWNLOAD</button>
+                        <button class="banner-copy-btn" onclick="copyBanner(this.closest('.share-banner').id.split('-')[1])">📋 COPY</button>
+                    </div>
+                </div>
+
+                <!-- Banner 9: THE BIOMETRIC DATABASE -->
+                <div class="share-banner vibe-urgent" id="banner-9">
+                    <div class="banner-logo">SALT</div>
+                    <div class="banner-acronym">Subscribers Against Lawless Tyranny</div>
+                    <div class="banner-headline">AMAZON'S AWS STORES ICE'S DATABASE<br>OF IRIS SCANS, VOICEPRINTS, AND DNA.</div>
+                    <div class="banner-subtext">Your Prime membership funds the servers.</div>
+                    <div class="banner-cta">CANCEL FRIDAY · CANCELFRIDAY.COM</div>
+                    <div class="banner-actions">
+                        <button class="banner-save-btn" onclick="downloadBanner(9)">↓ DOWNLOAD</button>
+                        <button class="banner-copy-btn" onclick="copyBanner(this.closest('.share-banner').id.split('-')[1])">📋 COPY</button>
+                    </div>
+                </div>
+
+                <!-- Banner 10: THE INAUGURATION -->
+                <div class="share-banner vibe-power" id="banner-10">
+                    <div class="banner-logo">SALT</div>
+                    <div class="banner-acronym">Subscribers Against Lawless Tyranny</div>
+                    <div class="banner-headline">AMAZON. GOOGLE. APPLE. OPENAI.<br>$1 MILLION EACH TO THE INAUGURATION.</div>
+                    <div class="banner-subtext">That's $4 million. Your yearly subscriptions? About $600. They're using your money.</div>
+                    <div class="banner-cta">CANCEL FRIDAY · CANCELFRIDAY.COM</div>
+                    <div class="banner-actions">
+                        <button class="banner-save-btn" onclick="downloadBanner(10)">↓ DOWNLOAD</button>
+                        <button class="banner-copy-btn" onclick="copyBanner(this.closest('.share-banner').id.split('-')[1])">📋 COPY</button>
+                    </div>
+                </div>
+
+                <!-- Banner 11: THE REAL COST -->
+                <div class="share-banner vibe-friday" id="banner-11">
+                    <div class="banner-logo">SALT</div>
+                    <div class="banner-acronym">Subscribers Against Lawless Tyranny</div>
+                    <div class="banner-headline">NETFLIX: $15.49/MONTH<br>SPOTIFY: $11.99/MONTH<br>AMAZON PRIME: $14.99/MONTH</div>
+                    <div class="banner-subtext">ICE CONTRACTS: PRICELESS</div>
+                    <div class="banner-cta">Every dollar is a vote. CANCEL FRIDAY · CANCELFRIDAY.COM</div>
+                    <div class="banner-actions">
+                        <button class="banner-save-btn" onclick="downloadBanner(11)">↓ DOWNLOAD</button>
+                        <button class="banner-copy-btn" onclick="copyBanner(this.closest('.share-banner').id.split('-')[1])">📋 COPY</button>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -3521,7 +3586,7 @@
 
         async function downloadAllBanners() {
             showToast('Downloading all banners...');
-            for (let i = 1; i <= 6; i++) {
+            for (let i = 1; i <= 11; i++) {
                 await saveBannerDirect(i);
                 // Small delay between downloads
                 await new Promise(r => setTimeout(r, 300));
