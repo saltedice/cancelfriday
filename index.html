@@ -1831,20 +1831,45 @@
         }
 
         .banner-save-btn {
-            padding: 0.4rem 0.75rem;
-            font-size: 0.65rem;
-            font-family: 'JetBrains Mono', monospace;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.85rem;
+            font-family: 'Bebas Neue', sans-serif;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.1em;
             border: none;
             background: var(--orange);
             color: var(--black);
             cursor: pointer;
             transition: all 0.2s ease;
+            font-weight: bold;
         }
 
         .banner-save-btn:hover {
             background: var(--white);
+            transform: scale(1.05);
+        }
+
+        .download-all-container {
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .download-all-btn {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-family: 'Bebas Neue', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: 2px solid var(--orange);
+            background: transparent;
+            color: var(--orange);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .download-all-btn:hover {
+            background: var(--orange);
+            color: var(--black);
         }
 
         /* Toast */
@@ -2139,6 +2164,10 @@
                 </div>
             </div>
 
+            <div class="download-all-container">
+                <button class="download-all-btn" onclick="downloadAllBanners()">↓ DOWNLOAD ALL BANNERS</button>
+            </div>
+
             <div class="banners-grid">
                 <!-- Banner 1 -->
                 <div class="share-banner vibe-power" id="banner-1">
@@ -2148,7 +2177,7 @@
                     <div class="banner-subtext">They don't fear protests. They fear earnings calls.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-save-btn" onclick="saveBanner(1)">Save</button>
+                        <button class="banner-save-btn" onclick="saveBanner(1)">↓ DOWNLOAD</button>
                     </div>
                 </div>
 
@@ -2160,7 +2189,7 @@
                     <div class="banner-subtext">Still cool with that? No? Join us on Friday.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-save-btn" onclick="saveBanner(2)">Save</button>
+                        <button class="banner-save-btn" onclick="saveBanner(2)">↓ DOWNLOAD</button>
                     </div>
                 </div>
 
@@ -2172,7 +2201,7 @@
                     <div class="banner-subtext">Cancel one. This Friday. Together.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-save-btn" onclick="saveBanner(3)">Save</button>
+                        <button class="banner-save-btn" onclick="saveBanner(3)">↓ DOWNLOAD</button>
                     </div>
                 </div>
 
@@ -2184,7 +2213,7 @@
                     <div class="banner-subtext">They declared war on us. We're hitting back.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-save-btn" onclick="saveBanner(4)">Save</button>
+                        <button class="banner-save-btn" onclick="saveBanner(4)">↓ DOWNLOAD</button>
                     </div>
                 </div>
 
@@ -2196,7 +2225,7 @@
                     <div class="banner-subtext">They have contracts with ICE. We have receipts.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-save-btn" onclick="saveBanner(5)">Save</button>
+                        <button class="banner-save-btn" onclick="saveBanner(5)">↓ DOWNLOAD</button>
                     </div>
                 </div>
 
@@ -2208,7 +2237,7 @@
                     <div class="banner-subtext">Pick one. Drop it. Friday noon.</div>
                     <div class="banner-cta">CANCELFRIDAY.COM</div>
                     <div class="banner-actions">
-                        <button class="banner-save-btn" onclick="saveBanner(6)">Save</button>
+                        <button class="banner-save-btn" onclick="saveBanner(6)">↓ DOWNLOAD</button>
                     </div>
                 </div>
             </div>
@@ -3441,6 +3470,56 @@
                 if (err.name !== 'AbortError') {
                     showToast('Save failed. Try screenshot.', true);
                 }
+            }
+        }
+
+        async function downloadAllBanners() {
+            showToast('Downloading all banners...');
+            for (let i = 1; i <= 6; i++) {
+                await saveBannerDirect(i);
+                // Small delay between downloads
+                await new Promise(r => setTimeout(r, 300));
+            }
+            showToast('All banners saved!');
+        }
+
+        async function saveBannerDirect(bannerNum) {
+            const banner = document.getElementById(`banner-${bannerNum}`);
+            const actions = banner.querySelector('.banner-actions');
+            const format = BANNER_FORMATS[currentBannerFormat];
+
+            actions.style.display = 'none';
+
+            const origWidth = banner.style.width;
+            const origHeight = banner.style.height;
+            const origMinWidth = banner.style.minWidth;
+            banner.style.width = format.width + 'px';
+            banner.style.height = format.height + 'px';
+            banner.style.minWidth = format.width + 'px';
+
+            try {
+                const scale = format.exportWidth / format.width;
+                const canvas = await html2canvas(banner, {
+                    backgroundColor: '#0a0a0a',
+                    scale: scale,
+                    width: format.width,
+                    height: format.height
+                });
+
+                banner.style.width = origWidth;
+                banner.style.height = origHeight;
+                banner.style.minWidth = origMinWidth;
+                actions.style.display = 'flex';
+
+                const link = document.createElement('a');
+                link.download = `cancelfriday-banner-${bannerNum}-${currentBannerFormat}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            } catch (err) {
+                banner.style.width = origWidth;
+                banner.style.height = origHeight;
+                banner.style.minWidth = origMinWidth;
+                actions.style.display = 'flex';
             }
         }
 
