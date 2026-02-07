@@ -3236,9 +3236,11 @@
                 const scoreTier = company.score >= 7 ? 'score-high' : company.score >= 5 ? 'score-mid' : 'score-low';
 
                 // Get first alternative
-                const altText = company.alternatives && company.alternatives.length > 0
-                    ? `Try: ${company.alternatives[0].alt.split(',')[0]}`
-                    : '';
+                let altText = '';
+                if (company.alternatives && company.alternatives.length > 0) {
+                    const firstAlt = company.alternatives[0].alt;
+                    altText = 'Try: ' + firstAlt.split(',')[0];
+                }
 
                 return `
                     <div class="company-card ${isCommitted ? 'committed' : ''} ${isSelected ? 'selected' : ''} ${isLeader ? 'leader' : ''}"
@@ -3246,7 +3248,7 @@
                         <div class="score-badge ${scoreTier}">${company.score}/10</div>
                         <div class="company-name">${company.name}</div>
                         <div class="company-parent">${company.parent}</div>
-                        ${altText ? `<div class="card-alts">${altText}</div>` : ''}
+                        <div class="card-alts">${altText || 'No alt'}</div>
                         <div class="vote-bar">
                             <div class="vote-fill" style="width: ${pct}%"></div>
                         </div>
