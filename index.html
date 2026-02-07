@@ -964,6 +964,15 @@
             color: #00c864;
         }
 
+        .alts-list a {
+            color: #4da6ff;
+            text-decoration: underline;
+        }
+
+        .alts-list a:hover {
+            color: #7bbfff;
+        }
+
         /* Action Buttons in Detail */
         .detail-actions {
             display: flex;
@@ -2577,11 +2586,11 @@
                     { text: 'Donated $1M to Trump\'s inauguration, dined at Mar-a-Lago, pitched facial recognition (Rekognition) directly to ICE for mass surveillance', source: 'https://www.thedailybeast.com/amazon-pushes-ice-to-buy-its-face-recognition-surveillance-tech/', label: 'Daily Beast' }
                 ],
                 alternatives: [
-                    { need: 'Fast shipping', alt: 'Walmart+, Target Circle 360, or just wait 5 days' },
-                    { need: 'Streaming', alt: 'Tubi (free), Kanopy (free w/ library card), Pluto TV' },
-                    { need: 'Music', alt: 'Tidal, free Spotify tier, YouTube Music free tier' },
-                    { need: 'Ebooks', alt: 'Libby app (free via library), Bookshop.org, Kobo' },
-                    { need: 'Photo backup', alt: 'Google Photos, iCloud, Proton Drive' }
+                    { need: 'Fast shipping', alt: '<a href="https://www.walmart.com/plus" target="_blank">Walmart+</a>, <a href="https://www.target.com/circle/360" target="_blank">Target Circle 360</a>, or just wait 5 days' },
+                    { need: 'Streaming', alt: '<a href="https://tubitv.com" target="_blank">Tubi</a> (free), <a href="https://www.kanopy.com" target="_blank">Kanopy</a> (free w/ library card), <a href="https://pluto.tv" target="_blank">Pluto TV</a>' },
+                    { need: 'Music', alt: '<a href="https://tidal.com" target="_blank">Tidal</a>, free Spotify tier, YouTube Music free tier' },
+                    { need: 'Ebooks', alt: '<a href="https://www.overdrive.com/apps/libby" target="_blank">Libby app</a> (free via library), <a href="https://bookshop.org" target="_blank">Bookshop.org</a>, <a href="https://www.kobo.com" target="_blank">Kobo</a>' },
+                    { need: 'Photo backup', alt: '<a href="https://photos.google.com" target="_blank">Google Photos</a>, <a href="https://www.icloud.com" target="_blank">iCloud</a>, <a href="https://proton.me/drive" target="_blank">Proton Drive</a>' }
                 ]
             },
             {
@@ -2597,8 +2606,8 @@
                     { text: 'Despite releasing critical content like "Immigration Nation" (which Trump tried to block), Netflix leadership is now courting the administration', source: 'https://www.thedailybeast.com/inside-netflixs-immigration-nation-the-horrifying-ice-documentary-trump-doesnt-want-you-to-see/', label: 'Daily Beast' }
                 ],
                 alternatives: [
-                    { need: 'Streaming', alt: 'Tubi (free), Kanopy (free w/ library card), Criterion Channel' },
-                    { need: 'Background noise', alt: 'YouTube free, Pluto TV, Plex free movies' }
+                    { need: 'Streaming', alt: '<a href="https://tubitv.com" target="_blank">Tubi</a> (free), <a href="https://www.kanopy.com" target="_blank">Kanopy</a> (free w/ library card), <a href="https://www.criterionchannel.com" target="_blank">Criterion Channel</a>' },
+                    { need: 'Background noise', alt: 'YouTube free, <a href="https://pluto.tv" target="_blank">Pluto TV</a>, <a href="https://www.plex.tv/watch-free" target="_blank">Plex free movies</a>' }
                 ],
                 note: 'Netflix has a mixed record. They released "Immigration Nation" and "The Apprentice" biopic despite Trump pressure. Former CEO Reed Hastings called Trump\'s travel ban "anti-American." New leadership is courting Trump for business reasons.'
             },
@@ -2617,9 +2626,9 @@
                     { text: '1,495 Google employees signed a petition demanding the company stop working with ICE and CBP — Google refused', source: 'https://www.cnbc.com/2019/08/19/google-employees-implore-leaders-to-stop-working-with-us-bcp-ice.html', label: 'CNBC' }
                 ],
                 alternatives: [
-                    { need: 'Ad-free video', alt: 'uBlock Origin browser extension, Brave browser, NewPipe (Android)' },
-                    { need: 'Background play', alt: 'NewPipe (Android), Safari PiP (iPhone)' },
-                    { need: 'Music', alt: 'Tidal, Spotify free tier, Bandcamp' }
+                    { need: 'Ad-free video', alt: '<a href="https://ublockorigin.com" target="_blank">uBlock Origin</a> browser extension, <a href="https://brave.com" target="_blank">Brave browser</a>, <a href="https://newpipe.net" target="_blank">NewPipe</a> (Android)' },
+                    { need: 'Background play', alt: '<a href="https://newpipe.net" target="_blank">NewPipe</a> (Android), Safari PiP (iPhone)' },
+                    { need: 'Music', alt: '<a href="https://tidal.com" target="_blank">Tidal</a>, Spotify free tier, <a href="https://bandcamp.com" target="_blank">Bandcamp</a>' }
                 ]
             },
             {
@@ -2635,8 +2644,8 @@
                     { text: 'Spotify refused to drop Rogan despite employee protests over his use of racial slurs and misinformation', source: 'https://www.npr.org/2022/02/07/1078774392/spotifys-ceo-says-the-company-isnt-ready-to-part-ways-with-joe-rogan', label: 'NPR' }
                 ],
                 alternatives: [
-                    { need: 'Music streaming', alt: 'Tidal, Apple Music, Deezer, YouTube Music' },
-                    { need: 'Podcasts', alt: 'Pocket Casts, Overcast, Apple Podcasts — all free' },
+                    { need: 'Music streaming', alt: '<a href="https://tidal.com" target="_blank">Tidal</a>, <a href="https://music.apple.com" target="_blank">Apple Music</a>, <a href="https://www.deezer.com" target="_blank">Deezer</a>, <a href="https://music.youtube.com" target="_blank">YouTube Music</a>' },
+                    { need: 'Podcasts', alt: '<a href="https://pocketcasts.com" target="_blank">Pocket Casts</a>, <a href="https://overcast.fm" target="_blank">Overcast</a>, <a href="https://www.apple.com/apple-podcasts" target="_blank">Apple Podcasts</a> — all free' },
                     { need: 'Free option', alt: 'Spotify free tier still works (with ads)' }
                 ],
                 note: 'Rogan has recently criticized ICE as "the Gestapo" and called deportations "crazy." Spotify still profited from platforming his Trump endorsement, but this company may be reconsidered for future targeting.'
@@ -2658,9 +2667,9 @@
                     { text: 'A growing #DeleteChatGPT boycott campaign is gaining traction — organizers note OpenAI has dropped from 87% to 65% market share and "spends $3 for every $1 they bring in"', source: 'https://www.blackenterprise.com/chatgpt-boycott-launched-as-openai-exposed-as-maga-donor/', label: 'Black Enterprise' }
                 ],
                 alternatives: [
-                    { need: 'AI chat', alt: 'Claude (Anthropic), Gemini, Mistral — all have free tiers' },
-                    { need: 'Coding help', alt: 'Claude, GitHub Copilot free tier, Phind' },
-                    { need: 'Writing', alt: 'Claude, Gemini, or just write it yourself' }
+                    { need: 'AI chat', alt: '<a href="https://claude.ai" target="_blank">Claude</a> (Anthropic), <a href="https://gemini.google.com" target="_blank">Gemini</a>, <a href="https://mistral.ai" target="_blank">Mistral</a> — all have free tiers' },
+                    { need: 'Coding help', alt: '<a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://github.com/features/copilot" target="_blank">GitHub Copilot</a> free tier, <a href="https://www.phind.com" target="_blank">Phind</a>' },
+                    { need: 'Writing', alt: '<a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://gemini.google.com" target="_blank">Gemini</a>, or just write it yourself' }
                 ]
             },
             {
@@ -2679,8 +2688,8 @@
                     { text: 'Marvel chairman Isaac Perlmutter donated $10.5 million to pro-Trump Super PAC in 2020', source: 'https://www.nationalreview.com/corner/the-disney-executive-who-donated-10-million-to-help-trump-in-2020/', label: 'National Review' }
                 ],
                 alternatives: [
-                    { need: 'Kids content', alt: 'PBS Kids (free), YouTube Kids, Kanopy Kids, library DVDs' },
-                    { need: 'Streaming', alt: 'Tubi, Pluto TV, Kanopy — all free' }
+                    { need: 'Kids content', alt: '<a href="https://pbskids.org" target="_blank">PBS Kids</a> (free), <a href="https://www.youtubekids.com" target="_blank">YouTube Kids</a>, <a href="https://www.kanopy.com" target="_blank">Kanopy Kids</a>, library DVDs' },
+                    { need: 'Streaming', alt: '<a href="https://tubitv.com" target="_blank">Tubi</a>, <a href="https://pluto.tv" target="_blank">Pluto TV</a>, <a href="https://www.kanopy.com" target="_blank">Kanopy</a> — all free' }
                 ]
             },
             {
@@ -2696,8 +2705,8 @@
                     { text: 'Profits from content featuring immigrant stories while parent company stays silent on deportations' }
                 ],
                 alternatives: [
-                    { need: 'Live TV', alt: 'Free antenna ($20 one-time), Pluto TV, local news apps' },
-                    { need: 'Next-day shows', alt: 'Network apps (ABC, NBC, Fox) have free next-day streaming' }
+                    { need: 'Live TV', alt: 'Free antenna ($20 one-time), <a href="https://pluto.tv" target="_blank">Pluto TV</a>, local news apps' },
+                    { need: 'Next-day shows', alt: 'Network apps (<a href="https://abc.com" target="_blank">ABC</a>, <a href="https://www.nbc.com" target="_blank">NBC</a>, <a href="https://www.fox.com" target="_blank">Fox</a>) have free next-day streaming' }
                 ]
             },
             {
@@ -2713,7 +2722,7 @@
                     { text: 'No public statement against ICE actions or support for immigrant communities' }
                 ],
                 alternatives: [
-                    { need: 'Streaming', alt: 'Tubi, Kanopy, Pluto TV, Criterion Channel' }
+                    { need: 'Streaming', alt: '<a href="https://tubitv.com" target="_blank">Tubi</a>, <a href="https://www.kanopy.com" target="_blank">Kanopy</a>, <a href="https://pluto.tv" target="_blank">Pluto TV</a>, <a href="https://www.criterionchannel.com" target="_blank">Criterion Channel</a>' }
                 ],
                 note: 'Max has weaker documented ties than other targets. Included due to parent company\'s news operation and corporate silence. May be removed or deprioritized if stronger targets emerge.'
             },
@@ -2731,7 +2740,7 @@
                     { text: 'Cook met with Trump alongside 80+ CEOs before the election to discuss potential business-friendly policies', source: 'https://appleinsider.com/articles/24/12/14/tim-cook-rumored-to-be-meeting-with-donald-trump-for-dinner-on-friday', label: 'AppleInsider' }
                 ],
                 alternatives: [
-                    { need: 'Streaming', alt: 'Tubi, Kanopy, Pluto TV — all free' }
+                    { need: 'Streaming', alt: '<a href="https://tubitv.com" target="_blank">Tubi</a>, <a href="https://www.kanopy.com" target="_blank">Kanopy</a>, <a href="https://pluto.tv" target="_blank">Pluto TV</a> — all free' }
                 ]
             },
             {
@@ -2747,8 +2756,8 @@
                     { text: 'Apple has remained completely silent on ICE deportations and immigration enforcement' }
                 ],
                 alternatives: [
-                    { need: 'Music streaming', alt: 'Tidal, Spotify, Deezer, YouTube Music' },
-                    { need: 'Lossless audio', alt: 'Tidal HiFi, Deezer HiFi, buy on Bandcamp' }
+                    { need: 'Music streaming', alt: '<a href="https://tidal.com" target="_blank">Tidal</a>, <a href="https://spotify.com" target="_blank">Spotify</a>, <a href="https://www.deezer.com" target="_blank">Deezer</a>, <a href="https://music.youtube.com" target="_blank">YouTube Music</a>' },
+                    { need: 'Lossless audio', alt: '<a href="https://tidal.com" target="_blank">Tidal HiFi</a>, <a href="https://www.deezer.com" target="_blank">Deezer HiFi</a>, buy on <a href="https://bandcamp.com" target="_blank">Bandcamp</a>' }
                 ]
             },
             {
@@ -2764,7 +2773,7 @@
                     { text: 'Owner Shari Redstone makes political donations across the spectrum, prioritizing business relationships over principles' }
                 ],
                 alternatives: [
-                    { need: 'Streaming', alt: 'Tubi, Pluto TV, Kanopy — all free' },
+                    { need: 'Streaming', alt: '<a href="https://tubitv.com" target="_blank">Tubi</a>, <a href="https://pluto.tv" target="_blank">Pluto TV</a>, <a href="https://www.kanopy.com" target="_blank">Kanopy</a> — all free' },
                     { need: 'Live sports', alt: 'Free antenna, sports bar, a friend\'s house' }
                 ]
             },
@@ -2782,7 +2791,7 @@
                     { text: 'Exploits immigrant labor force — many drivers are immigrants working without benefits, healthcare, or job security' }
                 ],
                 alternatives: [
-                    { need: 'Rides', alt: 'Lyft, local taxi, public transit, bike' },
+                    { need: 'Rides', alt: '<a href="https://www.lyft.com" target="_blank">Lyft</a>, local taxi, public transit, bike' },
                     { need: 'Food delivery', alt: 'Pick it up yourself — your $12 burrito costs $28 delivered' }
                 ]
             },
