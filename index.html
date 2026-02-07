@@ -1935,6 +1935,29 @@
             cursor: pointer;
         }
 
+        /* Export-only layouts (applied to off-screen clone during capture) */
+        .export-post {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+        .export-post .banner-headline { font-size: 1.1rem; }
+        .export-post .banner-subtext { font-size: 0.6rem; }
+
+        .export-banner {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            gap: 1.5rem;
+        }
+        .export-banner .banner-logo { font-size: 1.5rem; }
+        .export-banner .banner-acronym { display: none; }
+        .export-banner .banner-headline { font-size: 1rem; text-align: left; }
+        .export-banner .banner-subtext { font-size: 0.55rem; text-align: left; }
+        .export-banner .banner-cta { font-size: 0.8rem; }
+
         .download-all-container {
             text-align: center;
             margin: 1.5rem 0;
@@ -3522,51 +3545,60 @@
 
         async function downloadBanner(bannerNum) {
             const banner = document.getElementById(`banner-${bannerNum}`);
-            const actions = banner.querySelector('.banner-actions');
             const format = BANNER_FORMATS[currentBannerFormat];
 
-            actions.style.display = 'none';
+            // Clone the banner into a hidden off-screen container
+            const clone = banner.cloneNode(true);
 
-            const origWidth = banner.style.width;
-            const origHeight = banner.style.height;
-            const origMinWidth = banner.style.minWidth;
-            banner.style.width = format.width + 'px';
-            banner.style.height = format.height + 'px';
-            banner.style.minWidth = format.width + 'px';
+            // Remove action buttons from clone
+            const actions = clone.querySelector('.banner-actions');
+            if (actions) actions.remove();
+
+            // Style clone to target dimensions
+            Object.assign(clone.style, {
+                position: 'fixed',
+                left: '-9999px',
+                top: '0',
+                width: format.width + 'px',
+                height: format.height + 'px',
+                minWidth: format.width + 'px',
+                minHeight: 'unset',
+                zIndex: '-1'
+            });
+
+            // Apply format-specific layout
+            if (currentBannerFormat === 'banner') {
+                clone.classList.add('export-banner');
+            } else if (currentBannerFormat === 'post') {
+                clone.classList.add('export-post');
+            }
+
+            document.body.appendChild(clone);
 
             try {
                 const scale = format.exportWidth / format.width;
-                const canvas = await html2canvas(banner, {
+                const canvas = await html2canvas(clone, {
                     backgroundColor: '#0a0a0a',
                     scale: scale,
                     width: format.width,
                     height: format.height
                 });
 
-                banner.style.width = origWidth;
-                banner.style.height = origHeight;
-                banner.style.minWidth = origMinWidth;
-                actions.style.display = 'flex';
-
                 const dataUrl = canvas.toDataURL('image/png');
 
                 if (isMobile()) {
-                    // On mobile, show image in modal for long-press save
                     showImagePreview(dataUrl);
                 } else {
-                    // On desktop, download directly
                     const link = document.createElement('a');
                     link.download = `cancelfriday-banner-${bannerNum}-${currentBannerFormat}.png`;
                     link.href = dataUrl;
                     link.click();
-                    showToast('Downloaded! Share it everywhere.');
+                    showToast('Downloaded!');
                 }
             } catch (err) {
-                banner.style.width = origWidth;
-                banner.style.height = origHeight;
-                banner.style.minWidth = origMinWidth;
-                actions.style.display = 'flex';
-                showToast('Download failed. Try screenshot.', true);
+                showToast('Download failed.', true);
+            } finally {
+                document.body.removeChild(clone);
             }
         }
 
@@ -3586,31 +3618,44 @@
 
         async function copyBanner(bannerNum) {
             const banner = document.getElementById(`banner-${bannerNum}`);
-            const actions = banner.querySelector('.banner-actions');
             const format = BANNER_FORMATS[currentBannerFormat];
 
-            actions.style.display = 'none';
+            // Clone the banner into a hidden off-screen container
+            const clone = banner.cloneNode(true);
 
-            const origWidth = banner.style.width;
-            const origHeight = banner.style.height;
-            const origMinWidth = banner.style.minWidth;
-            banner.style.width = format.width + 'px';
-            banner.style.height = format.height + 'px';
-            banner.style.minWidth = format.width + 'px';
+            // Remove action buttons from clone
+            const actions = clone.querySelector('.banner-actions');
+            if (actions) actions.remove();
+
+            // Style clone to target dimensions
+            Object.assign(clone.style, {
+                position: 'fixed',
+                left: '-9999px',
+                top: '0',
+                width: format.width + 'px',
+                height: format.height + 'px',
+                minWidth: format.width + 'px',
+                minHeight: 'unset',
+                zIndex: '-1'
+            });
+
+            // Apply format-specific layout
+            if (currentBannerFormat === 'banner') {
+                clone.classList.add('export-banner');
+            } else if (currentBannerFormat === 'post') {
+                clone.classList.add('export-post');
+            }
+
+            document.body.appendChild(clone);
 
             try {
                 const scale = format.exportWidth / format.width;
-                const canvas = await html2canvas(banner, {
+                const canvas = await html2canvas(clone, {
                     backgroundColor: '#0a0a0a',
                     scale: scale,
                     width: format.width,
                     height: format.height
                 });
-
-                banner.style.width = origWidth;
-                banner.style.height = origHeight;
-                banner.style.minWidth = origMinWidth;
-                actions.style.display = 'flex';
 
                 const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
                 await navigator.clipboard.write([
@@ -3618,11 +3663,9 @@
                 ]);
                 showToast('Copied to clipboard!');
             } catch (err) {
-                banner.style.width = origWidth;
-                banner.style.height = origHeight;
-                banner.style.minWidth = origMinWidth;
-                actions.style.display = 'flex';
                 showToast('Copy failed. Try download instead.', true);
+            } finally {
+                document.body.removeChild(clone);
             }
         }
 
@@ -3638,41 +3681,55 @@
 
         async function saveBannerDirect(bannerNum) {
             const banner = document.getElementById(`banner-${bannerNum}`);
-            const actions = banner.querySelector('.banner-actions');
+            if (!banner) return; // Skip if banner doesn't exist
+
             const format = BANNER_FORMATS[currentBannerFormat];
 
-            actions.style.display = 'none';
+            // Clone the banner into a hidden off-screen container
+            const clone = banner.cloneNode(true);
 
-            const origWidth = banner.style.width;
-            const origHeight = banner.style.height;
-            const origMinWidth = banner.style.minWidth;
-            banner.style.width = format.width + 'px';
-            banner.style.height = format.height + 'px';
-            banner.style.minWidth = format.width + 'px';
+            // Remove action buttons from clone
+            const actions = clone.querySelector('.banner-actions');
+            if (actions) actions.remove();
+
+            // Style clone to target dimensions
+            Object.assign(clone.style, {
+                position: 'fixed',
+                left: '-9999px',
+                top: '0',
+                width: format.width + 'px',
+                height: format.height + 'px',
+                minWidth: format.width + 'px',
+                minHeight: 'unset',
+                zIndex: '-1'
+            });
+
+            // Apply format-specific layout
+            if (currentBannerFormat === 'banner') {
+                clone.classList.add('export-banner');
+            } else if (currentBannerFormat === 'post') {
+                clone.classList.add('export-post');
+            }
+
+            document.body.appendChild(clone);
 
             try {
                 const scale = format.exportWidth / format.width;
-                const canvas = await html2canvas(banner, {
+                const canvas = await html2canvas(clone, {
                     backgroundColor: '#0a0a0a',
                     scale: scale,
                     width: format.width,
                     height: format.height
                 });
 
-                banner.style.width = origWidth;
-                banner.style.height = origHeight;
-                banner.style.minWidth = origMinWidth;
-                actions.style.display = 'flex';
-
                 const link = document.createElement('a');
                 link.download = `cancelfriday-banner-${bannerNum}-${currentBannerFormat}.png`;
                 link.href = canvas.toDataURL('image/png');
                 link.click();
             } catch (err) {
-                banner.style.width = origWidth;
-                banner.style.height = origHeight;
-                banner.style.minWidth = origMinWidth;
-                actions.style.display = 'flex';
+                // Silent fail for batch download
+            } finally {
+                document.body.removeChild(clone);
             }
         }
 
