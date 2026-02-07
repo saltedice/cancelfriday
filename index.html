@@ -1714,6 +1714,7 @@
             margin: 0 auto 2rem;
             overflow-x: auto;
             padding: 1rem 2rem;
+            padding-right: 3rem;
             -webkit-overflow-scrolling: touch;
             scroll-snap-type: x mandatory;
         }
@@ -1734,12 +1735,14 @@
             background: var(--black);
             border: 2px solid rgba(255,255,255,0.2);
             padding: 2rem 1.5rem;
-            padding-top: 2.5rem;
+            padding-top: 1.75rem;
+            padding-bottom: 1rem;
             text-align: center;
             position: relative;
             width: 202px;
             min-width: 202px;
-            height: 360px;
+            min-height: 360px;
+            height: auto;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -1830,14 +1833,15 @@
             display: flex;
             justify-content: center;
             gap: 0.5rem;
-            margin-top: auto;
+            margin-top: 1.5rem;
             padding-top: 1rem;
             border-top: 1px solid rgba(255,255,255,0.1);
+            flex-shrink: 0;
         }
 
         .banner-save-btn {
-            padding: 0.75rem 1.5rem;
-            font-size: 0.85rem;
+            padding: 0.6rem 1rem;
+            font-size: 0.75rem;
             font-family: 'Bebas Neue', sans-serif;
             text-transform: uppercase;
             letter-spacing: 0.1em;
@@ -1855,8 +1859,8 @@
         }
 
         .banner-copy-btn {
-            padding: 0.75rem 1.5rem;
-            font-size: 0.85rem;
+            padding: 0.6rem 1rem;
+            font-size: 0.75rem;
             font-family: 'Bebas Neue', sans-serif;
             text-transform: uppercase;
             letter-spacing: 0.1em;
