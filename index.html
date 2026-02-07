@@ -790,15 +790,6 @@
             opacity: 0.6;
         }
 
-        .company-card .card-alts {
-            font-size: 0.6rem;
-            color: var(--orange);
-            font-weight: bold;
-            margin-top: 0.5rem;
-            margin-bottom: 0.5rem;
-            line-height: 1.2;
-        }
-
         .details-indicator {
             text-align: center;
             color: var(--orange);
@@ -930,6 +921,47 @@
 
         .why-note strong {
             color: var(--orange);
+        }
+
+        /* Alternatives Box */
+        .alternatives-box {
+            background: rgba(0, 200, 100, 0.1);
+            border: 1px solid rgba(0, 200, 100, 0.3);
+            padding: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .alts-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            color: #00c864;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+
+        .alts-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .alts-list li {
+            padding-left: 1.25rem;
+            position: relative;
+            margin-bottom: 0.4rem;
+        }
+
+        .alts-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #00c864;
+        }
+
+        .alts-list li strong {
+            color: #00c864;
         }
 
         /* Action Buttons in Detail */
@@ -3235,20 +3267,12 @@
                 const isLeader = company.id === leader.id;
                 const scoreTier = company.score >= 7 ? 'score-high' : company.score >= 5 ? 'score-mid' : 'score-low';
 
-                // Get first alternative
-                let altText = '';
-                if (company.alternatives && company.alternatives.length > 0) {
-                    const firstAlt = company.alternatives[0].alt;
-                    altText = 'Try: ' + firstAlt.split(',')[0];
-                }
-
                 return `
                     <div class="company-card ${isCommitted ? 'committed' : ''} ${isSelected ? 'selected' : ''} ${isLeader ? 'leader' : ''}"
                          onclick="selectCompany('${company.id}')">
                         <div class="score-badge ${scoreTier}">${company.score}/10</div>
                         <div class="company-name">${company.name}</div>
                         <div class="company-parent">${company.parent}</div>
-                        <div class="card-alts">${altText || 'No alt'}</div>
                         <div class="vote-bar">
                             <div class="vote-fill" style="width: ${pct}%"></div>
                         </div>
@@ -3293,10 +3317,22 @@
                         </div>
                     ` : '';
 
+                    const altsHtml = company.alternatives && company.alternatives.length > 0 ? `
+                        <div class="alternatives-box">
+                            <div class="alts-title">ALTERNATIVES</div>
+                            <ul class="alts-list">
+                                ${company.alternatives.map(a => `
+                                    <li><strong>${a.need}:</strong> ${a.alt}</li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    ` : '';
+
                     document.getElementById('why-box').innerHTML = `
                         <div class="why-title">WHY ${company.name.toUpperCase()}?</div>
                         <ul class="why-list">${receiptsHtml}</ul>
                         ${noteHtml}
+                        ${altsHtml}
                     `;
 
                     // Commit button
