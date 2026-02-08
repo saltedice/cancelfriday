@@ -4080,6 +4080,8 @@
                 COMPANIES.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
         }
 
+        let lastTruthCompany = null;
+
         function updateTruthBanner() {
             const companySelect = document.getElementById('truth-company-select');
             const altStep = document.getElementById('truth-alt-step');
@@ -4093,42 +4095,48 @@
                 altStep.classList.add('truth-hidden');
                 previewContainer.classList.add('truth-hidden');
                 actions.classList.add('truth-hidden');
+                lastTruthCompany = null;
                 return;
             }
 
             const company = COMPANIES.find(c => c.id === companyId);
             if (!company) return;
 
-            // Show and populate alternatives
+            // Show alternatives step
             altStep.classList.remove('truth-hidden');
 
-            // Extract alternative names from the alt text (strip HTML tags and get names)
-            const altOptions = [];
-            if (company.alternatives) {
-                company.alternatives.forEach(alt => {
-                    // Extract text from anchor tags or plain text
-                    const matches = alt.alt.match(/>([^<]+)</g);
-                    if (matches) {
-                        matches.forEach(m => {
-                            const name = m.replace(/[><]/g, '').trim();
-                            if (name && name.length > 1 && !name.includes('free') && !altOptions.includes(name)) {
-                                altOptions.push(name);
+            // Only rebuild alternatives dropdown if company changed
+            if (lastTruthCompany !== companyId) {
+                lastTruthCompany = companyId;
+
+                // Extract alternative names from the alt text (strip HTML tags and get names)
+                const altOptions = [];
+                if (company.alternatives) {
+                    company.alternatives.forEach(alt => {
+                        // Extract text from anchor tags
+                        const matches = alt.alt.match(/>([^<]+)</g);
+                        if (matches) {
+                            matches.forEach(m => {
+                                const name = m.replace(/[><]/g, '').trim();
+                                if (name && name.length > 1 && !name.toLowerCase().includes('free') && !altOptions.includes(name)) {
+                                    altOptions.push(name);
+                                }
+                            });
+                        }
+                        // Also try to get plain text names
+                        const plainText = alt.alt.replace(/<[^>]+>/g, '');
+                        const parts = plainText.split(/[,·—]/).map(s => s.trim());
+                        parts.forEach(p => {
+                            if (p && p.length > 1 && p.length < 30 && !p.toLowerCase().includes('free') && !p.includes('just') && !altOptions.includes(p)) {
+                                altOptions.push(p);
                             }
                         });
-                    }
-                    // Also try to get plain text names
-                    const plainText = alt.alt.replace(/<[^>]+>/g, '');
-                    const parts = plainText.split(/[,·—]/).map(s => s.trim());
-                    parts.forEach(p => {
-                        if (p && p.length > 1 && p.length < 30 && !p.includes('free') && !p.includes('just') && !altOptions.includes(p)) {
-                            altOptions.push(p);
-                        }
                     });
-                });
-            }
+                }
 
-            altSelect.innerHTML = '<option value="">None / Not yet</option>' +
-                altOptions.slice(0, 8).map(name => `<option value="${name}">${name}</option>`).join('');
+                altSelect.innerHTML = '<option value="">None / Not yet</option>' +
+                    altOptions.slice(0, 8).map(name => `<option value="${name}">${name}</option>`).join('');
+            }
 
             // Show preview
             previewContainer.classList.remove('truth-hidden');
