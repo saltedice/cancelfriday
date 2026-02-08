@@ -2150,6 +2150,166 @@
                 width: 100%;
             }
         }
+
+        /* Personalized Banner Builder */
+        .truth-builder {
+            padding: 2rem 1rem;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 2rem;
+        }
+
+        .truth-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .truth-subtitle {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 2rem;
+        }
+
+        .truth-steps {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .truth-step {
+            margin-bottom: 1.5rem;
+        }
+
+        .truth-step-label {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.9rem;
+            color: var(--orange);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.1em;
+        }
+
+        .truth-select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            cursor: pointer;
+            letter-spacing: 0.05em;
+        }
+
+        .truth-select:focus {
+            outline: none;
+            border-color: var(--orange);
+        }
+
+        .truth-select option {
+            background: #111;
+            color: white;
+        }
+
+        .truth-preview-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .truth-banner {
+            background: var(--black);
+            border: 2px solid var(--red);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            width: 280px;
+            min-height: 360px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(180deg, rgba(230,57,70,0.15) 0%, var(--black) 100%);
+        }
+
+        .truth-banner .banner-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.25rem;
+        }
+
+        .truth-banner .banner-acronym {
+            font-size: 0.55rem;
+            letter-spacing: 0.15em;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 1.5rem;
+        }
+
+        .truth-banner .truth-cancelled {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 0.25rem;
+        }
+
+        .truth-banner .truth-company {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 0.05em;
+            color: var(--red);
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .truth-banner .truth-switched {
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 0.25rem;
+        }
+
+        .truth-banner .truth-alternative {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 0.05em;
+            color: #00c864;
+            margin-bottom: 1rem;
+        }
+
+        .truth-banner .banner-cta {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            color: rgba(255,255,255,0.8);
+            margin-top: auto;
+            padding-top: 1rem;
+        }
+
+        .truth-actions {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .truth-download-btn {
+            padding: 0.6rem 1.5rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            background: var(--red);
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .truth-download-btn:hover {
+            background: #c0303d;
+        }
+
+        .truth-hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -2470,6 +2630,44 @@
                         <button class="banner-save-btn" onclick="downloadBanner(11)">↓ DOWNLOAD</button>
                         <button class="banner-copy-btn" onclick="copyBanner(this.closest('.share-banner').id.split('-')[1])">📋 COPY</button>
                     </div>
+                </div>
+            </div>
+
+            <!-- Personalized Banner Builder -->
+            <div class="truth-builder">
+                <div class="truth-title">ALREADY CANCELLED? SHARE YOUR TRUTH.</div>
+                <div class="truth-subtitle">Create a personalized banner to spread the word.</div>
+
+                <div class="truth-steps">
+                    <div class="truth-step">
+                        <div class="truth-step-label">WHAT DID YOU CANCEL?</div>
+                        <select class="truth-select" id="truth-company-select" onchange="updateTruthBanner()">
+                            <option value="">Select a subscription...</option>
+                        </select>
+                    </div>
+
+                    <div class="truth-step truth-hidden" id="truth-alt-step">
+                        <div class="truth-step-label">WHAT DID YOU SWITCH TO? (OPTIONAL)</div>
+                        <select class="truth-select" id="truth-alt-select" onchange="updateTruthBanner()">
+                            <option value="">None / Not yet</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="truth-preview-container truth-hidden" id="truth-preview-container">
+                    <div class="truth-banner" id="truth-banner">
+                        <div class="banner-logo">SALT</div>
+                        <div class="banner-acronym">Subscribers Against Lawless Tyranny</div>
+                        <div class="truth-cancelled">I CANCELLED</div>
+                        <div class="truth-company" id="truth-company-display">NETFLIX</div>
+                        <div class="truth-switched truth-hidden" id="truth-switched-label">AND SWITCHED TO</div>
+                        <div class="truth-alternative truth-hidden" id="truth-alt-display">TUBI</div>
+                        <div class="banner-cta">CANCELFRIDAY.COM</div>
+                    </div>
+                </div>
+
+                <div class="truth-actions truth-hidden" id="truth-actions">
+                    <button class="truth-download-btn" onclick="downloadTruthBanner()">↓ DOWNLOAD</button>
                 </div>
             </div>
         </section>
@@ -3464,6 +3662,9 @@
             } else {
                 countdownLabel.textContent = 'FRIDAY AT NOON EST. WE MOVE.';
             }
+
+            // Initialize truth banner builder
+            initTruthBanner();
         }
 
         function formatMoney(amount) {
@@ -3842,6 +4043,143 @@
                 link.click();
             } catch (err) {
                 // Silent fail for batch download
+            } finally {
+                document.body.removeChild(clone);
+            }
+        }
+
+        // ============================================
+        // TRUTH BANNER BUILDER
+        // ============================================
+        function initTruthBanner() {
+            const select = document.getElementById('truth-company-select');
+            if (!select) return;
+
+            // Populate with all companies
+            select.innerHTML = '<option value="">Select a subscription...</option>' +
+                COMPANIES.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+        }
+
+        function updateTruthBanner() {
+            const companySelect = document.getElementById('truth-company-select');
+            const altStep = document.getElementById('truth-alt-step');
+            const altSelect = document.getElementById('truth-alt-select');
+            const previewContainer = document.getElementById('truth-preview-container');
+            const actions = document.getElementById('truth-actions');
+
+            const companyId = companySelect.value;
+
+            if (!companyId) {
+                altStep.classList.add('truth-hidden');
+                previewContainer.classList.add('truth-hidden');
+                actions.classList.add('truth-hidden');
+                return;
+            }
+
+            const company = COMPANIES.find(c => c.id === companyId);
+            if (!company) return;
+
+            // Show and populate alternatives
+            altStep.classList.remove('truth-hidden');
+
+            // Extract alternative names from the alt text (strip HTML tags and get names)
+            const altOptions = [];
+            if (company.alternatives) {
+                company.alternatives.forEach(alt => {
+                    // Extract text from anchor tags or plain text
+                    const matches = alt.alt.match(/>([^<]+)</g);
+                    if (matches) {
+                        matches.forEach(m => {
+                            const name = m.replace(/[><]/g, '').trim();
+                            if (name && name.length > 1 && !name.includes('free') && !altOptions.includes(name)) {
+                                altOptions.push(name);
+                            }
+                        });
+                    }
+                    // Also try to get plain text names
+                    const plainText = alt.alt.replace(/<[^>]+>/g, '');
+                    const parts = plainText.split(/[,·—]/).map(s => s.trim());
+                    parts.forEach(p => {
+                        if (p && p.length > 1 && p.length < 30 && !p.includes('free') && !p.includes('just') && !altOptions.includes(p)) {
+                            altOptions.push(p);
+                        }
+                    });
+                });
+            }
+
+            altSelect.innerHTML = '<option value="">None / Not yet</option>' +
+                altOptions.slice(0, 8).map(name => `<option value="${name}">${name}</option>`).join('');
+
+            // Show preview
+            previewContainer.classList.remove('truth-hidden');
+            actions.classList.remove('truth-hidden');
+
+            // Update banner content
+            document.getElementById('truth-company-display').textContent = company.name.toUpperCase();
+
+            const altValue = altSelect.value;
+            const switchedLabel = document.getElementById('truth-switched-label');
+            const altDisplay = document.getElementById('truth-alt-display');
+
+            if (altValue) {
+                switchedLabel.classList.remove('truth-hidden');
+                altDisplay.classList.remove('truth-hidden');
+                altDisplay.textContent = altValue.toUpperCase();
+            } else {
+                switchedLabel.classList.add('truth-hidden');
+                altDisplay.classList.add('truth-hidden');
+            }
+        }
+
+        async function downloadTruthBanner() {
+            const banner = document.getElementById('truth-banner');
+            const format = BANNER_FORMATS[currentBannerFormat];
+
+            // Clone the banner
+            const clone = banner.cloneNode(true);
+
+            // Remove hidden elements from clone
+            clone.querySelectorAll('.truth-hidden').forEach(el => el.remove());
+
+            // Style clone to target dimensions
+            Object.assign(clone.style, {
+                position: 'fixed',
+                left: '-9999px',
+                top: '0',
+                width: format.width + 'px',
+                height: format.height + 'px',
+                minWidth: format.width + 'px',
+                minHeight: 'unset',
+                zIndex: '-1'
+            });
+
+            document.body.appendChild(clone);
+
+            try {
+                const scale = format.exportWidth / format.width;
+                const canvas = await html2canvas(clone, {
+                    backgroundColor: '#0a0a0a',
+                    scale: scale,
+                    width: format.width,
+                    height: format.height
+                });
+
+                if (isMobile()) {
+                    // Show image preview for mobile
+                    const dataUrl = canvas.toDataURL('image/png');
+                    const modal = document.getElementById('image-preview-modal');
+                    const img = document.getElementById('preview-image');
+                    img.src = dataUrl;
+                    modal.classList.add('show');
+                } else {
+                    const link = document.createElement('a');
+                    link.download = `my-cancellation-${currentBannerFormat}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                    showToast('Banner downloaded!');
+                }
+            } catch (err) {
+                showToast('Download failed. Try again.', true);
             } finally {
                 document.body.removeChild(clone);
             }
