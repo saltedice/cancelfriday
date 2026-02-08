@@ -3858,6 +3858,22 @@
             return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
         }
 
+        // Track banner downloads
+        async function trackBannerDownload(bannerId, format) {
+            if (!supabaseClient) return;
+            try {
+                await supabaseClient
+                    .from('banner_downloads')
+                    .insert({
+                        banner_id: bannerId,
+                        banner_format: format,
+                        fingerprint_hash: FINGERPRINT
+                    });
+            } catch (err) {
+                console.error('Track download error:', err);
+            }
+        }
+
         async function downloadBanner(bannerNum) {
             const banner = document.getElementById(`banner-${bannerNum}`);
             const format = BANNER_FORMATS[currentBannerFormat];
@@ -3910,6 +3926,8 @@
                     link.click();
                     showToast('Downloaded!');
                 }
+                // Track the download
+                trackBannerDownload(`banner-${bannerNum}`, currentBannerFormat);
             } catch (err) {
                 showToast('Download failed.', true);
             } finally {
@@ -3977,6 +3995,8 @@
                     new ClipboardItem({ 'image/png': blob })
                 ]);
                 showToast('Copied to clipboard!');
+                // Track the copy as a download
+                trackBannerDownload(`banner-${bannerNum}-copy`, currentBannerFormat);
             } catch (err) {
                 showToast('Copy failed. Try download instead.', true);
             } finally {
@@ -4178,6 +4198,9 @@
                     link.click();
                     showToast('Banner downloaded!');
                 }
+                // Track the download with the selected company
+                const selectedCompanyId = document.getElementById('truth-company-select').value;
+                trackBannerDownload(`truth-${selectedCompanyId}`, currentBannerFormat);
             } catch (err) {
                 showToast('Download failed. Try again.', true);
             } finally {
