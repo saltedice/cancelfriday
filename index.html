@@ -4195,10 +4195,7 @@
                 if (isMobile()) {
                     // Show image preview for mobile
                     const dataUrl = canvas.toDataURL('image/png');
-                    const modal = document.getElementById('image-preview-modal');
-                    const img = document.getElementById('preview-image');
-                    img.src = dataUrl;
-                    modal.classList.add('show');
+                    showImagePreview(dataUrl);
                 } else {
                     const link = document.createElement('a');
                     link.download = `my-cancellation-${currentBannerFormat}.png`;
