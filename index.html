@@ -266,982 +266,263 @@
             font-size:0.8rem;text-transform:uppercase;
             letter-spacing:0.15em;color:var(--muted);margin-bottom:1.25rem;
         }
-        .progress-bar{
-            max-width:380px;margin:0 auto 1.25rem;
-        }
+        .progress-bar{max-width:380px;margin:0 auto 1.25rem}
         .progress-track{background:rgba(255,255,255,0.08);height:20px;overflow:hidden}
-        .progress-fill{
-            height:100%;background:linear-gradient(90deg,var(--orange),var(--red));
-            transition:width 0.5s;
-        }
+        .progress-fill{height:100%;background:linear-gradient(90deg,var(--orange),var(--red));transition:width 0.5s}
         .progress-text{font-size:0.7rem;color:var(--muted);margin-top:0.4rem}
         .progress-bar.hit .progress-text{color:var(--orange)}
         .progress-bar.hit .progress-text::before{content:'✓ '}
-        .stats-impact{
-            font-family:'Bebas Neue',sans-serif;
-            font-size:clamp(1.3rem,4vw,2rem);color:var(--orange);
-        }
+        .stats-impact{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.3rem,4vw,2rem);color:var(--orange)}
         .stats-suffix{font-size:0.75rem;color:var(--muted)}
         .stats-across{font-size:0.7rem;color:var(--muted);opacity:0.6;margin-top:0.2rem}
 
         /* ===== USER COMMITS ===== */
-        .my-commits{
-            margin-top:1.5rem;padding:1.25rem;
-            background:#141414;border:2px solid var(--red);
-        }
+        .my-commits{margin-top:1.5rem;padding:1.25rem;background:#141414;border:2px solid var(--red)}
         .my-commits.hidden{display:none}
-        .my-title{
-            font-family:'Bebas Neue',sans-serif;font-size:1rem;
-            color:var(--orange);letter-spacing:0.1em;margin-bottom:0.6rem;
-        }
+        .my-title{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--orange);letter-spacing:0.1em;margin-bottom:0.6rem}
         .my-list{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.75rem}
-        .my-chip{
-            display:flex;align-items:center;gap:0.4rem;
-            padding:0.35rem 0.65rem;background:rgba(0,0,0,0.3);
-            border:2px solid var(--salt);font-size:0.75rem;color:var(--salt);
-        }
+        .my-chip{display:flex;align-items:center;gap:0.4rem;padding:0.35rem 0.65rem;background:rgba(0,0,0,0.3);border:2px solid var(--salt);font-size:0.75rem;color:var(--salt)}
         .my-chip .x{cursor:pointer;opacity:0.5;font-size:0.9rem}
         .my-chip .x:hover{opacity:1;color:var(--red)}
         .my-impact{font-size:0.8rem;color:var(--salt)}
         .my-actions{margin-top:0.75rem}
-        .share-cta{
-            width:100%;padding:0.7rem;font-family:'Bebas Neue',sans-serif;
-            font-size:1rem;letter-spacing:0.1em;border:none;cursor:pointer;
-            background:var(--orange);color:var(--black);
-        }
+        .share-cta{width:100%;padding:0.7rem;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:0.1em;border:none;cursor:pointer;background:var(--orange);color:var(--black)}
         .share-cta:hover{opacity:0.9}
-
-        /* Friday confirm rows */
-        .confirm-row{
-            display:flex;align-items:center;justify-content:space-between;
-            padding:0.6rem;background:rgba(0,0,0,0.2);margin-bottom:0.4rem;
-        }
+        .confirm-row{display:flex;align-items:center;justify-content:space-between;padding:0.6rem;background:rgba(0,0,0,0.2);margin-bottom:0.4rem}
         .confirm-row .cr-name{font-weight:600;font-size:0.85rem}
         .confirm-row .cr-status{font-size:0.75rem;opacity:0.6}
         .confirm-row .cr-status.ok{color:var(--orange);opacity:1}
-        .confirm-row .cr-btn{
-            padding:0.4rem 0.8rem;font-family:'Bebas Neue',sans-serif;
-            font-size:0.85rem;letter-spacing:0.08em;border:none;cursor:pointer;
-        }
+        .confirm-row .cr-btn{padding:0.4rem 0.8rem;font-family:'Bebas Neue',sans-serif;font-size:0.85rem;letter-spacing:0.08em;border:none;cursor:pointer}
         .cr-btn.pending{background:var(--red);color:var(--white)}
         .cr-btn.pending:hover{background:#c0313e}
         .cr-btn.ok{background:var(--orange);color:var(--black);cursor:default}
-
         body.friday-mode .my-commits{background:rgba(230,57,70,0.1);border-color:var(--red)}
 
-        /* ===== BANNERS SECTION ===== */
-        .banners{
-            text-align:center;padding:2.5rem 1rem;
-            border-top:1px solid rgba(255,255,255,0.08);
-        }
-        .banners-title{
-            font-family:'Bebas Neue',sans-serif;
-            font-size:clamp(1.3rem,3vw,1.7rem);letter-spacing:0.05em;
-            margin-bottom:0.3rem;
-        }
+        /* ===== BANNERS ===== */
+        .banners{text-align:center;padding:2.5rem 1rem;border-top:1px solid rgba(255,255,255,0.08)}
+        .banners-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.3rem,3vw,1.7rem);letter-spacing:0.05em;margin-bottom:0.3rem}
         .banners-sub{font-size:0.75rem;opacity:0.5;margin-bottom:1.5rem}
-
-        .banners-scroll{
-            display:flex;gap:1.25rem;overflow-x:auto;padding:1rem 1.5rem;
-            -webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;
-        }
+        .banners-scroll{display:flex;gap:1.25rem;overflow-x:auto;padding:1rem 1.5rem;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory}
         .banners-scroll>*{scroll-snap-align:center;flex-shrink:0}
-
-        .banner{
-            width:200px;min-width:200px;min-height:340px;
-            border:2px solid rgba(255,255,255,0.15);padding:1.5rem 1.25rem;
-            text-align:center;display:flex;flex-direction:column;justify-content:center;
-            background:var(--black);
-        }
+        .banner{width:200px;min-width:200px;min-height:340px;border:2px solid rgba(255,255,255,0.15);padding:1.5rem 1.25rem;text-align:center;display:flex;flex-direction:column;justify-content:center;background:var(--black)}
         .banner.v-red{border-color:var(--red);background:linear-gradient(180deg,rgba(230,57,70,0.12),var(--black))}
         .banner.v-orange{border-color:var(--orange);background:linear-gradient(180deg,rgba(247,127,0,0.12),var(--black))}
         .banner.v-white{border-color:var(--white);background:linear-gradient(180deg,rgba(255,255,255,0.08),var(--black))}
         .banner.v-green{border-color:#00ff88;background:linear-gradient(180deg,rgba(0,255,136,0.08),var(--black))}
         .banner.v-gold{border-color:#ffd700;background:linear-gradient(180deg,rgba(255,215,0,0.12),var(--black))}
         .banner.v-gold .b-head{color:#ffd700}
-
-        .b-logo{
-            font-family:'Black Ops One',cursive;font-size:1.8rem;
-            color:var(--salt);text-shadow:2px 2px 0 var(--red);
-            letter-spacing:0.05em;margin-bottom:0.15rem;
-        }
+        .b-logo{font-family:'Black Ops One',cursive;font-size:1.8rem;color:var(--salt);text-shadow:2px 2px 0 var(--red);letter-spacing:0.05em;margin-bottom:0.15rem}
         .b-acro{font-size:0.45rem;text-transform:uppercase;letter-spacing:0.15em;opacity:0.5;margin-bottom:1rem}
-        .b-head{
-            font-family:'Bebas Neue',sans-serif;font-size:1.3rem;
-            line-height:1.2;margin-bottom:0.75rem;
-        }
+        .b-head{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;line-height:1.2;margin-bottom:0.75rem}
         .b-sub{font-size:0.65rem;line-height:1.5;opacity:0.6;margin-bottom:1rem}
-        .b-cta{
-            font-family:'Bebas Neue',sans-serif;font-size:0.85rem;
-            color:var(--orange);letter-spacing:0.1em;margin-bottom:0.75rem;
-        }
-        .b-actions{
-            display:flex;justify-content:center;gap:0.4rem;
-            padding-top:0.75rem;border-top:1px solid rgba(255,255,255,0.08);
-            margin-top:auto;
-        }
-        .b-dl{
-            padding:0.5rem 0.9rem;font-size:0.7rem;font-family:'Bebas Neue',sans-serif;
-            letter-spacing:0.1em;border:none;background:var(--orange);color:var(--black);
-            cursor:pointer;font-weight:bold;transition:all 0.2s;
-        }
+        .b-cta{font-family:'Bebas Neue',sans-serif;font-size:0.85rem;color:var(--orange);letter-spacing:0.1em;margin-bottom:0.75rem}
+        .b-actions{display:flex;justify-content:center;gap:0.4rem;padding-top:0.75rem;border-top:1px solid rgba(255,255,255,0.08);margin-top:auto}
+        .b-dl{padding:0.5rem 0.9rem;font-size:0.7rem;font-family:'Bebas Neue',sans-serif;letter-spacing:0.1em;border:none;background:var(--orange);color:var(--black);cursor:pointer;font-weight:bold;transition:all 0.2s}
         .b-dl:hover{background:var(--white);transform:scale(1.03)}
-        .b-cp{
-            padding:0.5rem 0.9rem;font-size:0.7rem;font-family:'Bebas Neue',sans-serif;
-            letter-spacing:0.1em;border:2px solid var(--orange);background:transparent;
-            color:var(--orange);cursor:pointer;transition:all 0.2s;
-        }
+        .b-cp{padding:0.5rem 0.9rem;font-size:0.7rem;font-family:'Bebas Neue',sans-serif;letter-spacing:0.1em;border:2px solid var(--orange);background:transparent;color:var(--orange);cursor:pointer;transition:all 0.2s}
         .b-cp:hover{background:var(--orange);color:var(--black)}
         @media(max-width:768px){.b-cp{display:none}.b-dl{width:100%}}
 
-        /* ===== TRUTH BANNER BUILDER ===== */
-        .truth-section{
-            text-align:center;padding:2rem 1rem;
-            border-top:1px solid rgba(255,255,255,0.08);
-        }
-        .truth-title{
-            font-family:'Bebas Neue',sans-serif;
-            font-size:clamp(1.3rem,3vw,1.7rem);letter-spacing:0.05em;
-            margin-bottom:0.3rem;
-        }
+        /* ===== TRUTH BANNER ===== */
+        .truth-section{text-align:center;padding:2rem 1rem;border-top:1px solid rgba(255,255,255,0.08)}
+        .truth-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.3rem,3vw,1.7rem);letter-spacing:0.05em;margin-bottom:0.3rem}
         .truth-sub{font-size:0.75rem;opacity:0.5;margin-bottom:1.5rem}
         .truth-steps{max-width:400px;margin:0 auto}
-        .truth-step{margin-bottom:1.5rem}
-        .truth-step-label{
-            font-family:'Bebas Neue',sans-serif;font-size:0.9rem;
-            color:var(--orange);margin-bottom:0.5rem;letter-spacing:0.1em;
-        }
-        .truth-select{
-            width:100%;padding:0.75rem 1rem;font-family:'Bebas Neue',sans-serif;
-            font-size:1rem;background:rgba(255,255,255,0.1);
-            border:1px solid rgba(255,255,255,0.3);color:white;cursor:pointer;
-        }
+        .truth-step{margin-bottom:1.25rem}
+        .truth-step-label{font-family:'Bebas Neue',sans-serif;font-size:0.85rem;color:var(--orange);letter-spacing:0.1em;margin-bottom:0.4rem}
+        .truth-select{width:100%;padding:0.7rem 1rem;font-family:'Bebas Neue',sans-serif;font-size:1rem;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.3);color:white;cursor:pointer}
         .truth-select:focus{outline:none;border-color:var(--orange)}
         .truth-select option{background:#111;color:white}
-        .truth-preview{display:flex;justify-content:center;margin:2rem 0}
-        .truth-banner{
-            width:280px;min-height:340px;border:2px solid var(--red);
-            padding:2rem 1.5rem;text-align:center;display:flex;flex-direction:column;
-            justify-content:center;background:linear-gradient(180deg,rgba(230,57,70,0.15),var(--black));
-        }
-        .truth-banner .b-logo{font-size:2.2rem;margin-bottom:0.2rem}
-        .truth-banner .b-acro{margin-bottom:1.2rem}
-        .truth-cancelled{
-            font-family:'Bebas Neue',sans-serif;font-size:1rem;
-            letter-spacing:0.1em;color:rgba(255,255,255,0.7);margin-bottom:0.2rem;
-        }
-        .truth-company{
-            font-family:'Bebas Neue',sans-serif;font-size:2rem;
-            color:var(--red);line-height:1.1;margin-bottom:1rem;
-        }
-        .truth-switched{
-            font-size:0.7rem;letter-spacing:0.1em;color:rgba(255,255,255,0.6);margin-bottom:0.2rem;
-        }
-        .truth-alt{
-            font-family:'Bebas Neue',sans-serif;font-size:1.3rem;
-            color:var(--green);margin-bottom:1rem;
-        }
-        .truth-actions{display:flex;justify-content:center;gap:0.75rem;margin-top:1rem}
-        .truth-dl{
-            padding:0.6rem 1.5rem;font-family:'Bebas Neue',sans-serif;
-            font-size:0.9rem;letter-spacing:0.1em;background:var(--red);
-            color:white;border:none;cursor:pointer;
-        }
-        .truth-dl:hover{background:#c0303d}
+        .truth-preview{display:flex;justify-content:center;margin:1.5rem 0}
+        .truth-banner{width:260px;min-height:320px;padding:1.5rem;border:2px solid var(--red);text-align:center;background:linear-gradient(180deg,rgba(230,57,70,0.15),var(--black));display:flex;flex-direction:column;justify-content:center}
+        .truth-banner .b-logo{font-size:2rem;margin-bottom:0.1rem}
+        .truth-banner .b-acro{margin-bottom:1.25rem}
+        .truth-cancelled{font-family:'Bebas Neue',sans-serif;font-size:0.9rem;letter-spacing:0.1em;opacity:0.6;margin-bottom:0.2rem}
+        .truth-company{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--red);line-height:1.1;margin-bottom:0.8rem}
+        .truth-switched{font-size:0.7rem;letter-spacing:0.1em;opacity:0.5;margin-bottom:0.15rem}
+        .truth-alt{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--green);margin-bottom:0.8rem}
+        .truth-cta{font-family:'Bebas Neue',sans-serif;font-size:0.8rem;color:rgba(255,255,255,0.7);letter-spacing:0.1em;margin-top:auto}
+        .truth-actions{display:flex;justify-content:center;gap:0.5rem;margin-top:1rem}
+        .truth-dl{padding:0.7rem 1.5rem;font-family:'Bebas Neue',sans-serif;font-size:0.95rem;letter-spacing:0.1em;border:none;background:var(--red);color:white;cursor:pointer}
+        .truth-dl:hover{background:#c0313e}
         .truth-hidden{display:none}
 
         /* ===== FOOTER ===== */
-        .footer{
-            text-align:center;padding:2rem 1rem;
-            border-top:1px solid rgba(255,255,255,0.08);
-        }
+        .footer{text-align:center;padding:2rem 1rem;border-top:1px solid rgba(255,255,255,0.08)}
         .footer-text{font-size:0.5rem;text-transform:uppercase;letter-spacing:0.1em;opacity:0.3}
 
-        /* ===== STORY MODAL ===== */
-        .modal{
-            display:none;position:fixed;top:0;left:0;right:0;bottom:0;
-            background:rgba(0,0,0,0.95);z-index:2000;
-            align-items:center;justify-content:center;padding:1rem;overflow-y:auto;
-        }
+        /* ===== MODALS ===== */
+        .modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.95);z-index:2000;align-items:center;justify-content:center;padding:1rem;overflow-y:auto}
         .modal.active{display:flex}
         .story-wrap{display:flex;flex-direction:column;align-items:center;gap:1.5rem;padding:2rem 0}
-        .story-frame{
-            width:270px;height:480px;border:2px solid var(--white);
-            position:relative;overflow:hidden;flex-shrink:0;
-        }
-        .story-inner{
-            width:100%;height:100%;padding:1.5rem;
-            display:flex;flex-direction:column;justify-content:space-between;
-            background:linear-gradient(180deg,#0a0a0a 0%,#1a0808 40%,#2a0a0a 60%,#0a0a0a 100%);
-            position:relative;overflow:hidden;
-        }
-        .story-inner::before{
-            content:'SALT';position:absolute;font-family:'Black Ops One',cursive;
-            font-size:8rem;color:rgba(230,57,70,0.04);top:50%;left:50%;
-            transform:translate(-50%,-50%) rotate(-15deg);pointer-events:none;letter-spacing:0.1em;
-        }
+        .story-frame{width:270px;height:480px;border:2px solid var(--white);position:relative;overflow:hidden;flex-shrink:0}
+        .story-inner{width:100%;height:100%;padding:1.5rem;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(180deg,#0a0a0a 0%,#1a0808 40%,#2a0a0a 60%,#0a0a0a 100%);position:relative;overflow:hidden}
+        .story-inner::before{content:'SALT';position:absolute;font-family:'Black Ops One',cursive;font-size:8rem;color:rgba(230,57,70,0.04);top:50%;left:50%;transform:translate(-50%,-50%) rotate(-15deg);pointer-events:none;letter-spacing:0.1em}
         .s-header{text-align:center}
         .s-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:0.15em;margin-bottom:0.2rem}
-        .s-logo{
-            font-family:'Black Ops One',cursive;font-size:1.8rem;color:var(--salt);
-            text-shadow:1px 1px 0 var(--red),0 0 20px rgba(230,57,70,0.3);letter-spacing:0.08em;
-        }
+        .s-logo{font-family:'Black Ops One',cursive;font-size:1.8rem;color:var(--salt);text-shadow:1px 1px 0 var(--red),0 0 20px rgba(230,57,70,0.3);letter-spacing:0.08em}
         .s-main{text-align:center}
         .s-week{font-size:0.5rem;text-transform:uppercase;letter-spacing:0.2em;opacity:0.5;margin-bottom:0.2rem}
         .s-action{font-size:0.55rem;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.4rem}
-        .s-target{
-            font-family:'Bebas Neue',sans-serif;font-size:2.4rem;color:var(--red);
-            letter-spacing:0.03em;line-height:1.1;margin-bottom:0.6rem;
-            text-shadow:0 0 30px rgba(230,57,70,0.4);
-        }
+        .s-target{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;color:var(--red);letter-spacing:0.03em;line-height:1.1;margin-bottom:0.6rem;text-shadow:0 0 30px rgba(230,57,70,0.4)}
         .s-target.multi{font-size:1.5rem}
         .s-date{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--orange);margin-bottom:0.2rem}
         .s-tz{font-size:0.45rem;opacity:0.4;text-transform:uppercase;letter-spacing:0.1em}
-        .s-committed{
-            margin-top:0.8rem;padding:0.35rem 0.65rem;
-            background:rgba(230,57,70,0.2);border:1px solid var(--red);
-            display:inline-block;font-size:0.55rem;letter-spacing:0.05em;
-        }
+        .s-committed{margin-top:0.8rem;padding:0.35rem 0.65rem;background:rgba(230,57,70,0.2);border:1px solid var(--red);display:inline-block;font-size:0.55rem;letter-spacing:0.05em}
         .s-footer{text-align:center}
         .s-reason{font-size:0.45rem;text-transform:uppercase;letter-spacing:0.1em;opacity:0.5;margin-bottom:0.6rem;line-height:1.5}
         .s-url{font-size:0.7rem;color:var(--salt);font-weight:700}
         .s-hash{font-size:0.45rem;margin-top:0.4rem;opacity:0.4}
-
         .modal-btns{display:flex;flex-direction:column;gap:0.6rem;width:100%;max-width:270px}
         .modal-row{display:flex;gap:0.6rem}
-        .m-btn{
-            flex:1;padding:0.8rem;font-family:'Bebas Neue',sans-serif;
-            font-size:1rem;letter-spacing:0.1em;cursor:pointer;
-            border:2px solid var(--white);transition:all 0.15s;text-align:center;
-        }
+        .m-btn{flex:1;padding:0.8rem;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:0.1em;cursor:pointer;border:2px solid var(--white);transition:all 0.15s;text-align:center}
         .m-btn.primary{background:var(--white);color:var(--black)}
         .m-btn.secondary{background:transparent;color:var(--white)}
         .m-btn.close{background:transparent;color:var(--white);opacity:0.5;font-size:0.85rem;padding:0.4rem;border:none}
         .m-btn:hover{transform:scale(1.02)}.m-btn.close:hover{opacity:1}
-
-        /* Image preview (mobile) */
-        .img-preview{
-            display:none;position:fixed;top:0;left:0;right:0;bottom:0;
-            background:rgba(0,0,0,0.95);z-index:10000;padding:1rem;
-            flex-direction:column;align-items:center;justify-content:center;
-        }
+        .img-preview{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.95);z-index:10000;padding:1rem;flex-direction:column;align-items:center;justify-content:center}
         .img-preview.show{display:flex}
         .img-preview img{max-width:100%;max-height:70vh;object-fit:contain}
-        .img-preview-hint{
-            color:var(--white);text-align:center;margin-top:1.5rem;
-            font-size:1rem;font-family:'Bebas Neue',sans-serif;letter-spacing:0.05em;
-        }
-        .img-preview-close{
-            position:absolute;top:1rem;right:1rem;background:var(--orange);
-            color:var(--black);border:none;padding:0.6rem 1.2rem;
-            font-family:'Bebas Neue',sans-serif;font-size:0.9rem;cursor:pointer;
-        }
-
-        /* Toast */
-        .toast{
-            position:fixed;bottom:2rem;left:50%;
-            transform:translateX(-50%) translateY(100px);
-            background:var(--white);color:var(--black);
-            padding:0.85rem 1.75rem;font-size:0.8rem;font-weight:600;
-            opacity:0;transition:all 0.3s;z-index:9999;max-width:90%;text-align:center;
-        }
+        .img-preview-hint{color:var(--white);text-align:center;margin-top:1.5rem;font-size:1rem;font-family:'Bebas Neue',sans-serif;letter-spacing:0.05em}
+        .img-preview-close{position:absolute;top:1rem;right:1rem;background:var(--orange);color:var(--black);border:none;padding:0.6rem 1.2rem;font-family:'Bebas Neue',sans-serif;font-size:0.9rem;cursor:pointer}
+        .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--white);color:var(--black);padding:0.85rem 1.75rem;font-size:0.8rem;font-weight:600;opacity:0;transition:all 0.3s;z-index:9999;max-width:90%;text-align:center}
         .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
         .toast.error{background:var(--red);color:var(--white)}
-
-        /* Loading */
-        .loading{
-            position:fixed;top:0;left:0;right:0;bottom:0;background:var(--black);
-            display:flex;align-items:center;justify-content:center;z-index:10000;
-        }
-        .loading-text{
-            font-family:'Bebas Neue',sans-serif;font-size:1.5rem;
-            letter-spacing:0.2em;animation:pulse 1.5s ease-in-out infinite;
-        }
+        .loading{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--black);display:flex;align-items:center;justify-content:center;z-index:10000}
+        .loading-text{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.2em;animation:pulse 1.5s ease-in-out infinite}
         @keyframes pulse{0%,100%{opacity:0.4}50%{opacity:1}}
         .hidden{display:none!important}
-
-        @media(max-width:600px){
-            .container{padding:0 0.75rem}
-            .card{padding:0.9rem 0.6rem}
-            .card .name{font-size:1.05rem}
-            .card .parent{font-size:0.45rem}
-            .badge{font-size:0.42rem;padding:0.08rem 0.25rem}
-            .detail{padding:1.25rem}
-            .receipts{padding:0.9rem}
-            .detail-actions{flex-direction:column}
-            .commit-btn{width:100%}
-            .flow-step{font-size:0.8rem;padding:0.4rem 0.75rem}
-        }
+        @media(max-width:600px){.container{padding:0 0.75rem}.card{padding:0.9rem 0.6rem}.card .name{font-size:1.05rem}.card .parent{font-size:0.45rem}.badge{font-size:0.42rem;padding:0.08rem 0.25rem}.detail{padding:1.25rem}.receipts{padding:0.9rem}.detail-actions{flex-direction:column}.commit-btn{width:100%}.flow-step{font-size:0.8rem;padding:0.4rem 0.75rem}}
     </style>
 </head>
 <body>
     <div class="grain"></div>
     <div class="loading" id="loading"><div class="loading-text">LOADING...</div></div>
-
     <div class="container">
-        <!-- HEADER -->
-        <header class="header">
-            <div class="logo">SALT</div>
-            <div class="tagline">Subscribers Against Lawless Tyranny</div>
-        </header>
-
-        <!-- HERO: 3 seconds to understand -->
+        <header class="header"><div class="logo">SALT</div><div class="tagline">Subscribers Against Lawless Tyranny</div></header>
         <section class="hero">
             <div class="hero-line">They don't fear your tweets.</div>
             <div class="hero-line">They fear their <span class="accent">earnings calls.</span></div>
-            <p class="hero-sub">
-                Every Friday at noon, we pick our subscriptions and cancel together.
-                One cancellation is noise. A thousand on the same day is a crisis.
-            </p>
+            <p class="hero-sub">Every Friday at noon, we pick our subscriptions and cancel together. One cancellation is noise. A thousand on the same day is a crisis.</p>
         </section>
-
-        <!-- COUNTDOWN -->
         <section class="countdown-strip">
             <div class="cd-label" id="cd-label">FRIDAY AT NOON EST</div>
-            <div class="cd-timer" id="cd-timer">
-                <span class="unit">00<span class="lbl">days</span></span><span class="sep">:</span>
-                <span class="unit">00<span class="lbl">hrs</span></span><span class="sep">:</span>
-                <span class="unit">00<span class="lbl">min</span></span><span class="sep">:</span>
-                <span class="unit">00<span class="lbl">sec</span></span>
-            </div>
+            <div class="cd-timer" id="cd-timer"><span class="unit">00<span class="lbl">days</span></span><span class="sep">:</span><span class="unit">00<span class="lbl">hrs</span></span><span class="sep">:</span><span class="unit">00<span class="lbl">min</span></span><span class="sep">:</span><span class="unit">00<span class="lbl">sec</span></span></div>
         </section>
-
-        <!-- FLOW -->
-        <section class="flow-strip">
-            <div class="flow-step">CHOOSE</div><span class="flow-arrow">→</span>
-            <div class="flow-step">COMMIT</div><span class="flow-arrow">→</span>
-            <div class="flow-step">CANCEL FRIDAY</div><span class="flow-arrow">→</span>
-            <div class="flow-step">REPEAT</div>
-        </section>
-
-        <!-- SCOREBOARD -->
+        <section class="flow-strip"><div class="flow-step">CHOOSE</div><span class="flow-arrow">→</span><div class="flow-step">COMMIT</div><span class="flow-arrow">→</span><div class="flow-step">CANCEL FRIDAY</div><span class="flow-arrow">→</span><div class="flow-step">REPEAT</div></section>
         <section class="scoreboard">
-            <div class="sb-header">
-                <div class="sb-title">WHAT ARE YOU CANCELLING?</div>
-                <div class="sb-sub">Tap any card. Read the receipts. Commit to cancel.</div>
-            </div>
-            <div class="leader" id="leader-el">
-                <div class="leader-tag">🔥 MOST COMMITTED</div>
-                <div class="leader-name" id="leader-name">AMAZON PRIME</div>
-                <div class="leader-count" id="leader-count">0 committed</div>
-            </div>
+            <div class="sb-header"><div class="sb-title">WHAT ARE YOU CANCELLING?</div><div class="sb-sub">Tap any card. Read the receipts. Commit to cancel.</div></div>
+            <div class="leader" id="leader-el"><div class="leader-tag">🔥 MOST COMMITTED</div><div class="leader-name" id="leader-name">AMAZON PRIME</div><div class="leader-count" id="leader-count">0 committed</div></div>
             <div class="grid" id="grid"></div>
             <div class="scroll-hint" id="scroll-hint">↓ details below</div>
-
-            <!-- DETAIL PANEL -->
             <div class="detail hidden" id="detail">
-                <div class="detail-head">
-                    <div class="detail-name" id="d-name"></div>
-                    <div class="detail-parent" id="d-parent"></div>
-                    <div class="detail-row">
-                        <div class="detail-stat"><div class="detail-val" id="d-committed">0</div><div class="detail-lbl">Committed</div></div>
-                        <div class="detail-stat"><div class="detail-val" id="d-impact">$0</div><div class="detail-lbl">Annual Impact</div></div>
-                    </div>
-                </div>
+                <div class="detail-head"><div class="detail-name" id="d-name"></div><div class="detail-parent" id="d-parent"></div><div class="detail-row"><div class="detail-stat"><div class="detail-val" id="d-committed">0</div><div class="detail-lbl">Committed</div></div><div class="detail-stat"><div class="detail-val" id="d-impact">$0</div><div class="detail-lbl">Annual Impact</div></div></div></div>
                 <div class="receipts" id="d-receipts"></div>
-                <div class="detail-actions">
-                    <button class="commit-btn go" id="d-btn">I'M CANCELLING THIS</button>
-                </div>
+                <div class="detail-actions"><button class="commit-btn go" id="d-btn">I'M CANCELLING THIS</button></div>
                 <div class="detail-price" id="d-price"></div>
             </div>
         </section>
-
-        <!-- STATS -->
         <section class="stats-box">
             <div class="stats-big" id="s-count">0</div>
             <div class="stats-label">COMMITTED TO CANCEL</div>
-            <div class="progress-bar" id="s-progress">
-                <div class="progress-track"><div class="progress-fill" id="s-fill" style="width:0%"></div></div>
-                <div class="progress-text" id="s-text">0 / 1,000</div>
-            </div>
+            <div class="progress-bar" id="s-progress"><div class="progress-track"><div class="progress-fill" id="s-fill" style="width:0%"></div></div><div class="progress-text" id="s-text">0 / 1,000</div></div>
             <div class="stats-impact" id="s-impact">$0</div>
             <div class="stats-suffix">/year walking out the door</div>
             <div class="stats-across" id="s-across"></div>
         </section>
-
-        <!-- MY COMMITS -->
         <section class="my-commits hidden" id="my-commits">
             <div class="my-title" id="my-title">YOUR FRIDAY CANCELLATIONS</div>
             <div class="my-list" id="my-list"></div>
             <div class="my-impact" id="my-impact"></div>
-            <div class="my-actions">
-                <button class="share-cta" onclick="openModal()">SHARE YOUR COMMITMENT</button>
-            </div>
+            <div class="my-actions"><button class="share-cta" onclick="openModal()">SHARE YOUR COMMITMENT</button></div>
         </section>
-
-        <!-- SHARE BANNERS -->
         <section class="banners">
             <div class="banners-title">SPREAD THE WORD</div>
             <div class="banners-sub">Save a banner. Share it everywhere.</div>
             <div class="banners-scroll" id="banners-scroll"></div>
         </section>
-
-        <!-- TRUTH BANNER BUILDER -->
         <section class="truth-section">
             <div class="truth-title">ALREADY CANCELLED? SHARE YOUR TRUTH.</div>
             <div class="truth-sub">Create a personalized banner to spread the word.</div>
             <div class="truth-steps">
-                <div class="truth-step">
-                    <div class="truth-step-label">WHAT DID YOU CANCEL?</div>
-                    <select class="truth-select" id="truth-company" onchange="updateTruth()">
-                        <option value="">Select a subscription...</option>
-                    </select>
-                </div>
-                <div class="truth-step truth-hidden" id="truth-alt-step">
-                    <div class="truth-step-label">WHAT DID YOU SWITCH TO? (OPTIONAL)</div>
-                    <select class="truth-select" id="truth-alt" onchange="updateTruth()">
-                        <option value="">None / Not yet</option>
-                    </select>
-                </div>
+                <div class="truth-step"><div class="truth-step-label">WHAT DID YOU CANCEL?</div><select class="truth-select" id="truth-company" onchange="updateTruth()"><option value="">Select a subscription...</option></select></div>
+                <div class="truth-step truth-hidden" id="truth-alt-step"><div class="truth-step-label">WHAT DID YOU SWITCH TO? (OPTIONAL)</div><select class="truth-select" id="truth-alt" onchange="updateTruth()"><option value="">None / Not yet</option></select></div>
             </div>
             <div class="truth-preview truth-hidden" id="truth-preview">
                 <div class="truth-banner" id="truth-banner">
                     <div class="b-logo">SALT</div>
                     <div class="b-acro">Subscribers Against Lawless Tyranny</div>
                     <div class="truth-cancelled">I CANCELLED</div>
-                    <div class="truth-company" id="truth-company-display">NETFLIX</div>
+                    <div class="truth-company" id="truth-display-co">NETFLIX</div>
                     <div class="truth-switched truth-hidden" id="truth-switched">AND SWITCHED TO</div>
-                    <div class="truth-alt truth-hidden" id="truth-alt-display">TUBI</div>
-                    <div class="b-cta">CANCELFRIDAY.COM</div>
+                    <div class="truth-alt truth-hidden" id="truth-display-alt">TUBI</div>
+                    <div class="truth-cta">CANCELFRIDAY.COM</div>
                 </div>
             </div>
-            <div class="truth-actions truth-hidden" id="truth-actions">
-                <button class="truth-dl" onclick="dlTruth()">↓ DOWNLOAD</button>
-            </div>
+            <div class="truth-actions truth-hidden" id="truth-actions"><button class="truth-dl" onclick="dlTruth()">↓ DOWNLOAD</button></div>
         </section>
-
-        <!-- FOOTER -->
-        <footer class="footer">
-            <div class="footer-text">🔒 Anonymous · No personal data stored · cancelfriday.com</div>
-        </footer>
+        <footer class="footer"><div class="footer-text">🔒 Anonymous · No personal data stored · cancelfriday.com</div></footer>
     </div>
-
-    <!-- STORY MODAL -->
     <div class="modal" id="story-modal">
         <div class="story-wrap">
-            <div class="story-frame" id="story-frame">
-                <div class="story-inner" id="story-inner">
-                    <div class="s-header">
-                        <div class="s-title">CANCEL FRIDAY</div>
-                        <div class="s-logo">SALT</div>
-                    </div>
-                    <div class="s-main">
-                        <div class="s-week" id="sw-week">WEEK 2</div>
-                        <div class="s-action" id="sw-action">I'm canceling</div>
-                        <div class="s-target" id="sw-target">AMAZON PRIME</div>
-                        <div class="s-date" id="sw-date">FRI FEB 20 • 12PM EST</div>
-                        <div class="s-tz">Together. All at once.</div>
-                        <div class="s-committed" id="sw-committed"></div>
-                    </div>
-                    <div class="s-footer">
-                        <div class="s-reason">They can't afford to lose us.</div>
-                        <div class="s-url">cancelfriday.com</div>
-                        <div class="s-hash">#CANCELFRIDAY</div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-btns">
-                <div class="modal-row">
-                    <button class="m-btn primary" onclick="saveStory()">Save Image</button>
-                    <button class="m-btn secondary" onclick="copyStory()">Copy</button>
-                </div>
-                <button class="m-btn close" onclick="closeModal()">Close</button>
-            </div>
+            <div class="story-frame" id="story-frame"><div class="story-inner" id="story-inner"><div class="s-header"><div class="s-title">CANCEL FRIDAY</div><div class="s-logo">SALT</div></div><div class="s-main"><div class="s-week" id="sw-week">WEEK 1</div><div class="s-action" id="sw-action">I'm canceling</div><div class="s-target" id="sw-target">AMAZON PRIME</div><div class="s-date" id="sw-date">FRI FEB 14 • 12PM EST</div><div class="s-tz">Together. All at once.</div><div class="s-committed" id="sw-committed"></div></div><div class="s-footer"><div class="s-reason">They can't afford to lose us.</div><div class="s-url">cancelfriday.com</div><div class="s-hash">#CANCELFRIDAY</div></div></div></div>
+            <div class="modal-btns"><div class="modal-row"><button class="m-btn primary" onclick="saveStory()">Save Image</button><button class="m-btn secondary" onclick="copyStory()">Copy</button></div><button class="m-btn close" onclick="closeModal()">Close</button></div>
         </div>
     </div>
-
     <div class="toast" id="toast"></div>
-
-    <!-- Image preview (mobile) -->
-    <div class="img-preview" id="img-preview" onclick="closeImgPreview()">
-        <button class="img-preview-close" onclick="closeImgPreview()">✕ CLOSE</button>
-        <img id="img-preview-img" src="" alt="Banner">
-        <div class="img-preview-hint">HOLD DOWN ON IMAGE → SAVE TO PHOTOS</div>
-    </div>
-
+    <div class="img-preview" id="img-preview" onclick="closeImgPreview()"><button class="img-preview-close" onclick="closeImgPreview()">✕ CLOSE</button><img id="img-preview-img" src="" alt="Banner"><div class="img-preview-hint">HOLD DOWN ON IMAGE → SAVE TO PHOTOS</div></div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
-    // ========== CONFIG ==========
     const SUPABASE_URL='https://nwrehybllhhqocyxtanf.supabase.co';
     const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53cmVoeWJsbGhocW9jeXh0YW5mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk1NzAxNjksImV4cCI6MjA4NTE0NjE2OX0.EHFci8UuWxriFBA8kfluJewDlGgjcsNm2s6oMWnchwg';
-    const DEMO_MODE=false;
-    const THRESHOLD=1000;
-    let supa=null;
-    if(!DEMO_MODE&&typeof window.supabase!=='undefined'){
-        supa=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-    }
-
-    // ========== COMPANIES ==========
+    const DEMO_MODE=false,THRESHOLD=1000;
+    let supa=null;if(!DEMO_MODE&&typeof window.supabase!=='undefined')supa=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
     const CO=[
-        {
-            id:'amazon-prime',name:'Amazon Prime',parent:'Amazon · Jeff Bezos',price:14.99,score:10,
-            receipts:[
-                {t:'Paid $75M ($40M licensing + $35M marketing) for Melania Trump\'s vanity documentary — the most expensive doc deal ever',s:'https://www.cnn.com/2026/02/01/business/melania-box-office-amazon',l:'CNN'},
-                {t:'AWS is the backbone of ICE\'s deportation infrastructure — CBP runs 62% of its systems on AWS, including the HART biometric database with iris scans and DNA of hundreds of millions',s:'https://investigate.afsc.org/company/amazon',l:'AFSC'},
-                {t:'Secretary of War Hegseth toured Bezos\' Blue Origin on Feb 2. AWS got a $581M sole-source Air Force contract days earlier',s:'https://www.bloomberg.com/news/articles/2026-02-02/hegseth-sees-plenty-of-winning-for-bezos-s-blue-origin',l:'Bloomberg'},
-                {t:'Donated $1M to Trump\'s inauguration. Pitched facial recognition (Rekognition) directly to ICE for mass surveillance',s:'https://www.thedailybeast.com/amazon-pushes-ice-to-buy-its-face-recognition-surveillance-tech/',l:'Daily Beast'},
-                {t:'Bezos personally killed the Washington Post\'s endorsement of Kamala Harris 11 days before the election',s:'https://www.npr.org/2024/10/28/nx-s1-5168416/washington-post-bezos-endorsement-president-cancellations-resignations',l:'NPR'},
-            ],
-            alts:[
-                {need:'Shipping',alt:'<a href="https://www.walmart.com/plus">Walmart+</a>, <a href="https://www.target.com/circle/360">Target Circle 360</a>, or just wait 5 days'},
-                {need:'Streaming',alt:'<a href="https://tubitv.com">Tubi</a> (free), <a href="https://www.kanopy.com">Kanopy</a> (free w/ library card)'},
-                {need:'Ebooks',alt:'<a href="https://www.overdrive.com/apps/libby">Libby app</a> (free via library), <a href="https://bookshop.org">Bookshop.org</a>'},
-            ]
-        },
-        {
-            id:'chatgpt',name:'ChatGPT Plus',parent:'OpenAI · Sam Altman',price:20.00,score:9,
-            receipts:[
-                {t:'OpenAI president Greg Brockman donated $25M to Trump\'s MAGA Inc. super PAC — the single largest donation of the cycle',s:'https://www.cnn.com/2026/01/02/politics/trump-super-pac-maga-inc-fundraising',l:'CNN'},
-                {t:'ICE agents caught on body camera using ChatGPT to write use-of-force reports during raids — a judge noted it "may explain the inaccuracy"',s:'https://fortune.com/2025/11/26/ice-agents-using-chatgpt-ai-body-camera-footage-inaccuracies/',l:'Fortune'},
-                {t:'Quietly deleted its ban on "military and warfare" use, then won a $200M Pentagon contract and partnered with weapons manufacturer Anduril',s:'https://www.technologyreview.com/2024/12/04/1107897/openais-new-defense-contract-completes-its-military-pivot/',l:'MIT Tech Review'},
-                {t:'Sam Altman donated $1M to Trump\'s inauguration — after calling Trump "an unacceptable threat to America" in 2016',s:'https://www.cnbc.com/2025/01/09/openai-ceo-sam-altman-donates-1-million-to-trumps-inaugural-fund.html',l:'CNBC'},
-            ],
-            alts:[
-                {need:'AI chat',alt:'<a href="https://claude.ai">Claude</a> (Anthropic), <a href="https://gemini.google.com">Gemini</a>, <a href="https://mistral.ai">Mistral</a> — all have free tiers'},
-                {need:'Coding help',alt:'<a href="https://claude.ai">Claude</a>, <a href="https://www.phind.com">Phind</a>'},
-            ]
-        },
-        {
-            id:'youtube-premium',name:'YouTube Premium',parent:'Alphabet · Sundar Pichai',price:13.99,score:8,
-            receipts:[
-                {t:'Google Cloud deploying AI-powered surveillance cameras along the US-Mexico border for CBP',s:'https://theintercept.com/2025/04/03/google-cbp-ai-border-surveillance-ibm-equitus/',l:'The Intercept'},
-                {t:'Used 28+ shell companies to secretly sell cloud services to ICE and CBP while publicly denying it',s:'https://www.techdirt.com/2021/10/13/google-amazon-microsoft-are-using-third-party-companies-to-sell-surveillance-tech-to-ice-cbp/',l:'Techdirt'},
-                {t:'Fired employees who raised concerns about CBP work. 1,495 employees signed a petition to stop — Google refused',s:'https://www.cnbc.com/2019/08/19/google-employees-implore-leaders-to-stop-working-with-us-bcp-ice.html',l:'CNBC'},
-            ],
-            alts:[
-                {need:'Ad-free video',alt:'<a href="https://ublockorigin.com">uBlock Origin</a>, <a href="https://brave.com">Brave browser</a>'},
-                {need:'Music',alt:'<a href="https://tidal.com">Tidal</a>, Spotify free tier, <a href="https://bandcamp.com">Bandcamp</a>'},
-            ]
-        },
-        {
-            id:'apple-tv',name:'Apple TV+ / Music',parent:'Apple · Tim Cook',price:9.99,score:7,
-            receipts:[
-                {t:'Tim Cook dined with Trump at Mar-a-Lago Dec 2024, continuing "warm relationship" from first term',s:'https://9to5mac.com/2024/12/13/cook-trump-mar-a-lago-meeting/',l:'9to5Mac'},
-                {t:'Cook called Trump to ask for help fighting EU fines — signaling willingness to seek favors',s:'https://appleinsider.com/articles/24/12/14/tim-cook-rumored-to-be-meeting-with-donald-trump-for-dinner-on-friday',l:'AppleInsider'},
-                {t:'Apple has remained completely silent on ICE deportations and immigration enforcement'},
-            ],
-            alts:[
-                {need:'Streaming',alt:'<a href="https://tubitv.com">Tubi</a>, <a href="https://www.kanopy.com">Kanopy</a>, <a href="https://pluto.tv">Pluto TV</a> — all free'},
-                {need:'Music',alt:'<a href="https://tidal.com">Tidal</a>, <a href="https://www.deezer.com">Deezer</a>, Spotify free tier'},
-            ]
-        },
-        {
-            id:'disney-plus',name:'Disney+ / Hulu',parent:'The Walt Disney Company',price:13.99,score:6,
-            receipts:[
-                {t:'ABC News paid $15M to Trump\'s presidential library to settle a defamation lawsuit',s:'https://www.cnn.com/2024/12/19/business/disney-iger-abc-trump-nightcap',l:'CNN'},
-                {t:'Pulled Jimmy Kimmel\'s show after Trump and FCC pressure over critical coverage',s:'https://www.huffpost.com/entry/disney-bob-iger-trump-jimmy-kimmel_n_68cc16dae4b0aa8d99fe9244',l:'HuffPost'},
-                {t:'Removed a transgender storyline from Pixar series days after Trump\'s election victory',s:'https://www.cnn.com/2024/12/19/business/disney-iger-abc-trump-nightcap',l:'CNN'},
-                {t:'Marvel chairman Isaac Perlmutter donated $10.5M to pro-Trump Super PAC',s:'https://www.nationalreview.com/corner/the-disney-executive-who-donated-10-million-to-help-trump-in-2020/',l:'National Review'},
-            ],
-            alts:[
-                {need:'Kids content',alt:'<a href="https://pbskids.org">PBS Kids</a> (free), YouTube Kids, library DVDs'},
-                {need:'Streaming',alt:'<a href="https://tubitv.com">Tubi</a>, <a href="https://pluto.tv">Pluto TV</a> — free'},
-            ]
-        },
-        {
-            id:'spotify',name:'Spotify Premium',parent:'Spotify · Daniel Ek',price:11.99,score:5,
-            receipts:[
-                {t:'Gave Joe Rogan $250M — he endorsed Trump in 2024 and hosted him for 3 hours before the election',s:'https://www.nbcnews.com/pop-culture/pop-culture-news/joe-rogan-criticizes-ice-tactics-podcast-rcna253931',l:'NBC News'},
-                {t:'Refused to drop Rogan despite employee protests over racial slurs and misinformation',s:'https://www.npr.org/2022/02/07/1078774392/spotifys-ceo-says-the-company-isnt-ready-to-part-ways-with-joe-rogan',l:'NPR'},
-            ],
-            note:'Rogan recently called ICE "the Gestapo." Spotify still profited from platforming his Trump endorsement.',
-            alts:[
-                {need:'Music',alt:'<a href="https://tidal.com">Tidal</a>, <a href="https://www.deezer.com">Deezer</a>, Apple Music'},
-                {need:'Podcasts',alt:'<a href="https://pocketcasts.com">Pocket Casts</a>, <a href="https://overcast.fm">Overcast</a>, Apple Podcasts — all free'},
-            ]
-        },
-        {
-            id:'netflix',name:'Netflix',parent:'Netflix Inc.',price:15.49,score:4,
-            receipts:[
-                {t:'Co-CEO Ted Sarandos visited Trump at Mar-a-Lago Dec 2024 and had Oval Office meeting Nov 2025',s:'https://variety.com/2024/biz/news/ted-sarandos-donald-trump-netflix-mar-a-lago-1236251144/',l:'Variety'},
-                {t:'Seeking Trump\'s approval for $82.7B Warner Bros acquisition',s:'https://variety.com/2025/biz/news/netflix-ted-sarandos-white-house-meeting-trump-warner-bros-deal-1236602831/',l:'Variety'},
-            ],
-            note:'Mixed record — released "Immigration Nation" despite Trump pressure. Former CEO called travel ban "anti-American." New leadership courting administration.',
-            alts:[
-                {need:'Streaming',alt:'<a href="https://tubitv.com">Tubi</a> (free), <a href="https://www.kanopy.com">Kanopy</a>, <a href="https://www.criterionchannel.com">Criterion Channel</a>'},
-            ]
-        },
-        {
-            id:'uber-one',name:'Uber One',parent:'Uber Technologies',price:9.99,score:5,
-            receipts:[
-                {t:'Former CEO served on Trump\'s advisory council before #DeleteUber boycotts forced resignation',s:'https://money.cnn.com/2017/08/29/technology/business/uber-ceo-trump/index.html',l:'CNN Money'},
-                {t:'Current CEO softened Trump criticism, calling administration "pro-growth, pro-business"',s:'https://www.cbsnews.com/news/uber-ceo-dara-khosrowshahi-on-being-behind-the-wheel/',l:'CBS News'},
-                {t:'Spent $200M+ fighting Proposition 22 to deny gig workers (many immigrants) basic employment protections'},
-            ],
-            alts:[
-                {need:'Rides',alt:'<a href="https://www.lyft.com">Lyft</a>, local taxi, public transit'},
-                {need:'Food delivery',alt:'Pick it up yourself — your $12 burrito costs $28 delivered'},
-            ]
-        },
+        {id:'amazon-prime',name:'Amazon Prime',parent:'Amazon · Jeff Bezos',price:14.99,score:10,receipts:[{t:'Paid $75M for Melania Trump\'s documentary — the most expensive doc deal ever',s:'https://www.cnn.com/2026/02/01/business/melania-box-office-amazon',l:'CNN'},{t:'AWS is the backbone of ICE\'s deportation infrastructure — CBP runs 62% of its systems on AWS',s:'https://investigate.afsc.org/company/amazon',l:'AFSC'},{t:'Secretary of War Hegseth toured Bezos\' Blue Origin. AWS got $581M Air Force contract days earlier',s:'https://www.bloomberg.com/news/articles/2026-02-02/hegseth-sees-plenty-of-winning-for-bezos-s-blue-origin',l:'Bloomberg'},{t:'Donated $1M to Trump\'s inauguration. Pitched facial recognition to ICE',s:'https://www.thedailybeast.com/amazon-pushes-ice-to-buy-its-face-recognition-surveillance-tech/',l:'Daily Beast'},{t:'Bezos killed WaPo\'s Kamala Harris endorsement 11 days before the election',s:'https://www.npr.org/2024/10/28/nx-s1-5168416/washington-post-bezos-endorsement-president-cancellations-resignations',l:'NPR'}],alts:[{need:'Shipping',alt:'<a href="https://www.walmart.com/plus">Walmart+</a>, <a href="https://www.target.com/circle/360">Target Circle 360</a>'},{need:'Streaming',alt:'<a href="https://tubitv.com">Tubi</a> (free), <a href="https://www.kanopy.com">Kanopy</a>'},{need:'Ebooks',alt:'<a href="https://www.overdrive.com/apps/libby">Libby</a> (free), <a href="https://bookshop.org">Bookshop.org</a>'}]},
+        {id:'chatgpt',name:'ChatGPT Plus',parent:'OpenAI · Sam Altman',price:20.00,score:9,receipts:[{t:'OpenAI president donated $25M to Trump\'s MAGA Inc. super PAC',s:'https://www.cnn.com/2026/01/02/politics/trump-super-pac-maga-inc-fundraising',l:'CNN'},{t:'ICE agents caught using ChatGPT to write raid reports — a judge called them "inaccurate"',s:'https://fortune.com/2025/11/26/ice-agents-using-chatgpt-ai-body-camera-footage-inaccuracies/',l:'Fortune'},{t:'Deleted its ban on "military and warfare" use, won $200M Pentagon contract',s:'https://www.technologyreview.com/2024/12/04/1107897/openais-new-defense-contract-completes-its-military-pivot/',l:'MIT Tech Review'},{t:'Sam Altman donated $1M to Trump\'s inauguration',s:'https://www.cnbc.com/2025/01/09/openai-ceo-sam-altman-donates-1-million-to-trumps-inaugural-fund.html',l:'CNBC'}],alts:[{need:'AI chat',alt:'<a href="https://claude.ai">Claude</a>, <a href="https://gemini.google.com">Gemini</a>, <a href="https://mistral.ai">Mistral</a>'},{need:'Coding',alt:'<a href="https://claude.ai">Claude</a>, <a href="https://www.phind.com">Phind</a>'}]},
+        {id:'youtube-premium',name:'YouTube Premium',parent:'Alphabet · Sundar Pichai',price:13.99,score:8,receipts:[{t:'Google Cloud deploying AI surveillance cameras along the border for CBP',s:'https://theintercept.com/2025/04/03/google-cbp-ai-border-surveillance-ibm-equitus/',l:'The Intercept'},{t:'Used 28+ shell companies to secretly sell cloud services to ICE',s:'https://www.techdirt.com/2021/10/13/google-amazon-microsoft-are-using-third-party-companies-to-sell-surveillance-tech-to-ice-cbp/',l:'Techdirt'},{t:'Fired employees who raised concerns. 1,495 signed a petition — Google refused',s:'https://www.cnbc.com/2019/08/19/google-employees-implore-leaders-to-stop-working-with-us-bcp-ice.html',l:'CNBC'}],alts:[{need:'Ad-free video',alt:'<a href="https://ublockorigin.com">uBlock Origin</a>, <a href="https://brave.com">Brave</a>'},{need:'Music',alt:'<a href="https://tidal.com">Tidal</a>, Spotify free, <a href="https://bandcamp.com">Bandcamp</a>'}]},
+        {id:'apple-tv',name:'Apple TV+ / Music',parent:'Apple · Tim Cook',price:9.99,score:7,receipts:[{t:'Tim Cook dined with Trump at Mar-a-Lago Dec 2024',s:'https://9to5mac.com/2024/12/13/cook-trump-mar-a-lago-meeting/',l:'9to5Mac'},{t:'Cook asked Trump for help fighting EU fines',s:'https://appleinsider.com/articles/24/12/14/tim-cook-rumored-to-be-meeting-with-donald-trump-for-dinner-on-friday',l:'AppleInsider'},{t:'Apple has remained silent on ICE deportations'}],alts:[{need:'Streaming',alt:'<a href="https://tubitv.com">Tubi</a>, <a href="https://www.kanopy.com">Kanopy</a>, <a href="https://pluto.tv">Pluto TV</a>'},{need:'Music',alt:'<a href="https://tidal.com">Tidal</a>, <a href="https://www.deezer.com">Deezer</a>'}]},
+        {id:'disney-plus',name:'Disney+ / Hulu',parent:'The Walt Disney Company',price:13.99,score:6,receipts:[{t:'ABC News paid $15M to Trump\'s library to settle a lawsuit',s:'https://www.cnn.com/2024/12/19/business/disney-iger-abc-trump-nightcap',l:'CNN'},{t:'Pulled Jimmy Kimmel\'s show after Trump/FCC pressure',s:'https://www.huffpost.com/entry/disney-bob-iger-trump-jimmy-kimmel_n_68cc16dae4b0aa8d99fe9244',l:'HuffPost'},{t:'Removed transgender storyline from Pixar series after election',s:'https://www.cnn.com/2024/12/19/business/disney-iger-abc-trump-nightcap',l:'CNN'},{t:'Marvel chairman donated $10.5M to pro-Trump Super PAC',s:'https://www.nationalreview.com/corner/the-disney-executive-who-donated-10-million-to-help-trump-in-2020/',l:'National Review'}],alts:[{need:'Kids',alt:'<a href="https://pbskids.org">PBS Kids</a> (free), YouTube Kids'},{need:'Streaming',alt:'<a href="https://tubitv.com">Tubi</a>, <a href="https://pluto.tv">Pluto TV</a>'}]},
+        {id:'spotify',name:'Spotify Premium',parent:'Spotify · Daniel Ek',price:11.99,score:5,receipts:[{t:'Gave Joe Rogan $250M — he endorsed Trump and hosted him before the election',s:'https://www.nbcnews.com/pop-culture/pop-culture-news/joe-rogan-criticizes-ice-tactics-podcast-rcna253931',l:'NBC News'},{t:'Refused to drop Rogan despite protests over misinformation',s:'https://www.npr.org/2022/02/07/1078774392/spotifys-ceo-says-the-company-isnt-ready-to-part-ways-with-joe-rogan',l:'NPR'}],note:'Rogan recently called ICE "the Gestapo."',alts:[{need:'Music',alt:'<a href="https://tidal.com">Tidal</a>, <a href="https://www.deezer.com">Deezer</a>, Apple Music'},{need:'Podcasts',alt:'<a href="https://pocketcasts.com">Pocket Casts</a>, <a href="https://overcast.fm">Overcast</a>'}]},
+        {id:'netflix',name:'Netflix',parent:'Netflix Inc.',price:15.49,score:4,receipts:[{t:'Co-CEO visited Trump at Mar-a-Lago and had Oval Office meeting',s:'https://variety.com/2024/biz/news/ted-sarandos-donald-trump-netflix-mar-a-lago-1236251144/',l:'Variety'},{t:'Seeking Trump\'s approval for $82.7B Warner Bros acquisition',s:'https://variety.com/2025/biz/news/netflix-ted-sarandos-white-house-meeting-trump-warner-bros-deal-1236602831/',l:'Variety'}],note:'Mixed record — released "Immigration Nation" despite pressure.',alts:[{need:'Streaming',alt:'<a href="https://tubitv.com">Tubi</a>, <a href="https://www.kanopy.com">Kanopy</a>, <a href="https://www.criterionchannel.com">Criterion</a>'}]},
+        {id:'uber-one',name:'Uber One',parent:'Uber Technologies',price:9.99,score:5,receipts:[{t:'Former CEO served on Trump\'s advisory council',s:'https://money.cnn.com/2017/08/29/technology/business/uber-ceo-trump/index.html',l:'CNN Money'},{t:'Current CEO called administration "pro-growth, pro-business"',s:'https://www.cbsnews.com/news/uber-ceo-dara-khosrowshahi-on-being-behind-the-wheel/',l:'CBS News'},{t:'Spent $200M+ to deny gig workers employment protections'}],alts:[{need:'Rides',alt:'<a href="https://www.lyft.com">Lyft</a>, local taxi, transit'},{need:'Food delivery',alt:'Pick it up yourself'}]}
     ];
-
-    // ========== BANNER DATA ==========
-    const BANNERS=[
-        {vibe:'v-red',head:'EVERY FRIDAY AT NOON<br>WE CANCEL TOGETHER',sub:'They don\'t fear tweets. They fear earnings calls.'},
-        {vibe:'v-orange',head:'AWS RUNS 62% OF ICE\'S SYSTEMS.<br>YOUR PRIME MEMBERSHIP FUNDS IT.',sub:'Jeff Bezos dined with Trump. You\'re paying $14.99/month for the privilege.'},
-        {vibe:'v-white',head:'$25 MILLION.<br>THAT\'S WHAT OPENAI\'S PRESIDENT<br>GAVE TRUMP\'S SUPER PAC.',sub:'Your $20/month ChatGPT subscription is downstream of that.'},
-        {vibe:'v-gold',head:'AMAZON PAID $40M FOR<br>A MELANIA DOCUMENTARY.',sub:'You\'re paying them $14.99/month to do it.'},
-        {vibe:'v-green',head:'ICE AGENTS USE CHATGPT<br>TO WRITE RAID REPORTS.',sub:'A judge called them "inaccurate." Your subscription funds the tool.'},
-        {vibe:'v-red',head:'GOOGLE USED 28 SHELL COMPANIES<br>TO SECRETLY SELL TECH TO ICE.',sub:'Then they fired employees who complained.'},
-    ];
-
-    // ========== WEEK 2 ==========
-    const WEEK={num:2,drop:'2026-02-20T17:00:00Z'};
-
-    // ========== FINGERPRINT ==========
-    function fp(){
-        const c=document.createElement('canvas'),x=c.getContext('2d');
-        x.textBaseline='top';x.font='14px Arial';x.fillText('salt',2,2);
-        const d=[navigator.userAgent,navigator.language,screen.width+'x'+screen.height,
-            new Date().getTimezoneOffset(),c.toDataURL().slice(-50)].join('|');
-        let h=0;for(let i=0;i<d.length;i++){h=((h<<5)-h)+d.charCodeAt(i);h=h&h}
-        return Math.abs(h).toString(36);
-    }
+    const BANNERS=[{vibe:'v-red',head:'EVERY FRIDAY AT NOON<br>WE CANCEL TOGETHER',sub:'They don\'t fear tweets. They fear earnings calls.'},{vibe:'v-orange',head:'AWS RUNS 62% OF ICE\'S SYSTEMS.<br>YOUR PRIME FUNDS IT.',sub:'Bezos dined with Trump. You\'re paying $14.99/month.'},{vibe:'v-white',head:'$25 MILLION.<br>OPENAI\'S PRESIDENT<br>GAVE TRUMP\'S SUPER PAC.',sub:'Your $20/month ChatGPT is downstream of that.'},{vibe:'v-gold',head:'AMAZON PAID $40M FOR<br>A MELANIA DOCUMENTARY.',sub:'You\'re paying them $14.99/month.'},{vibe:'v-green',head:'ICE AGENTS USE CHATGPT<br>TO WRITE RAID REPORTS.',sub:'A judge called them "inaccurate."'},{vibe:'v-red',head:'GOOGLE USED 28 SHELL COMPANIES<br>TO SELL TECH TO ICE.',sub:'Then fired employees who complained.'}];
+    const WEEK={num:1,drop:'2026-02-14T17:00:00Z'};
+    function fp(){const c=document.createElement('canvas'),x=c.getContext('2d');x.textBaseline='top';x.font='14px Arial';x.fillText('salt',2,2);const d=[navigator.userAgent,navigator.language,screen.width+'x'+screen.height,new Date().getTimezoneOffset(),c.toDataURL().slice(-50)].join('|');let h=0;for(let i=0;i<d.length;i++){h=((h<<5)-h)+d.charCodeAt(i);h=h&h}return Math.abs(h).toString(36)}
     const FP=fp();
-
-    // ========== STATE ==========
-    let counts={},confirms={},myCommits=[],myConfirmed=[];
-    let selected=null,phase='PRE',debugPhase=null;
-
-    function getPhase(){
-        if(debugPhase)return debugPhase;
-        const now=new Date(),drop=new Date(WEEK.drop),post=new Date(drop.getTime()+12*3600000);
-        if(now<drop)return'PRE';if(now<post)return'FRI';return'POST';
-    }
-
-    // ========== LOCAL STORAGE ==========
-    function loadLocal(){
-        const s=localStorage.getItem('salt_v4');
-        if(s){const d=JSON.parse(s);if(d.w===WEEK.num){myCommits=d.c||[];myConfirmed=d.f||[]}}
-    }
-    function saveLocal(){
-        localStorage.setItem('salt_v4',JSON.stringify({w:WEEK.num,c:myCommits,f:myConfirmed}));
-    }
-
-    // ========== DATA LOADING ==========
-    async function loadData(){
-        loadLocal();phase=getPhase();
-        if(!supa){
-            CO.forEach(c=>{counts[c.id]=Math.floor(Math.random()*180)+10;confirms[c.id]=0});
-            counts['amazon-prime']=420;counts['chatgpt']=312;counts['netflix']=287;
-            render();hideLoading();return;
-        }
-        try{
-            const{data:cd}=await supa.from('v2_commits').select('company_id,confirmed_at').eq('week_number',WEEK.num);
-            counts={};confirms={};
-            (cd||[]).forEach(r=>{counts[r.company_id]=(counts[r.company_id]||0)+1;if(r.confirmed_at)confirms[r.company_id]=(confirms[r.company_id]||0)+1});
-            const{data:ud}=await supa.from('v2_commits').select('company_id,confirmed_at').eq('week_number',WEEK.num).eq('fingerprint_hash',FP);
-            if(ud){myCommits=ud.map(r=>r.company_id);myConfirmed=ud.filter(r=>r.confirmed_at).map(r=>r.company_id)}
-            supa.channel('v4').on('postgres_changes',{event:'*',schema:'public',table:'v2_commits',filter:`week_number=eq.${WEEK.num}`},async()=>{
-                const{data}=await supa.from('v2_commits').select('company_id,confirmed_at').eq('week_number',WEEK.num);
-                if(data){counts={};confirms={};data.forEach(r=>{counts[r.company_id]=(counts[r.company_id]||0)+1;if(r.confirmed_at)confirms[r.company_id]=(confirms[r.company_id]||0)+1});render()}
-            }).subscribe();
-            render();hideLoading();
-        }catch(e){
-            console.error(e);toast('Connection error.',true);
-            CO.forEach(c=>{counts[c.id]=Math.floor(Math.random()*80)+5;confirms[c.id]=0});
-            render();hideLoading();
-        }
-    }
-
-    // ========== ACTIONS ==========
-    async function toggleCommit(id){
-        const idx=myCommits.indexOf(id);
-        if(idx===-1){
-            myCommits.push(id);counts[id]=(counts[id]||0)+1;
-            if(supa){await supa.from('v2_commits').insert({fingerprint_hash:FP,company_id:id,week_number:WEEK.num})}
-            const c=CO.find(x=>x.id===id);toast(`Committed to cancel ${c.name}!`);
-            setTimeout(()=>{const el=document.getElementById('my-commits');if(el)el.scrollIntoView({behavior:'smooth',block:'start'})},400);
-        }else{
-            myCommits.splice(idx,1);counts[id]=Math.max((counts[id]||1)-1,0);
-            if(supa){await supa.from('v2_commits').delete().eq('fingerprint_hash',FP).eq('company_id',id).eq('week_number',WEEK.num)}
-            toast('Removed.');
-        }
-        saveLocal();render();
-    }
-
+    let counts={},confirms={},myCommits=[],myConfirmed=[],selected=null,phase='PRE',debugPhase=null;
+    function getPhase(){if(debugPhase)return debugPhase;const now=new Date(),drop=new Date(WEEK.drop),post=new Date(drop.getTime()+12*3600000);if(now<drop)return'PRE';if(now<post)return'FRI';return'POST'}
+    function loadLocal(){const s=localStorage.getItem('salt_v4');if(s){const d=JSON.parse(s);if(d.w===WEEK.num){myCommits=d.c||[];myConfirmed=d.f||[]}}}
+    function saveLocal(){localStorage.setItem('salt_v4',JSON.stringify({w:WEEK.num,c:myCommits,f:myConfirmed}))}
+    async function loadData(){loadLocal();phase=getPhase();if(!supa){CO.forEach(c=>{counts[c.id]=Math.floor(Math.random()*180)+10;confirms[c.id]=0});counts['amazon-prime']=420;counts['chatgpt']=312;render();hideLoading();return}try{const{data:cd}=await supa.from('v2_commits').select('company_id,confirmed_at').eq('week_number',WEEK.num);counts={};confirms={};(cd||[]).forEach(r=>{counts[r.company_id]=(counts[r.company_id]||0)+1;if(r.confirmed_at)confirms[r.company_id]=(confirms[r.company_id]||0)+1});const{data:ud}=await supa.from('v2_commits').select('company_id,confirmed_at').eq('week_number',WEEK.num).eq('fingerprint_hash',FP);if(ud){myCommits=ud.map(r=>r.company_id);myConfirmed=ud.filter(r=>r.confirmed_at).map(r=>r.company_id)}supa.channel('v4').on('postgres_changes',{event:'*',schema:'public',table:'v2_commits',filter:`week_number=eq.${WEEK.num}`},async()=>{const{data}=await supa.from('v2_commits').select('company_id,confirmed_at').eq('week_number',WEEK.num);if(data){counts={};confirms={};data.forEach(r=>{counts[r.company_id]=(counts[r.company_id]||0)+1;if(r.confirmed_at)confirms[r.company_id]=(confirms[r.company_id]||0)+1});render()}}).subscribe();render();hideLoading()}catch(e){console.error(e);toast('Connection error.',true);CO.forEach(c=>{counts[c.id]=Math.floor(Math.random()*80)+5;confirms[c.id]=0});render();hideLoading()}}
+    async function toggleCommit(id){const idx=myCommits.indexOf(id);if(idx===-1){myCommits.push(id);counts[id]=(counts[id]||0)+1;if(supa)await supa.from('v2_commits').insert({fingerprint_hash:FP,company_id:id,week_number:WEEK.num});const c=CO.find(x=>x.id===id);toast(`Committed to cancel ${c.name}!`);setTimeout(()=>{const el=document.getElementById('my-commits');if(el)el.scrollIntoView({behavior:'smooth',block:'start'})},400)}else{myCommits.splice(idx,1);counts[id]=Math.max((counts[id]||1)-1,0);if(supa)await supa.from('v2_commits').delete().eq('fingerprint_hash',FP).eq('company_id',id).eq('week_number',WEEK.num);toast('Removed.')}saveLocal();render()}
     function selectCo(id){selected=id;render();setTimeout(()=>{const el=document.getElementById('detail');if(el)el.scrollIntoView({behavior:'smooth',block:'start'})},50)}
-
-    async function confirmCancel(id){
-        if(myConfirmed.includes(id)){toast('Already confirmed!');return}
-        myConfirmed.push(id);confirms[id]=(confirms[id]||0)+1;
-        if(supa){await supa.from('v2_commits').update({confirmed_at:new Date().toISOString()}).eq('fingerprint_hash',FP).eq('company_id',id).eq('week_number',WEEK.num)}
-        saveLocal();const c=CO.find(x=>x.id===id);toast(`${c.name} cancelled! 🎉`);render();
-    }
-
-    // ========== RENDER ==========
-    function render(){
-        phase=getPhase();
-        if(phase==='FRI')document.body.classList.add('friday-mode');else document.body.classList.remove('friday-mode');
-
-        const sorted=[...CO].sort((a,b)=>(counts[b.id]||0)-(counts[a.id]||0));
-        const leader=sorted[0],lc=counts[leader.id]||0,mx=lc||1;
-        const total=Object.values(counts).reduce((s,c)=>s+c,0);
-        const impact=CO.reduce((s,c)=>s+(counts[c.id]||0)*c.price*12,0);
-        const active=CO.filter(c=>(counts[c.id]||0)>0).length;
-        const pct=Math.min((total/THRESHOLD)*100,100);
-
-        // Leader
-        document.getElementById('leader-name').textContent=leader.name.toUpperCase();
-        document.getElementById('leader-count').textContent=`${lc.toLocaleString()} committed`;
-        document.getElementById('leader-el').onclick=()=>selectCo(leader.id);
-
-        // Grid
-        document.getElementById('grid').innerHTML=sorted.map(c=>{
-            const cnt=counts[c.id]||0,p=mx>0?(cnt/mx)*100:0;
-            const cm=myCommits.includes(c.id),sel=selected===c.id,ld=c.id===leader.id;
-            const tier=c.score>=7?'hi':c.score>=5?'mid':'lo';
-            return`<div class="card${cm?' committed':''}${sel?' selected':''}${ld?' leader-card':''}" onclick="selectCo('${c.id}')">
-                <div class="badge ${tier}">${c.score}/10</div>
-                <div class="name">${c.name}</div>
-                <div class="parent">${c.parent}</div>
-                <div class="bar"><div class="fill" style="width:${p}%"></div></div>
-                <div class="votes">${cnt.toLocaleString()} committed</div>
-            </div>`;
-        }).join('');
-
-        // Scroll hint
-        document.getElementById('scroll-hint').className='scroll-hint'+(selected?' visible':'');
-
-        // Detail
-        const det=document.getElementById('detail');
-        if(selected){
-            const c=CO.find(x=>x.id===selected);if(!c){det.classList.add('hidden');return}
-            const cnt=counts[c.id]||0,cm=myCommits.includes(c.id),ai=cnt*c.price*12;
-            det.classList.remove('hidden');
-            document.getElementById('d-name').textContent=c.name.toUpperCase();
-            document.getElementById('d-parent').textContent=c.parent;
-            document.getElementById('d-committed').textContent=cnt.toLocaleString();
-            document.getElementById('d-impact').textContent='$'+fmtMoney(ai);
-            document.getElementById('d-price').textContent=`$${c.price}/month · $${(c.price*12).toFixed(0)}/year`;
-
-            let rhtml=`<div class="receipts-title">THE RECEIPTS</div><ul>${c.receipts.map(r=>`<li>${r.t}${r.s?` <a href="${r.s}" target="_blank" rel="noopener" class="src">[${r.l}]</a>`:''}</li>`).join('')}</ul>`;
-            if(c.note)rhtml+=`<div class="note"><strong>Note:</strong> ${c.note}</div>`;
-            if(c.alts&&c.alts.length)rhtml+=`<div class="alts"><div class="alts-title">ALTERNATIVES</div><ul>${c.alts.map(a=>`<li><strong>${a.need}:</strong> ${a.alt}</li>`).join('')}</ul></div>`;
-            document.getElementById('d-receipts').innerHTML=rhtml;
-
-            const btn=document.getElementById('d-btn');
-            btn.className=`commit-btn ${cm?'done':'go'}`;
-            btn.textContent=cm?'COMMITTED ✓':"I'M CANCELLING THIS";
-            btn.onclick=()=>toggleCommit(c.id);
-        }else{det.classList.add('hidden')}
-
-        // Stats
-        document.getElementById('s-count').textContent=total.toLocaleString();
-        document.getElementById('s-fill').style.width=pct+'%';
-        const prog=document.getElementById('s-progress');
-        const ptxt=document.getElementById('s-text');
-        if(total>=THRESHOLD){prog.classList.add('hit');ptxt.textContent=`${total.toLocaleString()} / ${THRESHOLD.toLocaleString()}`}
-        else{prog.classList.remove('hit');ptxt.textContent=`${total.toLocaleString()} / ${THRESHOLD.toLocaleString()} · ${(THRESHOLD-total).toLocaleString()} to go`}
-        document.getElementById('s-impact').textContent='$'+impact.toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:0});
-        document.getElementById('s-across').textContent=active>0?`across ${active} ${active===1?'company':'companies'}`:'';
-
-        // My commits
-        const mc=document.getElementById('my-commits');
-        if(myCommits.length>0){
-            mc.classList.remove('hidden');
-            const monthly=myCommits.reduce((s,id)=>{const c=CO.find(x=>x.id===id);return s+(c?c.price:0)},0);
-            const annual=monthly*12;
-
-            if(phase==='FRI'){
-                document.getElementById('my-title').textContent='CANCEL NOW — CONFIRM EACH ONE';
-                document.getElementById('my-list').innerHTML=myCommits.map(id=>{
-                    const c=CO.find(x=>x.id===id),ok=myConfirmed.includes(id);
-                    return`<div class="confirm-row"><div><div class="cr-name">${c?c.name:id}</div><div class="cr-status${ok?' ok':''}">${ok?'✓ Cancelled!':'Waiting'}</div></div><button class="cr-btn ${ok?'ok':'pending'}" onclick="event.stopPropagation();${ok?'':`confirmCancel('${id}')`}" ${ok?'disabled':''}>${ok?'DONE ✓':'I CANCELLED'}</button></div>`;
-                }).join('');
-                document.getElementById('my-impact').textContent=`${myConfirmed.length}/${myCommits.length} confirmed · $${monthly.toFixed(2)}/month saved`;
-            }else if(phase==='POST'){
-                document.getElementById('my-title').textContent='YOUR CANCELLATIONS THIS WEEK';
-                document.getElementById('my-list').innerHTML=myCommits.map(id=>{
-                    const c=CO.find(x=>x.id===id),ok=myConfirmed.includes(id);
-                    return`<div class="confirm-row"><div class="cr-name">${c?c.name:id}</div><div class="cr-status${ok?' ok':''}">${ok?'✓ Cancelled':'○ Not confirmed'}</div></div>`;
-                }).join('');
-                document.getElementById('my-impact').textContent=`You cut $${monthly.toFixed(2)}/month · $${annual.toFixed(2)}/year`;
-            }else{
-                document.getElementById('my-title').textContent='YOUR FRIDAY CANCELLATIONS';
-                document.getElementById('my-list').innerHTML=myCommits.map(id=>{
-                    const c=CO.find(x=>x.id===id);
-                    return`<div class="my-chip">${c?c.name:id}<span class="x" onclick="event.stopPropagation();toggleCommit('${id}')">×</span></div>`;
-                }).join('');
-                document.getElementById('my-impact').textContent=`You're cutting $${monthly.toFixed(2)}/month · $${annual.toFixed(2)}/year`;
-            }
-        }else{mc.classList.add('hidden')}
-
-        // Countdown label
-        const cl=document.getElementById('cd-label');
-        if(phase==='FRI')cl.textContent="IT'S TIME — CANCEL NOW";
-        else if(phase==='POST')cl.textContent='CANCEL FRIDAY COMPLETE';
-        else cl.textContent='FRIDAY AT NOON EST';
-
-        // Banners
-        renderBanners();
-        // Story
-        updateStory(leader);
-        // Truth
-        initTruth();
-    }
-
-    function renderBanners(){
-        document.getElementById('banners-scroll').innerHTML=BANNERS.map((b,i)=>`
-            <div class="banner ${b.vibe}" id="bnr-${i}">
-                <div class="b-logo">SALT</div>
-                <div class="b-acro">Subscribers Against Lawless Tyranny</div>
-                <div class="b-head">${b.head}</div>
-                <div class="b-sub">${b.sub}</div>
-                <div class="b-cta">CANCELFRIDAY.COM</div>
-                <div class="b-actions">
-                    <button class="b-dl" onclick="dlBanner(${i})">↓ SAVE</button>
-                    <button class="b-cp" onclick="cpBanner(${i})">📋 COPY</button>
-                </div>
-            </div>
-        `).join('');
-    }
-
+    async function confirmCancel(id){if(myConfirmed.includes(id)){toast('Already confirmed!');return}myConfirmed.push(id);confirms[id]=(confirms[id]||0)+1;if(supa)await supa.from('v2_commits').update({confirmed_at:new Date().toISOString()}).eq('fingerprint_hash',FP).eq('company_id',id).eq('week_number',WEEK.num);saveLocal();const c=CO.find(x=>x.id===id);toast(`${c.name} cancelled! 🎉`);render()}
+    function render(){phase=getPhase();if(phase==='FRI')document.body.classList.add('friday-mode');else document.body.classList.remove('friday-mode');const sorted=[...CO].sort((a,b)=>(counts[b.id]||0)-(counts[a.id]||0));const leader=sorted[0],lc=counts[leader.id]||0,mx=lc||1;const total=Object.values(counts).reduce((s,c)=>s+c,0);const impact=CO.reduce((s,c)=>s+(counts[c.id]||0)*c.price*12,0);const active=CO.filter(c=>(counts[c.id]||0)>0).length;const pct=Math.min((total/THRESHOLD)*100,100);document.getElementById('leader-name').textContent=leader.name.toUpperCase();document.getElementById('leader-count').textContent=`${lc.toLocaleString()} committed`;document.getElementById('leader-el').onclick=()=>selectCo(leader.id);document.getElementById('grid').innerHTML=sorted.map(c=>{const cnt=counts[c.id]||0,p=mx>0?(cnt/mx)*100:0;const cm=myCommits.includes(c.id),sel=selected===c.id,ld=c.id===leader.id;const tier=c.score>=7?'hi':c.score>=5?'mid':'lo';return`<div class="card${cm?' committed':''}${sel?' selected':''}${ld?' leader-card':''}" onclick="selectCo('${c.id}')"><div class="badge ${tier}">${c.score}/10</div><div class="name">${c.name}</div><div class="parent">${c.parent}</div><div class="bar"><div class="fill" style="width:${p}%"></div></div><div class="votes">${cnt.toLocaleString()} committed</div></div>`}).join('');document.getElementById('scroll-hint').className='scroll-hint'+(selected?' visible':'');const det=document.getElementById('detail');if(selected){const c=CO.find(x=>x.id===selected);if(!c){det.classList.add('hidden');return}const cnt=counts[c.id]||0,cm=myCommits.includes(c.id),ai=cnt*c.price*12;det.classList.remove('hidden');document.getElementById('d-name').textContent=c.name.toUpperCase();document.getElementById('d-parent').textContent=c.parent;document.getElementById('d-committed').textContent=cnt.toLocaleString();document.getElementById('d-impact').textContent='$'+fmtMoney(ai);document.getElementById('d-price').textContent=`$${c.price}/month · $${(c.price*12).toFixed(0)}/year`;let rhtml=`<div class="receipts-title">THE RECEIPTS</div><ul>${c.receipts.map(r=>`<li>${r.t}${r.s?` <a href="${r.s}" target="_blank" rel="noopener" class="src">[${r.l}]</a>`:''}</li>`).join('')}</ul>`;if(c.note)rhtml+=`<div class="note"><strong>Note:</strong> ${c.note}</div>`;if(c.alts&&c.alts.length)rhtml+=`<div class="alts"><div class="alts-title">ALTERNATIVES</div><ul>${c.alts.map(a=>`<li><strong>${a.need}:</strong> ${a.alt}</li>`).join('')}</ul></div>`;document.getElementById('d-receipts').innerHTML=rhtml;const btn=document.getElementById('d-btn');btn.className=`commit-btn ${cm?'done':'go'}`;btn.textContent=cm?'COMMITTED ✓':"I'M CANCELLING THIS";btn.onclick=()=>toggleCommit(c.id)}else{det.classList.add('hidden')}document.getElementById('s-count').textContent=total.toLocaleString();document.getElementById('s-fill').style.width=pct+'%';const prog=document.getElementById('s-progress'),ptxt=document.getElementById('s-text');if(total>=THRESHOLD){prog.classList.add('hit');ptxt.textContent=`${total.toLocaleString()} / ${THRESHOLD.toLocaleString()}`}else{prog.classList.remove('hit');ptxt.textContent=`${total.toLocaleString()} / ${THRESHOLD.toLocaleString()} · ${(THRESHOLD-total).toLocaleString()} to go`}document.getElementById('s-impact').textContent='$'+impact.toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:0});document.getElementById('s-across').textContent=active>0?`across ${active} ${active===1?'company':'companies'}`:'';const mc=document.getElementById('my-commits');if(myCommits.length>0){mc.classList.remove('hidden');const monthly=myCommits.reduce((s,id)=>{const c=CO.find(x=>x.id===id);return s+(c?c.price:0)},0);const annual=monthly*12;if(phase==='FRI'){document.getElementById('my-title').textContent='CANCEL NOW — CONFIRM EACH ONE';document.getElementById('my-list').innerHTML=myCommits.map(id=>{const c=CO.find(x=>x.id===id),ok=myConfirmed.includes(id);return`<div class="confirm-row"><div><div class="cr-name">${c?c.name:id}</div><div class="cr-status${ok?' ok':''}">${ok?'✓ Cancelled!':'Waiting'}</div></div><button class="cr-btn ${ok?'ok':'pending'}" onclick="event.stopPropagation();${ok?'':`confirmCancel('${id}')`}" ${ok?'disabled':''}>${ok?'DONE ✓':'I CANCELLED'}</button></div>`}).join('');document.getElementById('my-impact').textContent=`${myConfirmed.length}/${myCommits.length} confirmed · $${monthly.toFixed(2)}/month saved`}else if(phase==='POST'){document.getElementById('my-title').textContent='YOUR CANCELLATIONS THIS WEEK';document.getElementById('my-list').innerHTML=myCommits.map(id=>{const c=CO.find(x=>x.id===id),ok=myConfirmed.includes(id);return`<div class="confirm-row"><div class="cr-name">${c?c.name:id}</div><div class="cr-status${ok?' ok':''}">${ok?'✓ Cancelled':'○ Not confirmed'}</div></div>`}).join('');document.getElementById('my-impact').textContent=`You cut $${monthly.toFixed(2)}/month · $${annual.toFixed(2)}/year`}else{document.getElementById('my-title').textContent='YOUR FRIDAY CANCELLATIONS';document.getElementById('my-list').innerHTML=myCommits.map(id=>{const c=CO.find(x=>x.id===id);return`<div class="my-chip">${c?c.name:id}<span class="x" onclick="event.stopPropagation();toggleCommit('${id}')">×</span></div>`}).join('');document.getElementById('my-impact').textContent=`You're cutting $${monthly.toFixed(2)}/month · $${annual.toFixed(2)}/year`}}else{mc.classList.add('hidden')}const cl=document.getElementById('cd-label');if(phase==='FRI')cl.textContent="IT'S TIME — CANCEL NOW";else if(phase==='POST')cl.textContent='CANCEL FRIDAY COMPLETE';else cl.textContent='FRIDAY AT NOON EST';renderBanners();updateStory(leader);initTruth()}
+    function renderBanners(){document.getElementById('banners-scroll').innerHTML=BANNERS.map((b,i)=>`<div class="banner ${b.vibe}" id="bnr-${i}"><div class="b-logo">SALT</div><div class="b-acro">Subscribers Against Lawless Tyranny</div><div class="b-head">${b.head}</div><div class="b-sub">${b.sub}</div><div class="b-cta">CANCELFRIDAY.COM</div><div class="b-actions"><button class="b-dl" onclick="dlBanner(${i})">↓ SAVE</button><button class="b-cp" onclick="cpBanner(${i})">📋 COPY</button></div></div>`).join('')}
     function fmtMoney(a){if(a>=1e6)return(a/1e6).toFixed(1)+'M';if(a>=1e3)return(a/1e3).toFixed(0)+'K';return a.toFixed(0)}
-
-    // ========== COUNTDOWN ==========
-    function tick(){
-        const now=new Date(),drop=new Date(WEEK.drop),d=drop-now,el=document.getElementById('cd-timer');
-        if(!el)return;
-        if(d<=0){el.innerHTML=d>-3600000?'<span class="cd-done">IT\'S TIME — CANCEL NOW</span>':'<span class="cd-done">CANCEL FRIDAY COMPLETE</span>';return}
-        const dd=Math.floor(d/864e5),hh=Math.floor((d%864e5)/36e5),mm=Math.floor((d%36e5)/6e4),ss=Math.floor((d%6e4)/1e3);
-        el.innerHTML=`<span class="unit">${dd}<span class="lbl">days</span></span><span class="sep">:</span><span class="unit">${String(hh).padStart(2,'0')}<span class="lbl">hrs</span></span><span class="sep">:</span><span class="unit">${String(mm).padStart(2,'0')}<span class="lbl">min</span></span><span class="sep">:</span><span class="unit">${String(ss).padStart(2,'0')}<span class="lbl">sec</span></span>`;
-    }
-
-    // ========== STORY MODAL ==========
-    function updateStory(leader){
-        const names=myCommits.map(id=>{const c=CO.find(x=>x.id===id);return c?c.name:id});
-        document.getElementById('sw-week').textContent=`WEEK ${WEEK.num}`;
-        const tgt=document.getElementById('sw-target');tgt.classList.remove('multi');
-        if(names.length===0){tgt.textContent='JOIN US';document.getElementById('sw-action').textContent='Cancel something'}
-        else if(names.length===1){tgt.textContent=names[0].toUpperCase();document.getElementById('sw-action').textContent="I'm canceling"}
-        else if(names.length===2){tgt.textContent=names.map(n=>n.toUpperCase()).join(' + ');tgt.classList.add('multi');document.getElementById('sw-action').textContent="I'm canceling"}
-        else{tgt.textContent=`${names.length} SUBSCRIPTIONS`;document.getElementById('sw-action').textContent="I'm canceling"}
-        const drop=new Date(WEEK.drop),opts={weekday:'short',month:'short',day:'numeric'};
-        document.getElementById('sw-date').textContent=`${drop.toLocaleDateString('en-US',opts).toUpperCase()} • 12PM EST`;
-        const total=Object.values(counts).reduce((s,c)=>s+c,0);
-        document.getElementById('sw-committed').textContent=`${total.toLocaleString()} committed so far`;
-    }
-
+    function tick(){const now=new Date(),drop=new Date(WEEK.drop),d=drop-now,el=document.getElementById('cd-timer');if(!el)return;if(d<=0){el.innerHTML=d>-3600000?'<span class="cd-done">IT\'S TIME — CANCEL NOW</span>':'<span class="cd-done">IN PROGRESS</span>';return}const dd=Math.floor(d/864e5),hh=Math.floor((d%864e5)/36e5),mm=Math.floor((d%36e5)/6e4),ss=Math.floor((d%6e4)/1e3);el.innerHTML=`<span class="unit">${dd}<span class="lbl">days</span></span><span class="sep">:</span><span class="unit">${String(hh).padStart(2,'0')}<span class="lbl">hrs</span></span><span class="sep">:</span><span class="unit">${String(mm).padStart(2,'0')}<span class="lbl">min</span></span><span class="sep">:</span><span class="unit">${String(ss).padStart(2,'0')}<span class="lbl">sec</span></span>`}
+    function updateStory(leader){const names=myCommits.map(id=>{const c=CO.find(x=>x.id===id);return c?c.name:id});document.getElementById('sw-week').textContent=`WEEK ${WEEK.num}`;const tgt=document.getElementById('sw-target');tgt.classList.remove('multi');if(names.length===0){tgt.textContent='JOIN US';document.getElementById('sw-action').textContent='Cancel something'}else if(names.length===1){tgt.textContent=names[0].toUpperCase();document.getElementById('sw-action').textContent="I'm canceling"}else if(names.length===2){tgt.textContent=names.map(n=>n.toUpperCase()).join(' + ');tgt.classList.add('multi');document.getElementById('sw-action').textContent="I'm canceling"}else{tgt.textContent=`${names.length} SUBSCRIPTIONS`;document.getElementById('sw-action').textContent="I'm canceling"}const drop=new Date(WEEK.drop),opts={weekday:'short',month:'short',day:'numeric'};document.getElementById('sw-date').textContent=`${drop.toLocaleDateString('en-US',opts).toUpperCase()} • 12PM EST`;const total=Object.values(counts).reduce((s,c)=>s+c,0);document.getElementById('sw-committed').textContent=`${total.toLocaleString()} committed so far`}
     function openModal(){updateStory();document.getElementById('story-modal').classList.add('active')}
     function closeModal(){document.getElementById('story-modal').classList.remove('active')}
-
-    async function saveStory(){
-        try{
-            const c=await html2canvas(document.getElementById('story-inner'),{backgroundColor:'#0a0a0a',scale:4,width:270,height:480});
-            const url=c.toDataURL('image/png');
-            if(isMobile()){closeModal();showImgPreview(url)}
-            else{const a=document.createElement('a');a.download=`cancelfriday-week${WEEK.num}.png`;a.href=url;a.click();toast('Saved!')}
-        }catch(e){toast('Save failed.',true)}
-    }
-    async function copyStory(){
-        try{
-            const c=await html2canvas(document.getElementById('story-inner'),{backgroundColor:'#0a0a0a',scale:4,width:270,height:480});
-            const b=await new Promise(r=>c.toBlob(r,'image/png'));
-            await navigator.clipboard.write([new ClipboardItem({'image/png':b})]);toast('Copied!');
-        }catch(e){toast('Copy failed.',true)}
-    }
-
-    // ========== BANNER SAVE ==========
-    const BF={story:{w:200,h:340,ew:1080,eh:1920},post:{w:270,h:270,ew:1080,eh:1080}};
-    let bannerFmt='story';
-
-    async function dlBanner(i){
-        const el=document.getElementById(`bnr-${i}`),fmt=BF[bannerFmt]||BF.story;
-        const clone=el.cloneNode(true);const acts=clone.querySelector('.b-actions');if(acts)acts.remove();
-        Object.assign(clone.style,{position:'fixed',left:'-9999px',top:'0',width:fmt.w+'px',height:fmt.h+'px',minWidth:fmt.w+'px',minHeight:'unset',zIndex:'-1'});
-        document.body.appendChild(clone);
-        try{
-            const c=await html2canvas(clone,{backgroundColor:'#0a0a0a',scale:fmt.ew/fmt.w,width:fmt.w,height:fmt.h});
-            const url=c.toDataURL('image/png');
-            if(isMobile()){showImgPreview(url)}else{const a=document.createElement('a');a.download=`cancelfriday-banner-${i+1}.png`;a.href=url;a.click();toast('Downloaded!')}
-            trackBanner(`banner-${i+1}`,bannerFmt);
-        }catch(e){toast('Failed.',true)}finally{document.body.removeChild(clone)}
-    }
-    async function cpBanner(i){
-        const el=document.getElementById(`bnr-${i}`),fmt=BF[bannerFmt]||BF.story;
-        const clone=el.cloneNode(true);const acts=clone.querySelector('.b-actions');if(acts)acts.remove();
-        Object.assign(clone.style,{position:'fixed',left:'-9999px',top:'0',width:fmt.w+'px',height:fmt.h+'px',minWidth:fmt.w+'px',minHeight:'unset',zIndex:'-1'});
-        document.body.appendChild(clone);
-        try{
-            const c=await html2canvas(clone,{backgroundColor:'#0a0a0a',scale:fmt.ew/fmt.w,width:fmt.w,height:fmt.h});
-            const b=await new Promise(r=>c.toBlob(r,'image/png'));
-            await navigator.clipboard.write([new ClipboardItem({'image/png':b})]);toast('Copied!');
-            trackBanner(`banner-${i+1}-copy`,bannerFmt);
-        }catch(e){toast('Copy failed.',true)}finally{document.body.removeChild(clone)}
-    }
-
-    async function trackBanner(id,fmt){
-        if(!supa)return;
-        try{await supa.from('banner_downloads').insert({banner_id:id,banner_format:fmt,fingerprint_hash:FP})}catch(e){}
-    }
-
-    // ========== TRUTH BANNER ==========
+    async function saveStory(){try{const c=await html2canvas(document.getElementById('story-inner'),{backgroundColor:'#0a0a0a',scale:4,width:270,height:480});const url=c.toDataURL('image/png');if(isMobile()){closeModal();showImgPreview(url)}else{const a=document.createElement('a');a.download=`cancelfriday-week${WEEK.num}.png`;a.href=url;a.click();toast('Saved!')}}catch(e){toast('Save failed.',true)}}
+    async function copyStory(){try{const c=await html2canvas(document.getElementById('story-inner'),{backgroundColor:'#0a0a0a',scale:4,width:270,height:480});const b=await new Promise(r=>c.toBlob(r,'image/png'));await navigator.clipboard.write([new ClipboardItem({'image/png':b})]);toast('Copied!')}catch(e){toast('Copy failed.',true)}}
+    const BF={story:{w:200,h:340,ew:1080,eh:1920},post:{w:270,h:270,ew:1080,eh:1080}};let bannerFmt='story';
+    async function dlBanner(i){const el=document.getElementById(`bnr-${i}`),fmt=BF[bannerFmt]||BF.story;const clone=el.cloneNode(true);const acts=clone.querySelector('.b-actions');if(acts)acts.remove();Object.assign(clone.style,{position:'fixed',left:'-9999px',top:'0',width:fmt.w+'px',height:fmt.h+'px',minWidth:fmt.w+'px',minHeight:'unset',zIndex:'-1'});document.body.appendChild(clone);try{const c=await html2canvas(clone,{backgroundColor:'#0a0a0a',scale:fmt.ew/fmt.w,width:fmt.w,height:fmt.h});const url=c.toDataURL('image/png');if(isMobile()){showImgPreview(url)}else{const a=document.createElement('a');a.download=`cancelfriday-banner-${i+1}.png`;a.href=url;a.click();toast('Downloaded!')}trackBannerDl(`banner-${i+1}`,bannerFmt)}catch(e){toast('Failed.',true)}finally{document.body.removeChild(clone)}}
+    async function cpBanner(i){const el=document.getElementById(`bnr-${i}`),fmt=BF[bannerFmt]||BF.story;const clone=el.cloneNode(true);const acts=clone.querySelector('.b-actions');if(acts)acts.remove();Object.assign(clone.style,{position:'fixed',left:'-9999px',top:'0',width:fmt.w+'px',height:fmt.h+'px',minWidth:fmt.w+'px',minHeight:'unset',zIndex:'-1'});document.body.appendChild(clone);try{const c=await html2canvas(clone,{backgroundColor:'#0a0a0a',scale:fmt.ew/fmt.w,width:fmt.w,height:fmt.h});const b=await new Promise(r=>c.toBlob(r,'image/png'));await navigator.clipboard.write([new ClipboardItem({'image/png':b})]);toast('Copied!');trackBannerDl(`banner-${i+1}-copy`,bannerFmt)}catch(e){toast('Copy failed.',true)}finally{document.body.removeChild(clone)}}
     let lastTruthCo=null;
-    function initTruth(){
-        const sel=document.getElementById('truth-company');
-        if(!sel||sel.options.length>1)return;
-        sel.innerHTML='<option value="">Select a subscription...</option>'+CO.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
-    }
-    function updateTruth(){
-        const coSel=document.getElementById('truth-company');
-        const altStep=document.getElementById('truth-alt-step');
-        const altSel=document.getElementById('truth-alt');
-        const preview=document.getElementById('truth-preview');
-        const actions=document.getElementById('truth-actions');
-        const coId=coSel.value;
-        if(!coId){altStep.classList.add('truth-hidden');preview.classList.add('truth-hidden');actions.classList.add('truth-hidden');lastTruthCo=null;return}
-        const co=CO.find(x=>x.id===coId);if(!co)return;
-        altStep.classList.remove('truth-hidden');
-        if(lastTruthCo!==coId){
-            lastTruthCo=coId;
-            const opts=[];
-            if(co.alts){co.alts.forEach(a=>{
-                const m=a.alt.match(/>([^<]+)</g);
-                if(m)m.forEach(x=>{const n=x.replace(/[><]/g,'').trim();if(n&&n.length>1&&!n.toLowerCase().includes('free')&&!opts.includes(n))opts.push(n)});
-                const p=a.alt.replace(/<[^>]+>/g,'').split(/[,·—]/).map(s=>s.trim());
-                p.forEach(x=>{if(x&&x.length>1&&x.length<30&&!x.toLowerCase().includes('free')&&!x.includes('just')&&!opts.includes(x))opts.push(x)});
-            })}
-            altSel.innerHTML='<option value="">None / Not yet</option>'+opts.slice(0,8).map(n=>`<option value="${n}">${n}</option>`).join('');
-        }
-        preview.classList.remove('truth-hidden');actions.classList.remove('truth-hidden');
-        document.getElementById('truth-company-display').textContent=co.name.toUpperCase();
-        const altVal=altSel.value;
-        const sw=document.getElementById('truth-switched'),ad=document.getElementById('truth-alt-display');
-        if(altVal){sw.classList.remove('truth-hidden');ad.classList.remove('truth-hidden');ad.textContent=altVal.toUpperCase()}
-        else{sw.classList.add('truth-hidden');ad.classList.add('truth-hidden')}
-    }
-    async function dlTruth(){
-        const el=document.getElementById('truth-banner'),fmt=BF.story;
-        const clone=el.cloneNode(true);
-        clone.querySelectorAll('.truth-hidden').forEach(x=>x.remove());
-        Object.assign(clone.style,{position:'fixed',left:'-9999px',top:'0',width:fmt.w+'px',height:fmt.h+'px',minWidth:fmt.w+'px',minHeight:'unset',zIndex:'-1'});
-        document.body.appendChild(clone);
-        try{
-            const c=await html2canvas(clone,{backgroundColor:'#0a0a0a',scale:fmt.ew/fmt.w,width:fmt.w,height:fmt.h});
-            const url=c.toDataURL('image/png');
-            if(isMobile()){showImgPreview(url)}else{const a=document.createElement('a');a.download='my-cancellation.png';a.href=url;a.click();toast('Downloaded!')}
-            const coId=document.getElementById('truth-company').value;
-            trackBanner(`truth-${coId}`,bannerFmt);
-        }catch(e){toast('Failed.',true)}finally{document.body.removeChild(clone)}
-    }
-
-    // ========== UTILS ==========
+    function initTruth(){const sel=document.getElementById('truth-company');if(!sel||sel.options.length>1)return;sel.innerHTML='<option value="">Select a subscription...</option>'+CO.map(c=>`<option value="${c.id}">${c.name}</option>`).join('')}
+    function updateTruth(){const coSel=document.getElementById('truth-company'),altStep=document.getElementById('truth-alt-step'),altSel=document.getElementById('truth-alt');const preview=document.getElementById('truth-preview'),actions=document.getElementById('truth-actions');const coId=coSel.value;if(!coId){altStep.classList.add('truth-hidden');preview.classList.add('truth-hidden');actions.classList.add('truth-hidden');lastTruthCo=null;return}const co=CO.find(c=>c.id===coId);if(!co)return;altStep.classList.remove('truth-hidden');if(lastTruthCo!==coId){lastTruthCo=coId;const opts=[];if(co.alts){co.alts.forEach(a=>{const m=a.alt.match(/>([^<]+)</g);if(m)m.forEach(x=>{const n=x.replace(/[><]/g,'').trim();if(n&&n.length>1&&!n.toLowerCase().includes('free')&&!opts.includes(n))opts.push(n)});const p=a.alt.replace(/<[^>]+>/g,'').split(/[,·—]/).map(s=>s.trim());p.forEach(x=>{if(x&&x.length>1&&x.length<30&&!x.toLowerCase().includes('free')&&!x.includes('just')&&!opts.includes(x))opts.push(x)})})}altSel.innerHTML='<option value="">None / Not yet</option>'+opts.slice(0,8).map(n=>`<option value="${n}">${n}</option>`).join('')}preview.classList.remove('truth-hidden');actions.classList.remove('truth-hidden');document.getElementById('truth-display-co').textContent=co.name.toUpperCase();const altVal=altSel.value,sw=document.getElementById('truth-switched'),ad=document.getElementById('truth-display-alt');if(altVal){sw.classList.remove('truth-hidden');ad.classList.remove('truth-hidden');ad.textContent=altVal.toUpperCase()}else{sw.classList.add('truth-hidden');ad.classList.add('truth-hidden')}}
+    async function dlTruth(){const el=document.getElementById('truth-banner'),fmt={w:260,h:320,ew:1080,eh:1320};const clone=el.cloneNode(true);clone.querySelectorAll('.truth-hidden').forEach(x=>x.remove());Object.assign(clone.style,{position:'fixed',left:'-9999px',top:'0',width:fmt.w+'px',height:fmt.h+'px',minWidth:fmt.w+'px',minHeight:'unset',zIndex:'-1'});document.body.appendChild(clone);try{const c=await html2canvas(clone,{backgroundColor:'#0a0a0a',scale:fmt.ew/fmt.w,width:fmt.w,height:fmt.h});const url=c.toDataURL('image/png');if(isMobile()){showImgPreview(url)}else{const a=document.createElement('a');a.download='my-cancellation.png';a.href=url;a.click();toast('Downloaded!')}const coId=document.getElementById('truth-company').value;trackBannerDl(`truth-${coId}`,bannerFmt)}catch(e){toast('Failed.',true)}finally{document.body.removeChild(clone)}}
+    async function trackBannerDl(id,fmt){if(!supa)return;try{await supa.from('banner_downloads').insert({banner_id:id,banner_format:fmt,fingerprint_hash:FP})}catch(e){console.error(e)}}
     function isMobile(){return/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)||window.innerWidth<=768}
     function showImgPreview(url){document.getElementById('img-preview-img').src=url;document.getElementById('img-preview').classList.add('show');document.body.style.overflow='hidden'}
     function closeImgPreview(){document.getElementById('img-preview').classList.remove('show');document.body.style.overflow=''}
     function toast(msg,err=false){const t=document.getElementById('toast');t.textContent=msg;t.className='toast'+(err?' error':'');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000)}
     function hideLoading(){document.getElementById('loading').style.display='none'}
-
-    // ========== DEBUG ==========
-    function debugPhaseSet(p){debugPhase=p;render();console.log('Phase:',getPhase())}
-    function debugPre(){debugPhaseSet('PRE')}
-    function debugFri(){debugPhaseSet('FRI')}
-    function debugPost(){debugPhaseSet('POST')}
-    function debugAuto(){debugPhase=null;render()}
-
-    // ========== INIT ==========
+    function debugPre(){debugPhase='PRE';render()}function debugFri(){debugPhase='FRI';render()}function debugPost(){debugPhase='POST';render()}function debugAuto(){debugPhase=null;render()}
     tick();setInterval(tick,1000);loadData();
     document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
     document.getElementById('story-modal').addEventListener('click',e=>{if(e.target.id==='story-modal')closeModal()});
